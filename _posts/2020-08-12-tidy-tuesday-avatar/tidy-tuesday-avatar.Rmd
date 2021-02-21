@@ -1,0 +1,149 @@
+---
+title: "The greatest Avatar visualizations you have ever seen"
+description: |
+  Showcasing the best Avatar: The Last Airbender visualizations from the Tidy Tuesday weekly challenge. All graphics are from the amazing R community!
+author:
+  - name: Avery Robbins
+    url: www.linkedin.com/in/avery-robbins
+date: 08-12-2020
+output:
+  distill::distill_article:
+    self_contained: false
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+## Welcome
+
+#### Welcome lovers of *Avatar: The Last Airbender*, users of R, and all humans!
+
+If you are reading this, but are not from any of the three communities mentioned above, then I fear that humanity has been replaced by some sort of general artificial intelligence.
+
+![](../../img/tidy-tuesday-avatar01.jpg)
+
+## Backstory
+
+![](../../img/team-avatar.png)
+
+One thing that I love about being an R programmer is the community. Most people are supportive and generous with their time and talents. The #rstats *Twitter-sphere* is active and helpful, and there are thousands of answers to R related questions on stack overflow. There exist many insightful blogs, and there are even local meetups in different areas for R users to teach and learn together. 
+
+To make a long story short, the community is awesome.
+
+A fair amount of the community, both beginners and seasoned R users, participate in the weekly data project, [Tidy Tuesday](https://github.com/rfordatascience/tidytuesday). Each week a dataset is chosen for exploration and analysis. According to the Tidy Tuesday README, "the intent of Tidy Tuesday is to provide a safe and supportive forum for individuals to practice their **wrangling** and **data visualization** skills... " Results are often shared via Twitter.
+
+On Monday of this week, I saw on Twitter that my R package, [appa](https://github.com/averyrobbins1/appa), was being used for this week's Tidy Tuesday dataset! This was a crazy surprise for a little R programmer such as myself. `appa` is an incredibly simple package that just contains one thing: a dataset containing *Avatar: The Last Airbender* transcript, writer & director, and IMDB ratings data. I scraped most of this data from the Avatar Wiki, which journey I describe in this [post](https://www.avery-robbins.com/2020/07/15/avatar-web-scraping/) and subsequent exploration I describe [here](https://www.avery-robbins.com/2020/07/11/avatar-eda/).
+
+**My point in telling you all of this is the following: if you have a personal project or goal that you want to accomplish, do it! If there is a specific skill that you want to improve upon, practice!** You never know what could happen. Last month, I took an informal inventory of my R skills, and decided that I wanted to get better at web scraping. I spent a few hours on a weekend practicing on data that was fun and interesting to me personally, and then I bundled it all up into an easily accessible R package for others to use. I learned a lot, and described my efforts here on the blog in hopes of helping others learn something as well.
+
+One month later, someone from the community recommends the data be used for Tidy Tuesday. Turns out a lot of people who program with R also love *Avatar*! The response from the community was epic! The week isn't even finished yet, but there are already so many incredible plots and amazing works of art. And now here they are for your viewing pleasure.
+
+
+## Gallery
+
+Each of these visualizations was created by members of the R community as part of the 2020-08-11 Tidy Tuesday challenge. Full credit for such amazing work is given to them, and where possible, a link to the source code is provided (a few individuals did not include a link to there source code in their tweet).
+
+```{r, eval = FALSE, echo = FALSE, message = FALSE, warning = FALSE}
+library(tidyverse)
+
+fs::dir_ls("static/img") %>% 
+    as.character() %>% 
+    enframe() %>% 
+    filter(str_detect(value, "tidy\\-tuesday\\-avatar")) %>% 
+    mutate(value = str_replace_all(value , "static", "![]("),
+           value = glue::glue("{value})")) %>% 
+    pull(value)
+```
+
+
+![](../../img/tidy-tuesday-avatar01.jpg)
+[source](https://github.com/jack-davison/TidyTuesday/blob/master/R/2020_08_11_Avatar.R)
+
+
+
+![](../../img/tidy-tuesday-avatar02.png)
+[source](https://github.com/conkline/TidyTuesdayScripts/blob/master/tidytuesday_2020-08-10_avatar.R)
+
+![](../../img/tidy-tuesday-avatar03.jpg)
+source code unavailable
+
+
+
+![](../../img/tidy-tuesday-avatar04.jpg)
+[source](https://github.com/pdparker/TidyTuesday/blob/master/tt_week_33.R)
+
+
+
+![](../../img/tidy-tuesday-avatar05.png)
+[source](https://github.com/ryantimpe/TidyTuesday/blob/master/2020w33/2020w33.R)
+
+
+
+![](../../img/tidy-tuesday-avatar06.jpg)
+[source](https://github.com/Aarleks/tidyTuesday/blob/master/2020-33/last-airbender.R)
+
+
+
+![](../../img/tidy-tuesday-avatar07.png)
+source code unavailable, plot created by Jacqueline Nolis - @skyetetra
+
+
+![](../../img/tidy-tuesday-avatar08.png)
+[source](https://github.com/katekathrynkat/tidy-tuesday/blob/master/code/tidytuesday_11AUG2020_avatar.R)
+
+
+
+![](../../img/tidy-tuesday-avatar09.jpg)
+source code unavailable, plot created by Alex Vigderman - @VigManOnCampus
+
+
+
+![](../../img/tidy-tuesday-avatar10.jpg)
+source code unavailable, plot created by Dizz - @DataDizz
+
+
+
+![](../../img/tidy-tuesday-avatar11.jpg)
+source code unavailable, plot created by Colin Walder - @bonschorno
+
+
+
+![](../../img/tidy-tuesday-avatar12.jpg)
+[source](https://github.com/Jazzalchemist/TidyTuesday/blob/master/Week%2033%202020/Avatar.R)
+
+
+![](../../img/tidy-tuesday-avatar13.jpg)
+source code unavailable, plot created by Cedric Scherer - @CedScherer
+
+
+
+![](../../img/tidy-tuesday-avatar14.jpg)
+[source](https://github.com/lhopkins78/tidytuesday_avatar)
+
+
+
+![](../../..i../mg/tidy-tuesday-avatar16.jpg)
+[source](https://github.com/mcsiple/tidytuesday/blob/master/33_Airbender.R)
+
+
+
+![](../../img/tt-wordcloud1.jpg)
+
+![](../../img/tt-wordcloud2.jpg)
+
+![](../../img/tt-wordcloud3.jpg)
+
+
+![](../../img/tt-wordcloud4.png)
+
+[source](https://github.com/Kazink36/tidyTuesday/blob/master/2020-08-11%20Avatar/wordclouds.R)
+
+
+
+![](../../img/tidy-tuesday-avatar17.jpg)
+[source](https://github.com/Ijeamakaanyene/tidytuesday/tree/master/scripts)
+
+
+#### People do awesome things! Hope you enjoyed this!

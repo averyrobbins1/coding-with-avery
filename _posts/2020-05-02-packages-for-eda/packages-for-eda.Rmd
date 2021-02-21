@@ -1,0 +1,157 @@
+---
+title: "Useful R Packages for Exploratory Data Analysis"
+description: |
+  Here are some helpful packages and functions to make EDA in R a bit easier.
+author:
+  - name: Avery Robbins
+    url: www.linkedin.com/in/avery-robbins
+date: 05-02-2020
+output:
+  distill::distill_article:
+    self_contained: false
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Effective exploratory data analysis (EDA) is crucial to most any data science project. For a great first look at how to do EDA in R, check out the [7th chapter](https://r4ds.had.co.nz/exploratory-data-analysis.html#exploratory-data-analysis) of R for Data Science. This post here will point you towards some useful tools to make some aspects of EDA easier and faster.
+
+## Prepared to be primed
+
+Over the past few months I have found myself using a few packages or functions over and over again whenever I get my hands on a new dataset. I also have recently stumbled upon some new beauties that I think are worth sharing. This post is meant to be more of a primer than a real deep dive into any one package. Links to learn more about each package/function are included throughout.
+
+```{r, message = FALSE}
+
+# if needed:
+# install.packages(c("tidyverse", "janitor", "DataExplorer", "skimr", "trelliscopejs", "gapminder"))
+
+library(tidyverse) # (dplyr, ggplot2, %>%)
+library(janitor)
+library(DataExplorer)
+library(skimr)
+library(trelliscopejs)
+library(gapminder)
+
+dat <- ggplot2::diamonds
+# learn more about diamonds dataset: ?diamonds
+```
+
+## An oldie but a goodie
+
+* **dplyr::glimpse()**
+
+When I first look at a new dataset, I really just want to take a peak, or a *glimpse* of the data. `glimpse` from dplyr is perfect for just that. It shows you all the basics of your dataset: number of rows and columns, names and types of variables, and the first several values in each row.
+
+```{r}
+glimpse(dat)
+```
+
+I prefer `glimpse` over `head` because `glimpse` simply gives you more information. Also, when working in an R script, using `glimpse` is often nicer than using `View` because `View` takes you out of the script and can slightly distrupt your flow. I have also had `View` crash R when being used on very large datasets. 
+
+`glimpse` also works great with the pipe `%>%`. I like to use it at the end of a series of manipulations on data as a sort of sanity check.
+
+```{r}
+# random dplyr code
+dat %>% 
+    rename(length = x, width = y) %>% 
+    mutate(price_euro = price * .91) %>% 
+    filter(carat > .7) %>% 
+    select(carat, cut, price_euro) %>% glimpse()
+```
+
+<!--adsense-->
+
+## snake_case_is_the_best
+
+* **janitor::clean_names()**
+
+The `clean_names()` function from the [janitor](https://github.com/sfirke/janitor) package is awesome for cleaning up annoying column names. You just pipe in your data and it magically converts your columns to snake case. There are other options, too. `?clean_names`. Okay maybe this function doesn't really have much to do with EDA, but quickly standardizing all of your column names sure makes working with them easier.
+
+```{r}
+dat_ugly_names <- tribble(
+    ~"BAD Column", ~"Good name?", ~"This-hurts_Me",
+    "a",            1,              "fruit",
+    "b",            2,              "taco",
+    "c",            3,              "corona virus"
+)
+
+dat_ugly_names %>% clean_names()
+
+# I use clean_names just about every time I import data from somewhere!
+
+# import dataset from the wild:
+# dat <- read_csv("some-crazy-data-from-the-wild.csv) %>% clean_names()
+# oh wow, now this wild dataset at least has some tame column names
+```
+
+## Data the Explora-data
+
+I am not proud of that subheading. Enter the [DataExplorer](https://cran.r-project.org/web/packages/DataExplorer/vignettes/dataexplorer-intro.html) package to redeem myself. This is a package I plan on diving deeper into myself. Lots of golden nuggets here. From this package, I have used `plot_histogram` and `plot_bar` for quite a while. Just this last week (at the time of writing this) I learned about `profile_missing` and `create_report`. Finally, while writing this post, I learned about another useful function called `introduce`.
+
+`introduce` and `profile_missing` just take data as an argument, while the other functions allow you to customize the outputs a bit more if desired.
+
+* **plot_histogram()** -  Creates histograms for all continuous variables in a dataset.
+
+```{r, fig.height=3.5}
+dat %>% plot_histogram()
+```
+
+* **plot_bar()** - Creates bar charts for all discrete variables in a dataset.
+
+```{r, fig.height=3}
+dat %>% plot_bar()
+```
+
+* **profile_missing()** - Tells you the number and percentage of `NA` values from each of the columns in a dataset.
+
+```{r}
+datasets::airquality %>% profile_missing() # datasets from base R
+```
+
+* **create_report()** - Compiles a whole bunch of data profiling statistics (including outputs from the three above functions, correlation between variables, etc.) into an html report. It looks like you can customize it a bunch, but the default report has been sufficient for me (except for setting a *y* so that a response variable can be included in some of the plotting functions). I won't include an example here because it produces an html document, but you could probably run `create_report(mtcars)` or something in your console to see what it outputs. Lots of good stuff here.
+
+* **introduce()** - Describes basic info about the data.
+
+```{r}
+dat %>% introduce()
+```
+
+Hmm. Seeing how the output is formatted, I don't like it as much. Too wide. I think I would rather use it in combination with `glimpse`.
+
+```{r}
+dat %>% introduce() %>% glimpse()
+```
+
+<!--adsense-->
+
+## Skim a bit right off the top
+
+* **skimr::skim()**
+
+From the [skimr](https://github.com/ropensci/skimr) package, "skim() is an alternative to summary(), quickly providing a broad overview of a data frame." Now that I use functions from DataExplorer a lot, I don't use `skim` as much, but some people might like it.
+
+```{r}
+skim(iris)
+```
+
+You could also pipe this into `summary`.
+
+```{r}
+skim(iris) %>% summary()
+```
+
+## Honorable mention
+
+* **trelliscopejs::facet_trelliscope** 
+
+Wow, just wow. Go [here](https://hafen.github.io/trelliscopejs/articles/trelliscopejs.html) to check out how to use `facet_trelliscope`. This function combines the awesomeness of faceting in ggplot2 with the additional interactive power of javascript. I will definitely be exploring `trelliscopejs` some more. I love what people come up with. 
+
+## Conclusion
+
+I hope some of this has been useful to you. Most of the functions I mentioned can probably help get you started with EDA. They are especially useful when you take an initial look at a dataset, and perhaps you could continue to use some of these functions during the EDA process. However, simple functions like these do not replace best practices that you have been taught. Hopefully they just support you in whatever your process looks like. 
+
+Again, I would point you towards [R for Data Science](https://r4ds.had.co.nz/exploratory-data-analysis.html#exploratory-data-analysis) to learn more about EDA in R, and also the [4th chapter](http://www.feat.engineering/exploratory-visualizations.html) of [Feature Engineering and Selection](http://www.feat.engineering/index.html) for EDA that is more focused on building models. 
+
+Thank you so much for reading my first post! Feel free to share this with anyone who might find it helpful or leave a comment pointing towards other useful packages.

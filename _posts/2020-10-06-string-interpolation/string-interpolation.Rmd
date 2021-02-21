@@ -1,0 +1,155 @@
+---
+title: "String interpolation in Python and R (the best ways)"
+description: |
+  What are the different ways of executing code within a string of text in Python and R? This post looks into the good and arguably best forms of string interpolation in two of the most popular programming languages for data science.
+author:
+  - name: Avery Robbins
+    url: www.linkedin.com/in/avery-robbins
+date: 10-06-2020
+output:
+  distill::distill_article:
+    self_contained: false
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Here we go
+
+In layman's terms, *string interpolation* is executing code within a string (text).
+
+Let's keep this post short and to the point. We'll look at some R code, then move on to Python. I'll simply show how to use each method of string interpolation, and highlight my preferred method for each language.
+
+## String interpolation in R
+
+### Good
+
+`paste` is a *good* way to paste together text and variables, although not my favorite.
+
+```{r}
+name <- 'Avery'
+age <- 24
+paste('Hello! My name is', name, 'and I am', age, 'years old.')
+```
+Remember that R is vectorized, so no need for a *for loop* in cases like this:
+
+```{r}
+name <- c('Avery', 'Susan', 'Joe')
+age <- c(24, 20, 40)
+paste('Hello! My name is', name, 'and I am', age, 'years old.')
+```
+
+The default separator in `paste` is a space `" "`, but obviously you can change that to something else.
+
+```{r}
+x <- 25
+y <- 15
+paste('x + y', x + y, sep = ' = ')
+```
+
+Run `?paste` for more information.
+
+### Best
+
+`paste` is good, but `glue` is best. Ever since I discovered the `glue` function from the `glue` package, I rarely use `paste` anymore. 
+
+Don't forget to load the package:
+
+```{r, warning = FALSE, message = FALSE}
+library(glue) # package for easy string interpolation
+```
+
+`glue` is easy to use. Just put code that you want to execute inside of braces `{ }`. Also, everything goes inside of quotes.
+
+```{r}
+size <- c("Small", "Medium", "Large")
+cyls <- sort(unique(mtcars$cyl)) # mtcars is a built-in dataset that comes with R
+
+glue("{size} cars sometimes have {cyls} cylinders. But don't quote me, I'm not a car guy.")
+```
+
+Personally, I find the `glue` `{ }` syntax cleaner, easier to read and type, and more intuitive than the base R `paste`. For `tidyverse` users, `glue` style syntax is also popping up in other places in the tidyverse (for example, see the .names argument in the relatively new `dplyr::across` function).
+
+----
+
+
+## String interpolation in Python
+
+```{r, warning = FALSE, message = FALSE}
+library(reticulate) # package for running Python within R
+```
+ 
+### Good
+
+Similar to R's `paste`:
+
+```{python}
+name = 'Avery'
+age = 24
+print('Hello! My name is ' + name + ' and I am ' + str(age) + ' years old!')
+```
+
+This method is also pretty clunky. Let's try something better.
+
+### Better 
+
+Using the `format` method is not too shabby. Things are starting to look like R's `glue`.
+
+```{python}
+print('Hello! My name is {name} and I am {age} years old!'.format(name = name, age = age))
+```
+
+Notice above how we specify `name = name` inside of the `format` method. The placeholders don't actually represent our variables like you might think. You, the programmer, have to specify `placeholder = some_variable`. You also don't have to put anything inside of the `{}`. If you leave the curly braces empty, Python relies on the order of the arguments that you put inside of the `format` method.
+
+```{python}
+emotion = 'sad'
+print('I am sick and tired of {}! I am so {}.'.format('Covid', emotion))
+```
+
+`format` works fine, but I think Python really knocks it out of the park with something called `f-strings`.
+
+### Best
+
+The syntax is almost exactly the same as `glue`. Instead of writing `glue('some text {code}')`, you just add the letter *f* before any string. This allows you to use the same curly brace syntax as before, easily executing the code within.
+
+```{python}
+language = 'French'
+time = '3 years'
+
+print(f'I have been speaking {language} for about {time}. I feel accomplished.')
+```
+
+Careful though. Python isn't vectorized like R is, so the following code might not work as expected.
+
+```{python}
+languages = ['French', 'Spanish', 'English']
+times = ['3 years', '1 year', 'my entire life'] 
+
+print(f'I have been speaking {languages} for {times}. I feel accomplished.')
+```
+
+You have to do more work, which isn't too terrible.
+
+```{python}
+for (l, t) in zip(languages, times):
+  print(f'I have been speaking {l} for {t}. I feel accomplished.')
+```
+
+Many experienced programmers would say that if you are using a `for loop`, you probably shouldn't be. There is usually a better option. Loops in generally are very error prone. Its probably not apparent with this toy example, but in case you were curious here is the same thing as above accomplished with `map` and a lambda function.
+
+```{python}
+list(
+  map(
+    lambda l, t: print(f'I have been speaking {l} for {t}. I feel accomplished.'),
+    languages, times
+    )
+  )
+```
+
+I won't get into `map` and `lambda` here, but there are tons of great resources our there on the web. If you don't understand the code above, just google "python map and lambda."
+
+## That's all for now folks
+
+Like I said, short and to the point. If you learned something here, especially if you didn't know about `glue` and `f-strings` and you think they are useful, well then that is awesome. Thanks for reading. Stay safe and happy coding!

@@ -1,0 +1,112 @@
+---
+title: "Solving the FizzBuzz problem in R and Python"
+description: |
+  Small practice problems can be fun and challenging ways to test your programming skills! Solutions in R and Python to the FizzBuzz problem are provided at the end.
+author:
+  - name: Avery Robbins
+    url: www.linkedin.com/in/avery-robbins
+date: 08-24-2020
+output:
+  distill::distill_article:
+    self_contained: false
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+### Why FizzBuzz and friends?
+
+The FizzBuzz problem is one of those classic programming problems that is awesome for beginners of pretty much any language. Even though it is rather simple, it can also be a good refresher on some basic programming concepts.
+
+Here is the actual problem:
+
+*Write a short program that prints each number from 1 to 100 on a new line.
+For each multiple of 3, print "Fizz" instead of the number. 
+For each multiple of 5, print "Buzz" instead of the number. 
+For numbers which are multiples of both 3 and 5, print "FizzBuzz" instead of the number.*
+
+Why is it a good problem for beginners?
+
+The problem focuses on many fundamentals that are ubiquitous in just about any programming language:
+
+* conditionals
+* functions
+* booleans
+* data types
+* operators
+* iteration
+
+There are also different ways to arrive at the same answer, which I would argue should be viewed as a good thing.
+
+----
+
+When learning the ropes of a new programming language, trying to solve problems like the FizzBuzz problem can help you gauge where you are at in your understanding of the basics. **That being said, the best way to learn new skills is by working on real world projects.** Whether that means wrangling and exploring messy data with R, or developing a basic game with Python, the idea is to practice what you are learning as quickly as you can. [Here](https://www.avery-robbins.com/2020/07/15/avatar-web-scraping/) is an example of a small project that I worked on to improve my web scraping skills.
+
+Don't fall down the rabbit hole of never ending videos or tutorials without applying what you learn towards something bigger. Establish a solid foundation of working with real data, real projects, and real people. It's not MOOCs all the way down.
+
+Small practice problems and personal projects can be both fun and challenging. And remember, googling is allowed! While having a solid understanding and ability of the basics is critical, memorizing tons and tons of code is not worth your time. Allow Google and Stack Overflow to become your best friends. Learning how to learn and effectively solve problems is much more important than rote memorization of tons of code.
+
+----
+
+**STOP!** I mean, stop if you want to. If you scroll down more, you will see solutions to the FizzBuzz problem in both R and Python. I would encourage you to try to solve the problem yourself before continuing. Choose R or Python, or both (or something else)!
+
+**Too easy?** Time yourself. If you are multilingual, you could even solve the problem in multiple languages and see how long it takes you in each. Have fun with it.
+
+I will probably place an ad or two here in order to put more space in between you and the solutions.
+
+----
+
+
+[hackerearth](https://www.hackerearth.com/practice/) is a popular place to find more programming problems.
+
+[CodeChef](https://www.codechef.com/problems/easy) and [w3schools](https://www.w3schools.com/) are also good resources for practice and learning.
+
+
+----
+
+### FizzBuzz solutions
+
+Keep in mind, there are multiple roads that lead to the same destination. What road did you take?
+
+#### R solution
+
+Here is one way to do it in R:
+
+```{r}
+fizz_buzz <- function(num) {
+    if (num %% 3 == 0 & num %% 5 == 0) {
+        print("FizzBuzz")
+    } else if (num %% 3 == 0) {
+        print("Fizz")
+    } else if (num %% 5 == 0) {
+        print("Buzz")
+    } else {
+        print(num)
+    }
+}
+
+purrr::walk(1:100, fizz_buzz)
+```
+
+#### Python solution
+
+Here is one way to do it in Python:
+
+```{python}
+def fizzbuzz(num):
+    if num % 3 == 0 and num % 5 == 0:
+        return("FizzBuzz")
+    elif num % 3 == 0:
+        return("Fizz")
+    elif num % 5 == 0:
+        return("Buzz")
+    else:
+        return(num)
+        
+numbers = list(range(1, 101))
+
+for number in numbers:
+    print(fizzbuzz(number))
+```

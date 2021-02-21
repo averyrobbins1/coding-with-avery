@@ -1,0 +1,232 @@
+---
+title: "PDF scraping can be easy, but data wrangling is often not!"
+description: |
+  An inside look at some R code in the wild. This post is a clarification of a previous post: PDF scraping with R is easy! I changed easy to possible. While scraping data from PDFs can often be accomplished with just a few tools, wrangling the scraped data can often take time.
+author:
+  - name: Avery Robbins
+    url: www.linkedin.com/in/avery-robbins
+date: 07-26-2020
+output:
+  distill::distill_article:
+    self_contained: false
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning=FALSE, message=FALSE, eval = FALSE)
+```
+
+![](../../img/pdf.png)
+
+## Motivation
+
+This blog is still very new. My previous post, [PFD scraping with R is easy!](https://www.avery-robbins.com/2020/07/22/pdf-scraping/), was one of the most popular posts that I have written thus far. That being said, it gathered some criticism on Reddit and elsewhere. A few R users, possibly with more experience than myself, argued that *PDFs in the wild* can be more difficult to scrape. This is fair. It's not always easy. While it is true that some PDFs are harder to scrape than others, I affirm that most cases can be solved with just a few number of tools. 
+
+One person who read that initial post works at a company where they often receive data from vendors in PDF form. Not sure why anyone would send data in a PDF, but that's the world we live in. Thankfully, the vendors' PDFs, though they have different data, share a similar format and structure to them. There is a pattern. The reader, who for anonymity's sake we will refer to henceforth as *James*, asked for some help in programmatically gathering the data. So, yesterday I spent some time helping him. In total, reading the data into R took about *2 seconds*, while tidying the data took about *2 hours*. Later on I will showcase an edited version (for data privacy reasons) of the script that I wrote.
+
+**To clarify, the difficult part of PDF scraping is often not the PDF scraping itself, but rather the data wrangling that can accompany it.** 
+
+## Tools
+
+As I mentioned in the first post, R packages like `pdftools` and `tabulizer` provide fantastic tools for gathering data from PDFs. Many PDFs can be scraped with just one line of code:
+
+```{r}
+dat <- pdftools::pdf_text("path/to/data.pdf")
+```
+
+But, oh no, sometimes PDFs can come from scans or images! What do I do now?
+
+
+`pdftools::pdf_ocr_text` can often help with those cases, using *optical character recognition*:
+
+```{r}
+dat <- pdftools::pdf_ocr_text("path/to/data.pdf")
+```
+
+Also, as mentioned previously, the `tabulizer` R package is excellent for extracting tables from PDFs. With `tabulizer::extract_tables`, you can often dramatically cut down on the data wrangling that you would have to do otherwise. `tabulizer` is awesome, but relies on Java, so installing it can be a bit more complicated than usual.
+
+Taken from `tabulizer`'s GitHub:
+
+```{r}
+library("tabulizer")
+f <- system.file("examples", "data.pdf", package = "tabulizer")
+out1 <- extract_tables(f)
+str(out1)
+## List of 4
+##  $ : chr [1:32, 1:10] "mpg" "21.0" "21.0" "22.8" ...
+##  $ : chr [1:7, 1:5] "Sepal.Length " "5.1 " "4.9 " "4.7 " ...
+##  $ : chr [1:7, 1:6] "" "145 " "146 " "147 " ...
+##  $ : chr [1:15, 1] "supp" "VC" "VC" "VC" ...
+```
+
+Now, I understand that it is possible that all of these tools still may fail. That hasn't happened for me yet, but it's certainly possible. If you know of other tools, especially ones that could handle more extreme use cases, please comment below and share them with everyone. For example, one Reddit user mentioned the `readtext` package, which I think is definitely worth looking into.
+
+## Wild PDFs, wild code
+
+As mentioned previously, here is an edited version of the code I wrote for James. Unfortunately, for data privacy reasons I cannot show you the actual PDFs. Suffice it to say that they were annoyingly organized and not ideal for any real data analysis. The data was more free form than tablular, so `pdftools` was my weapon of choice.
+
+Instead of walking you through each line of code, line by line, I will speak more generally. I want to give you just an example of code in the wild. In this script, I used quite a bit of `purrr` and some helper functions, which you can learn more about [here](https://www.avery-robbins.com/2020/06/17/automation/). As always, for a more in-depth look at the pipe operator `%>%` and the many `tidyverse` functions used here, I would refer you to [R for Data Science](https://r4ds.had.co.nz/).
+
+Here we go.
+
+```{r}
+# packages 
+
+# I use pacman for package management - https://github.com/trinker/pacman
+
+pacman::p_load(tidyverse, # all the things
+               pdftools,  # reading in pdfs
+               fs)        # working with files 
+               
+pacman::p_load_gh('averyrobbins1/sometools') # my personal R package
+
+# read data here
+
+dat_all <- fs::dir_ls("data") %>% 
+    map(pdf_text) %>% 
+    map(c(3)) %>% 
+    map(split_data) 
+```
+
+Having stored all of the PDFs received from James in a single directory (`data`), `fs::dir_ls` allows us to list all of those files. Then, using `purrr::map`, we read in each PDF, grab just the third page, and split the data according to our needs with a helper function defined below.
+
+```{r}
+
+# in my actual script, split_data was obviously defined before using it above
+
+split_data <- function(data) {
+    data %>%
+        str_split("(\\-{15,})") %>% 
+        map(~ str_split(.x, "\\n"))
+}
+```
+
+Again, we cannot go into too much detail because of privacy reasons, but I hope you will be able to recognize the importance of data wrangling in your own programming toolbelt.
+
+Remember, when reading in free form PDF data using `pdftools`, it will sometimes show up as a giant amorphous text blob. This is simply the nature of untamed PDFs. The helper function below is used to wrangle and tidy most of the data that we desire. I won't really go into it, but notice the use of many `tidyverse` packages such as `stringr`, `tidyr`, and `dplyr`. Also, most text cleaning will involve a decent amount of regular expressions, or *regex*. If you are unfamiliar with *regex*, it is the gibberish inside all of the `str_*` functions, which allows us to manipulate text data. When working with `stringr` and regex, I pretty much always have the [stringr cheat sheet](http://edrub.in/CheatSheets/cheatSheetStringr.pdf) in front of me.
+
+```{r}
+get_footers <- function(footers) {
+    footers %>%
+        str_extract("^[:digit:]{8}.+") %>%
+        .[!is.na(.)] %>% 
+        str_remove_all("[:digit:]{9,}") %>%
+        enframe("row_num", "product_info") %>% 
+        mutate(product_info = str_trim(product_info)) %>% 
+        filter(product_info != "abc_company") %>% 
+        mutate(product_info = str_remove_all(product_info, "[:digit:]{8}"),
+               product_info = str_trim(product_info),
+               product_name =
+                   str_extract(product_info, "(?<=[:digit:])\\s.+") %>%
+                   str_extract("(?<=[:digit:])\\s.+") %>%
+                   str_extract("(?<=[:digit:])\\s.+") %>%
+                   str_extract("\\s.+(?=\\s[:digit:])") %>%
+                   str_extract("\\s.+(?=\\s[:digit:])") %>%
+                   str_extract("\\s.+(?=\\s[:digit:])") %>%
+                   str_extract("\\s.+(?=\\s[:digit:])") %>%
+                   str_remove("\\d.+") %>%
+                   str_trim(side = "right"),
+               product_info = str_squish(product_info),
+               product_info = str_remove_all(product_info, product_name)
+        ) %>% 
+        separate(col = product_info,
+                 into = c("product_code", "qty1", "qty2",
+                          "size", "case", "pack", "cost",
+                          "extended_cost"),
+                 sep = " ") %>% 
+        mutate(product_name = str_trim(product_name)) %>% 
+        select(-row_num) %>% 
+        relocate(product_name, .after = "qty1")
+}
+```
+
+We `map` our `get_footers` helper function to each section of every PDF, and then tidy up the results with `enframe` and `unnest`.
+
+```{r}
+dat_footers <- dat_all %>% 
+    map(~ .x[[1]][[2]]) %>% 
+    map(get_footers)
+
+dat_footers_tidy <- dat_footers %>% 
+    enframe("name", "info") %>% 
+    unnest(info)
+```
+
+So far we tidied up the bulk of the desired data. We went from one messy character vector to a tidy dataframe with eight columns.
+
+
+Now we just need a few more items from our PDF, namely an id number, a date, and another id number.
+
+To get the first number, we need more `purrr`, more `stringr`, and more helper functions.
+
+```{r}
+dat_headers <- dat_all %>% 
+    map(~ .x[[1]][[1]]) %>% 
+    map(str_squish)
+
+get_id1 <- function(data) {
+    data %>% 
+        str_squish() %>% 
+        .[2] %>% 
+        str_extract("P\\.O\\.#\\s\\d{7}") %>% 
+        str_remove("P\\.O\\.#\\s") %>% 
+        as.integer()
+}
+
+dat_id1 <- dat_headers %>% 
+    map(get_id1) %>% 
+    enframe("name", "id1") %>% 
+    mutate(id1 = simplify(id1))
+```
+
+More of the same for the date.
+
+```{r}
+dat_date <- dat_headers %>% 
+    map(~ str_extract(.x, "ESTIMATED PICK UP DATE\\:.+")) %>% 
+    map(~ .x[!is.na(.x)]) %>% 
+    enframe("name", "estimated_date") %>% 
+    mutate(estimated_date = simplify(estimated_date),
+           estimated_date = str_remove(estimated_date,
+                                       "ESTIMATED PICK UP DATE\\:\\s"),
+           estimated_date =
+               parse_date(estimated_date, format = "%m/%d/%Y"))
+```
+
+And for the last id number.
+
+```{r}
+dat_id2 <- dat_headers %>% 
+    map(~ str_extract(.x, "DC \\#\\:\\s\\d+")) %>% 
+    map(~ .x[!is.na(.x)]) %>% 
+    enframe("name", "id2") %>% 
+    mutate(id2 = simplify(id2),
+           id2 = parse_number(id2))
+```
+
+Lastly, we need to join all of our data together into a single dataframe.
+
+```{r}
+dat_master <- dat_footers_tidy %>% 
+    left_join(dat_id1) %>% 
+    left_join(dat_date) %>% 
+    left_join(dat_id2)
+```
+
+The now tidy dataframe of 11 columns can be easily exported as a csv and used in Excel or wherever.
+
+```{r}
+readr::write_csv(dat_master, "path/to/data.csv")
+```
+
+## The big picture
+
+Take a second to think about what we have done.
+
+We have turned difficult to use data, stored in individual PDFs, into one easily analyzable csv that can be used further in R or in virtually any other analytical framework. 
+
+**We have automated a previously manual process.** The code should be robust and flexible enough to be able to handle any future PDFs of this structure and format with little to no tweaking. **By simply running a single script, we can save potentially hundreds of hours of manual, error prone data entry.** This frees up employees to spend their time on more important things, like actually gaining insight from the data.
+
+----
+
+Thank you for reading! Happy coding!

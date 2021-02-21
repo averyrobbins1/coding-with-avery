@@ -1,0 +1,2153 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1"/>
+  <meta name="generator" content="distill" />
+
+  <style type="text/css">
+  /* Hide doc at startup (prevent jankiness while JS renders/transforms) */
+  body {
+    visibility: hidden;
+  }
+  </style>
+
+ <!--radix_placeholder_import_source-->
+ <!--/radix_placeholder_import_source-->
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ad0000; } /* Alert */
+code span.an { color: #5e5e5e; } /* Annotation */
+code span.at { color: #20794d; } /* Attribute */
+code span.bn { color: #ad0000; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007ba5; } /* ControlFlow */
+code span.ch { color: #20794d; } /* Char */
+code span.cn { color: #8f5902; } /* Constant */
+code span.co { color: #5e5e5e; } /* Comment */
+code span.cv { color: #5e5e5e; font-style: italic; } /* CommentVar */
+code span.do { color: #5e5e5e; font-style: italic; } /* Documentation */
+code span.dt { color: #ad0000; } /* DataType */
+code span.dv { color: #ad0000; } /* DecVal */
+code span.er { color: #ad0000; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #ad0000; } /* Float */
+code span.fu { color: #4758ab; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #5e5e5e; } /* Information */
+code span.kw { color: #007ba5; } /* Keyword */
+code span.op { color: #5e5e5e; } /* Operator */
+code span.ot { color: #007ba5; } /* Other */
+code span.pp { color: #ad0000; } /* Preprocessor */
+code span.sc { color: #20794d; } /* SpecialChar */
+code span.ss { color: #20794d; } /* SpecialString */
+code span.st { color: #20794d; } /* String */
+code span.va { color: #111111; } /* Variable */
+code span.vs { color: #20794d; } /* VerbatimString */
+code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
+</style>
+
+  <!--radix_placeholder_meta_tags-->
+  <title>Databending - web scraping Avatar: The Last Airbender</title>
+
+  <meta property="description" itemprop="description" content="You get better at webscraping with R by webscraping with R. This is my attempt to webscrape a bunch of data on the epic show, Avatar: The Last Airbender."/>
+
+
+  <!--  https://schema.org/Article -->
+  <meta property="article:published" itemprop="datePublished" content="2020-07-13"/>
+  <meta property="article:created" itemprop="dateCreated" content="2020-07-13"/>
+  <meta name="article:author" content="Avery Robbins"/>
+
+  <!--  https://developers.facebook.com/docs/sharing/webmasters#markup -->
+  <meta property="og:title" content="Databending - web scraping Avatar: The Last Airbender"/>
+  <meta property="og:type" content="article"/>
+  <meta property="og:description" content="You get better at webscraping with R by webscraping with R. This is my attempt to webscrape a bunch of data on the epic show, Avatar: The Last Airbender."/>
+  <meta property="og:locale" content="en_US"/>
+
+  <!--  https://dev.twitter.com/cards/types/summary -->
+  <meta property="twitter:card" content="summary"/>
+  <meta property="twitter:title" content="Databending - web scraping Avatar: The Last Airbender"/>
+  <meta property="twitter:description" content="You get better at webscraping with R by webscraping with R. This is my attempt to webscrape a bunch of data on the epic show, Avatar: The Last Airbender."/>
+
+  <!--/radix_placeholder_meta_tags-->
+  <!--radix_placeholder_rmarkdown_metadata-->
+
+  <script type="text/json" id="radix-rmarkdown-metadata">
+  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","author","date","output"]}},"value":[{"type":"character","attributes":{},"value":["Databending - web scraping Avatar: The Last Airbender"]},{"type":"character","attributes":{},"value":["You get better at webscraping with R by webscraping with R. This is my attempt to webscrape a bunch of data on the epic show, Avatar: The Last Airbender.\n"]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","url"]}},"value":[{"type":"character","attributes":{},"value":["Avery Robbins"]},{"type":"character","attributes":{},"value":["www.linkedin.com/in/avery-robbins"]}]}]},{"type":"character","attributes":{},"value":["07-13-2020"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["self_contained"]}},"value":[{"type":"logical","attributes":{},"value":[false]}]}]}]}
+  </script>
+  <!--/radix_placeholder_rmarkdown_metadata-->
+  
+  <script type="text/json" id="radix-resource-manifest">
+  {"type":"character","attributes":{},"value":["webscraping-atla_files/anchor-4.2.2/anchor.min.js","webscraping-atla_files/bowser-1.9.3/bowser.min.js","webscraping-atla_files/distill-2.2.21/template.v2.js","webscraping-atla_files/figure-html5/unnamed-chunk-21-1.png","webscraping-atla_files/header-attrs-2.6/header-attrs.js","webscraping-atla_files/jquery-1.11.3/jquery.min.js","webscraping-atla_files/popper-2.6.0/popper.min.js","webscraping-atla_files/tippy-6.2.7/tippy-bundle.umd.min.js","webscraping-atla_files/tippy-6.2.7/tippy-light-border.css","webscraping-atla_files/tippy-6.2.7/tippy.css","webscraping-atla_files/tippy-6.2.7/tippy.umd.min.js","webscraping-atla_files/webcomponents-2.0.0/webcomponents.js"]}
+  </script>
+  <!--radix_placeholder_navigation_in_header-->
+  <!--/radix_placeholder_navigation_in_header-->
+  <!--radix_placeholder_distill-->
+
+  <style type="text/css">
+
+  body {
+    background-color: white;
+  }
+
+  .pandoc-table {
+    width: 100%;
+  }
+
+  .pandoc-table>caption {
+    margin-bottom: 10px;
+  }
+
+  .pandoc-table th:not([align]) {
+    text-align: left;
+  }
+
+  .pagedtable-footer {
+    font-size: 15px;
+  }
+
+  d-byline .byline {
+    grid-template-columns: 2fr 2fr;
+  }
+
+  d-byline .byline h3 {
+    margin-block-start: 1.5em;
+  }
+
+  d-byline .byline .authors-affiliations h3 {
+    margin-block-start: 0.5em;
+  }
+
+  .authors-affiliations .orcid-id {
+    width: 16px;
+    height:16px;
+    margin-left: 4px;
+    margin-right: 4px;
+    vertical-align: middle;
+    padding-bottom: 2px;
+  }
+
+  d-title .dt-tags {
+    margin-top: 1em;
+    grid-column: text;
+  }
+
+  .dt-tags .dt-tag {
+    text-decoration: none;
+    display: inline-block;
+    color: rgba(0,0,0,0.6);
+    padding: 0em 0.4em;
+    margin-right: 0.5em;
+    margin-bottom: 0.4em;
+    font-size: 70%;
+    border: 1px solid rgba(0,0,0,0.2);
+    border-radius: 3px;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+
+  d-article table.gt_table td,
+  d-article table.gt_table th {
+    border-bottom: none;
+  }
+
+  .html-widget {
+    margin-bottom: 2.0em;
+  }
+
+  .l-screen-inset {
+    padding-right: 16px;
+  }
+
+  .l-screen .caption {
+    margin-left: 10px;
+  }
+
+  .shaded {
+    background: rgb(247, 247, 247);
+    padding-top: 20px;
+    padding-bottom: 20px;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  }
+
+  .shaded .html-widget {
+    margin-bottom: 0;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+  }
+
+  .shaded .shaded-content {
+    background: white;
+  }
+
+  .text-output {
+    margin-top: 0;
+    line-height: 1.5em;
+  }
+
+  .hidden {
+    display: none !important;
+  }
+
+  d-article {
+    padding-top: 2.5rem;
+    padding-bottom: 30px;
+  }
+
+  d-appendix {
+    padding-top: 30px;
+  }
+
+  d-article>p>img {
+    width: 100%;
+  }
+
+  d-article h2 {
+    margin: 1rem 0 1.5rem 0;
+  }
+
+  d-article h3 {
+    margin-top: 1.5rem;
+  }
+
+  d-article iframe {
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    margin-bottom: 2.0em;
+    width: 100%;
+  }
+
+  /* Tweak code blocks */
+
+  d-article div.sourceCode code,
+  d-article pre code {
+    font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+  }
+
+  d-article pre,
+  d-article div.sourceCode,
+  d-article div.sourceCode pre {
+    overflow: auto;
+  }
+
+  d-article div.sourceCode {
+    background-color: white;
+  }
+
+  d-article div.sourceCode pre {
+    padding-left: 10px;
+    font-size: 12px;
+    border-left: 2px solid rgba(0,0,0,0.1);
+  }
+
+  d-article pre {
+    font-size: 12px;
+    color: black;
+    background: none;
+    margin-top: 0;
+    text-align: left;
+    white-space: pre;
+    word-spacing: normal;
+    word-break: normal;
+    word-wrap: normal;
+    line-height: 1.5;
+
+    -moz-tab-size: 4;
+    -o-tab-size: 4;
+    tab-size: 4;
+
+    -webkit-hyphens: none;
+    -moz-hyphens: none;
+    -ms-hyphens: none;
+    hyphens: none;
+  }
+
+  d-article pre a {
+    border-bottom: none;
+  }
+
+  d-article pre a:hover {
+    border-bottom: none;
+    text-decoration: underline;
+  }
+
+  d-article details {
+    grid-column: text;
+    margin-bottom: 0.8em;
+  }
+
+  @media(min-width: 768px) {
+
+  d-article pre,
+  d-article div.sourceCode,
+  d-article div.sourceCode pre {
+    overflow: visible !important;
+  }
+
+  d-article div.sourceCode pre {
+    padding-left: 18px;
+    font-size: 14px;
+  }
+
+  d-article pre {
+    font-size: 14px;
+  }
+
+  }
+
+  figure img.external {
+    background: white;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow: 0 1px 8px rgba(0, 0, 0, 0.1);
+    padding: 18px;
+    box-sizing: border-box;
+  }
+
+  /* CSS for d-contents */
+
+  .d-contents {
+    grid-column: text;
+    color: rgba(0,0,0,0.8);
+    font-size: 0.9em;
+    padding-bottom: 1em;
+    margin-bottom: 1em;
+    padding-bottom: 0.5em;
+    margin-bottom: 1em;
+    padding-left: 0.25em;
+    justify-self: start;
+  }
+
+  @media(min-width: 1000px) {
+    .d-contents.d-contents-float {
+      height: 0;
+      grid-column-start: 1;
+      grid-column-end: 4;
+      justify-self: center;
+      padding-right: 3em;
+      padding-left: 2em;
+    }
+  }
+
+  .d-contents nav h3 {
+    font-size: 18px;
+    margin-top: 0;
+    margin-bottom: 1em;
+  }
+
+  .d-contents li {
+    list-style-type: none
+  }
+
+  .d-contents nav > ul {
+    padding-left: 0;
+  }
+
+  .d-contents ul {
+    padding-left: 1em
+  }
+
+  .d-contents nav ul li {
+    margin-top: 0.6em;
+    margin-bottom: 0.2em;
+  }
+
+  .d-contents nav a {
+    font-size: 13px;
+    border-bottom: none;
+    text-decoration: none
+    color: rgba(0, 0, 0, 0.8);
+  }
+
+  .d-contents nav a:hover {
+    text-decoration: underline solid rgba(0, 0, 0, 0.6)
+  }
+
+  .d-contents nav > ul > li > a {
+    font-weight: 600;
+  }
+
+  .d-contents nav > ul > li > ul {
+    font-weight: inherit;
+  }
+
+  .d-contents nav > ul > li > ul > li {
+    margin-top: 0.2em;
+  }
+
+
+  .d-contents nav ul {
+    margin-top: 0;
+    margin-bottom: 0.25em;
+  }
+
+  .d-article-with-toc h2:nth-child(2) {
+    margin-top: 0;
+  }
+
+
+  /* Figure */
+
+  .figure {
+    position: relative;
+    margin-bottom: 2.5em;
+    margin-top: 1.5em;
+  }
+
+  .figure img {
+    width: 100%;
+  }
+
+  .figure .caption {
+    color: rgba(0, 0, 0, 0.6);
+    font-size: 12px;
+    line-height: 1.5em;
+  }
+
+  .figure img.external {
+    background: white;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow: 0 1px 8px rgba(0, 0, 0, 0.1);
+    padding: 18px;
+    box-sizing: border-box;
+  }
+
+  .figure .caption a {
+    color: rgba(0, 0, 0, 0.6);
+  }
+
+  .figure .caption b,
+  .figure .caption strong, {
+    font-weight: 600;
+    color: rgba(0, 0, 0, 1.0);
+  }
+
+  /* Citations */
+
+  d-article .citation {
+    color: inherit;
+    cursor: inherit;
+  }
+
+  div.hanging-indent{
+    margin-left: 1em; text-indent: -1em;
+  }
+
+  /* Citation hover box */
+
+  .tippy-box[data-theme~=light-border] {
+    background-color: rgba(250, 250, 250, 0.95);
+  }
+
+  .tippy-content > p {
+    margin-bottom: 0;
+    padding: 2px;
+  }
+
+
+  /* Tweak 1000px media break to show more text */
+
+  @media(min-width: 1000px) {
+    .base-grid,
+    distill-header,
+    d-title,
+    d-abstract,
+    d-article,
+    d-appendix,
+    distill-appendix,
+    d-byline,
+    d-footnote-list,
+    d-citation-list,
+    distill-footer {
+      grid-template-columns: [screen-start] 1fr [page-start kicker-start] 80px [middle-start] 50px [text-start kicker-end] 65px 65px 65px 65px 65px 65px 65px 65px [text-end gutter-start] 65px [middle-end] 65px [page-end gutter-end] 1fr [screen-end];
+      grid-column-gap: 16px;
+    }
+
+    .grid {
+      grid-column-gap: 16px;
+    }
+
+    d-article {
+      font-size: 1.06rem;
+      line-height: 1.7em;
+    }
+    figure .caption, .figure .caption, figure figcaption {
+      font-size: 13px;
+    }
+  }
+
+  @media(min-width: 1180px) {
+    .base-grid,
+    distill-header,
+    d-title,
+    d-abstract,
+    d-article,
+    d-appendix,
+    distill-appendix,
+    d-byline,
+    d-footnote-list,
+    d-citation-list,
+    distill-footer {
+      grid-template-columns: [screen-start] 1fr [page-start kicker-start] 60px [middle-start] 60px [text-start kicker-end] 60px 60px 60px 60px 60px 60px 60px 60px [text-end gutter-start] 60px [middle-end] 60px [page-end gutter-end] 1fr [screen-end];
+      grid-column-gap: 32px;
+    }
+
+    .grid {
+      grid-column-gap: 32px;
+    }
+  }
+
+
+  /* Get the citation styles for the appendix (not auto-injected on render since
+     we do our own rendering of the citation appendix) */
+
+  d-appendix .citation-appendix,
+  .d-appendix .citation-appendix {
+    font-size: 11px;
+    line-height: 15px;
+    border-left: 1px solid rgba(0, 0, 0, 0.1);
+    padding-left: 18px;
+    border: 1px solid rgba(0,0,0,0.1);
+    background: rgba(0, 0, 0, 0.02);
+    padding: 10px 18px;
+    border-radius: 3px;
+    color: rgba(150, 150, 150, 1);
+    overflow: hidden;
+    margin-top: -12px;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+  }
+
+  /* Include appendix styles here so they can be overridden */
+
+  d-appendix {
+    contain: layout style;
+    font-size: 0.8em;
+    line-height: 1.7em;
+    margin-top: 60px;
+    margin-bottom: 0;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    color: rgba(0,0,0,0.5);
+    padding-top: 60px;
+    padding-bottom: 48px;
+  }
+
+  d-appendix h3 {
+    grid-column: page-start / text-start;
+    font-size: 15px;
+    font-weight: 500;
+    margin-top: 1em;
+    margin-bottom: 0;
+    color: rgba(0,0,0,0.65);
+  }
+
+  d-appendix h3 + * {
+    margin-top: 1em;
+  }
+
+  d-appendix ol {
+    padding: 0 0 0 15px;
+  }
+
+  @media (min-width: 768px) {
+    d-appendix ol {
+      padding: 0 0 0 30px;
+      margin-left: -30px;
+    }
+  }
+
+  d-appendix li {
+    margin-bottom: 1em;
+  }
+
+  d-appendix a {
+    color: rgba(0, 0, 0, 0.6);
+  }
+
+  d-appendix > * {
+    grid-column: text;
+  }
+
+  d-appendix > d-footnote-list,
+  d-appendix > d-citation-list,
+  d-appendix > distill-appendix {
+    grid-column: screen;
+  }
+
+  /* Include footnote styles here so they can be overridden */
+
+  d-footnote-list {
+    contain: layout style;
+  }
+
+  d-footnote-list > * {
+    grid-column: text;
+  }
+
+  d-footnote-list a.footnote-backlink {
+    color: rgba(0,0,0,0.3);
+    padding-left: 0.5em;
+  }
+
+
+
+  /* Anchor.js */
+
+  .anchorjs-link {
+    /*transition: all .25s linear; */
+    text-decoration: none;
+    border-bottom: none;
+  }
+  *:hover > .anchorjs-link {
+    margin-left: -1.125em !important;
+    text-decoration: none;
+    border-bottom: none;
+  }
+
+  /* Social footer */
+
+  .social_footer {
+    margin-top: 30px;
+    margin-bottom: 0;
+    color: rgba(0,0,0,0.67);
+  }
+
+  .disqus-comments {
+    margin-right: 30px;
+  }
+
+  .disqus-comment-count {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.4);
+    cursor: pointer;
+  }
+
+  #disqus_thread {
+    margin-top: 30px;
+  }
+
+  .article-sharing a {
+    border-bottom: none;
+    margin-right: 8px;
+  }
+
+  .article-sharing a:hover {
+    border-bottom: none;
+  }
+
+  .sidebar-section.subscribe {
+    font-size: 12px;
+    line-height: 1.6em;
+  }
+
+  .subscribe p {
+    margin-bottom: 0.5em;
+  }
+
+
+  .article-footer .subscribe {
+    font-size: 15px;
+    margin-top: 45px;
+  }
+
+
+  .sidebar-section.custom {
+    font-size: 12px;
+    line-height: 1.6em;
+  }
+
+  .custom p {
+    margin-bottom: 0.5em;
+  }
+
+  /* Styles for listing layout (hide title) */
+  .layout-listing d-title, .layout-listing .d-title {
+    display: none;
+  }
+
+  /* Styles for posts lists (not auto-injected) */
+
+
+  .posts-with-sidebar {
+    padding-left: 45px;
+    padding-right: 45px;
+  }
+
+  .posts-list .description h2,
+  .posts-list .description p {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", Arial, sans-serif;
+  }
+
+  .posts-list .description h2 {
+    font-weight: 700;
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+
+  .posts-list h2.post-tag {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+    padding-bottom: 12px;
+  }
+  .posts-list {
+    margin-top: 60px;
+    margin-bottom: 24px;
+  }
+
+  .posts-list .post-preview {
+    text-decoration: none;
+    overflow: hidden;
+    display: block;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    padding: 24px 0;
+  }
+
+  .post-preview-last {
+    border-bottom: none !important;
+  }
+
+  .posts-list .posts-list-caption {
+    grid-column: screen;
+    font-weight: 400;
+  }
+
+  .posts-list .post-preview h2 {
+    margin: 0 0 6px 0;
+    line-height: 1.2em;
+    font-style: normal;
+    font-size: 24px;
+  }
+
+  .posts-list .post-preview p {
+    margin: 0 0 12px 0;
+    line-height: 1.4em;
+    font-size: 16px;
+  }
+
+  .posts-list .post-preview .thumbnail {
+    box-sizing: border-box;
+    margin-bottom: 24px;
+    position: relative;
+    max-width: 500px;
+  }
+  .posts-list .post-preview img {
+    width: 100%;
+    display: block;
+  }
+
+  .posts-list .metadata {
+    font-size: 12px;
+    line-height: 1.4em;
+    margin-bottom: 18px;
+  }
+
+  .posts-list .metadata > * {
+    display: inline-block;
+  }
+
+  .posts-list .metadata .publishedDate {
+    margin-right: 2em;
+  }
+
+  .posts-list .metadata .dt-authors {
+    display: block;
+    margin-top: 0.3em;
+    margin-right: 2em;
+  }
+
+  .posts-list .dt-tags {
+    display: block;
+    line-height: 1em;
+  }
+
+  .posts-list .dt-tags .dt-tag {
+    display: inline-block;
+    color: rgba(0,0,0,0.6);
+    padding: 0.3em 0.4em;
+    margin-right: 0.2em;
+    margin-bottom: 0.4em;
+    font-size: 60%;
+    border: 1px solid rgba(0,0,0,0.2);
+    border-radius: 3px;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+
+  .posts-list img {
+    opacity: 1;
+  }
+
+  .posts-list img[data-src] {
+    opacity: 0;
+  }
+
+  .posts-more {
+    clear: both;
+  }
+
+
+  .posts-sidebar {
+    font-size: 16px;
+  }
+
+  .posts-sidebar h3 {
+    font-size: 16px;
+    margin-top: 0;
+    margin-bottom: 0.5em;
+    font-weight: 400;
+    text-transform: uppercase;
+  }
+
+  .sidebar-section {
+    margin-bottom: 30px;
+  }
+
+  .categories ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .categories li {
+    color: rgba(0, 0, 0, 0.8);
+    margin-bottom: 0;
+  }
+
+  .categories li>a {
+    border-bottom: none;
+  }
+
+  .categories li>a:hover {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.4);
+  }
+
+  .categories .active {
+    font-weight: 600;
+  }
+
+  .categories .category-count {
+    color: rgba(0, 0, 0, 0.4);
+  }
+
+
+  @media(min-width: 768px) {
+    .posts-list .post-preview h2 {
+      font-size: 26px;
+    }
+    .posts-list .post-preview .thumbnail {
+      float: right;
+      width: 30%;
+      margin-bottom: 0;
+    }
+    .posts-list .post-preview .description {
+      float: left;
+      width: 45%;
+    }
+    .posts-list .post-preview .metadata {
+      float: left;
+      width: 20%;
+      margin-top: 8px;
+    }
+    .posts-list .post-preview p {
+      margin: 0 0 12px 0;
+      line-height: 1.5em;
+      font-size: 16px;
+    }
+    .posts-with-sidebar .posts-list {
+      float: left;
+      width: 75%;
+    }
+    .posts-with-sidebar .posts-sidebar {
+      float: right;
+      width: 20%;
+      margin-top: 60px;
+      padding-top: 24px;
+      padding-bottom: 24px;
+    }
+  }
+
+
+  /* Improve display for browsers without grid (IE/Edge <= 15) */
+
+  .downlevel {
+    line-height: 1.6em;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", Arial, sans-serif;
+    margin: 0;
+  }
+
+  .downlevel .d-title {
+    padding-top: 6rem;
+    padding-bottom: 1.5rem;
+  }
+
+  .downlevel .d-title h1 {
+    font-size: 50px;
+    font-weight: 700;
+    line-height: 1.1em;
+    margin: 0 0 0.5rem;
+  }
+
+  .downlevel .d-title p {
+    font-weight: 300;
+    font-size: 1.2rem;
+    line-height: 1.55em;
+    margin-top: 0;
+  }
+
+  .downlevel .d-byline {
+    padding-top: 0.8em;
+    padding-bottom: 0.8em;
+    font-size: 0.8rem;
+    line-height: 1.8em;
+  }
+
+  .downlevel .section-separator {
+    border: none;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+  }
+
+  .downlevel .d-article {
+    font-size: 1.06rem;
+    line-height: 1.7em;
+    padding-top: 1rem;
+    padding-bottom: 2rem;
+  }
+
+
+  .downlevel .d-appendix {
+    padding-left: 0;
+    padding-right: 0;
+    max-width: none;
+    font-size: 0.8em;
+    line-height: 1.7em;
+    margin-bottom: 0;
+    color: rgba(0,0,0,0.5);
+    padding-top: 40px;
+    padding-bottom: 48px;
+  }
+
+  .downlevel .footnotes ol {
+    padding-left: 13px;
+  }
+
+  .downlevel .base-grid,
+  .downlevel .distill-header,
+  .downlevel .d-title,
+  .downlevel .d-abstract,
+  .downlevel .d-article,
+  .downlevel .d-appendix,
+  .downlevel .distill-appendix,
+  .downlevel .d-byline,
+  .downlevel .d-footnote-list,
+  .downlevel .d-citation-list,
+  .downlevel .distill-footer,
+  .downlevel .appendix-bottom,
+  .downlevel .posts-container {
+    padding-left: 40px;
+    padding-right: 40px;
+  }
+
+  @media(min-width: 768px) {
+    .downlevel .base-grid,
+    .downlevel .distill-header,
+    .downlevel .d-title,
+    .downlevel .d-abstract,
+    .downlevel .d-article,
+    .downlevel .d-appendix,
+    .downlevel .distill-appendix,
+    .downlevel .d-byline,
+    .downlevel .d-footnote-list,
+    .downlevel .d-citation-list,
+    .downlevel .distill-footer,
+    .downlevel .appendix-bottom,
+    .downlevel .posts-container {
+    padding-left: 150px;
+    padding-right: 150px;
+    max-width: 900px;
+  }
+  }
+
+  .downlevel pre code {
+    display: block;
+    border-left: 2px solid rgba(0, 0, 0, .1);
+    padding: 0 0 0 20px;
+    font-size: 14px;
+  }
+
+  .downlevel code, .downlevel pre {
+    color: black;
+    background: none;
+    font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+    text-align: left;
+    white-space: pre;
+    word-spacing: normal;
+    word-break: normal;
+    word-wrap: normal;
+    line-height: 1.5;
+
+    -moz-tab-size: 4;
+    -o-tab-size: 4;
+    tab-size: 4;
+
+    -webkit-hyphens: none;
+    -moz-hyphens: none;
+    -ms-hyphens: none;
+    hyphens: none;
+  }
+
+  .downlevel .posts-list .post-preview {
+    color: inherit;
+  }
+
+
+
+  </style>
+
+  <script type="application/javascript">
+
+  function is_downlevel_browser() {
+    if (bowser.isUnsupportedBrowser({ msie: "12", msedge: "16"},
+                                   window.navigator.userAgent)) {
+      return true;
+    } else {
+      return window.load_distill_framework === undefined;
+    }
+  }
+
+  // show body when load is complete
+  function on_load_complete() {
+
+    // add anchors
+    if (window.anchors) {
+      window.anchors.options.placement = 'left';
+      window.anchors.add('d-article > h2, d-article > h3, d-article > h4, d-article > h5');
+    }
+
+
+    // set body to visible
+    document.body.style.visibility = 'visible';
+
+    // force redraw for leaflet widgets
+    if (window.HTMLWidgets) {
+      var maps = window.HTMLWidgets.findAll(".leaflet");
+      $.each(maps, function(i, el) {
+        var map = this.getMap();
+        map.invalidateSize();
+        map.eachLayer(function(layer) {
+          if (layer instanceof L.TileLayer)
+            layer.redraw();
+        });
+      });
+    }
+
+    // trigger 'shown' so htmlwidgets resize
+    $('d-article').trigger('shown');
+  }
+
+  function init_distill() {
+
+    init_common();
+
+    // create front matter
+    var front_matter = $('<d-front-matter></d-front-matter>');
+    $('#distill-front-matter').wrap(front_matter);
+
+    // create d-title
+    $('.d-title').changeElementType('d-title');
+
+    // create d-byline
+    var byline = $('<d-byline></d-byline>');
+    $('.d-byline').replaceWith(byline);
+
+    // create d-article
+    var article = $('<d-article></d-article>');
+    $('.d-article').wrap(article).children().unwrap();
+
+    // move posts container into article
+    $('.posts-container').appendTo($('d-article'));
+
+    // create d-appendix
+    $('.d-appendix').changeElementType('d-appendix');
+
+    // flag indicating that we have appendix items
+    var appendix = $('.appendix-bottom').children('h3').length > 0;
+
+    // replace footnotes with <d-footnote>
+    $('.footnote-ref').each(function(i, val) {
+      appendix = true;
+      var href = $(this).attr('href');
+      var id = href.replace('#', '');
+      var fn = $('#' + id);
+      var fn_p = $('#' + id + '>p');
+      fn_p.find('.footnote-back').remove();
+      var text = fn_p.html();
+      var dtfn = $('<d-footnote></d-footnote>');
+      dtfn.html(text);
+      $(this).replaceWith(dtfn);
+    });
+    // remove footnotes
+    $('.footnotes').remove();
+
+    // move refs into #references-listing
+    $('#references-listing').replaceWith($('#refs'));
+
+    $('h1.appendix, h2.appendix').each(function(i, val) {
+      $(this).changeElementType('h3');
+    });
+    $('h3.appendix').each(function(i, val) {
+      var id = $(this).attr('id');
+      $('.d-contents a[href="#' + id + '"]').parent().remove();
+      appendix = true;
+      $(this).nextUntil($('h1, h2, h3')).addBack().appendTo($('d-appendix'));
+    });
+
+    // show d-appendix if we have appendix content
+    $("d-appendix").css('display', appendix ? 'grid' : 'none');
+
+    // localize layout chunks to just output
+    $('.layout-chunk').each(function(i, val) {
+
+      // capture layout
+      var layout = $(this).attr('data-layout');
+
+      // apply layout to markdown level block elements
+      var elements = $(this).children().not('details, div.sourceCode, pre, script');
+      elements.each(function(i, el) {
+        var layout_div = $('<div class="' + layout + '"></div>');
+        if (layout_div.hasClass('shaded')) {
+          var shaded_content = $('<div class="shaded-content"></div>');
+          $(this).wrap(shaded_content);
+          $(this).parent().wrap(layout_div);
+        } else {
+          $(this).wrap(layout_div);
+        }
+      });
+
+
+      // unwrap the layout-chunk div
+      $(this).children().unwrap();
+    });
+
+    // remove code block used to force  highlighting css
+    $('.distill-force-highlighting-css').parent().remove();
+
+    // remove empty line numbers inserted by pandoc when using a
+    // custom syntax highlighting theme
+    $('code.sourceCode a:empty').remove();
+
+    // load distill framework
+    load_distill_framework();
+
+    // wait for window.distillRunlevel == 4 to do post processing
+    function distill_post_process() {
+
+      if (!window.distillRunlevel || window.distillRunlevel < 4)
+        return;
+
+      // hide author/affiliations entirely if we have no authors
+      var front_matter = JSON.parse($("#distill-front-matter").html());
+      var have_authors = front_matter.authors && front_matter.authors.length > 0;
+      if (!have_authors)
+        $('d-byline').addClass('hidden');
+
+      // article with toc class
+      $('.d-contents').parent().addClass('d-article-with-toc');
+
+      // strip links that point to #
+      $('.authors-affiliations').find('a[href="#"]').removeAttr('href');
+
+      // add orcid ids
+      $('.authors-affiliations').find('.author').each(function(i, el) {
+        var orcid_id = front_matter.authors[i].orcidID;
+        if (orcid_id) {
+          var a = $('<a></a>');
+          a.attr('href', 'https://orcid.org/' + orcid_id);
+          var img = $('<img></img>');
+          img.addClass('orcid-id');
+          img.attr('alt', 'ORCID ID');
+          img.attr('src','data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2ZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo1N0NEMjA4MDI1MjA2ODExOTk0QzkzNTEzRjZEQTg1NyIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDozM0NDOEJGNEZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDozM0NDOEJGM0ZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M1IE1hY2ludG9zaCI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOkZDN0YxMTc0MDcyMDY4MTE5NUZFRDc5MUM2MUUwNEREIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjU3Q0QyMDgwMjUyMDY4MTE5OTRDOTM1MTNGNkRBODU3Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+84NovQAAAR1JREFUeNpiZEADy85ZJgCpeCB2QJM6AMQLo4yOL0AWZETSqACk1gOxAQN+cAGIA4EGPQBxmJA0nwdpjjQ8xqArmczw5tMHXAaALDgP1QMxAGqzAAPxQACqh4ER6uf5MBlkm0X4EGayMfMw/Pr7Bd2gRBZogMFBrv01hisv5jLsv9nLAPIOMnjy8RDDyYctyAbFM2EJbRQw+aAWw/LzVgx7b+cwCHKqMhjJFCBLOzAR6+lXX84xnHjYyqAo5IUizkRCwIENQQckGSDGY4TVgAPEaraQr2a4/24bSuoExcJCfAEJihXkWDj3ZAKy9EJGaEo8T0QSxkjSwORsCAuDQCD+QILmD1A9kECEZgxDaEZhICIzGcIyEyOl2RkgwAAhkmC+eAm0TAAAAABJRU5ErkJggg==');
+          a.append(img);
+          $(this).append(a);
+        }
+      });
+
+      // hide elements of author/affiliations grid that have no value
+      function hide_byline_column(caption) {
+        $('d-byline').find('h3:contains("' + caption + '")').parent().css('visibility', 'hidden');
+      }
+
+      // affiliations
+      var have_affiliations = false;
+      for (var i = 0; i<front_matter.authors.length; ++i) {
+        var author = front_matter.authors[i];
+        if (author.affiliation !== "&nbsp;") {
+          have_affiliations = true;
+          break;
+        }
+      }
+      if (!have_affiliations)
+        $('d-byline').find('h3:contains("Affiliations")').css('visibility', 'hidden');
+
+      // published date
+      if (!front_matter.publishedDate)
+        hide_byline_column("Published");
+
+      // document object identifier
+      var doi = $('d-byline').find('h3:contains("DOI")');
+      var doi_p = doi.next().empty();
+      if (!front_matter.doi) {
+        // if we have a citation and valid citationText then link to that
+        if ($('#citation').length > 0 && front_matter.citationText) {
+          doi.html('Citation');
+          $('<a href="#citation"></a>')
+            .text(front_matter.citationText)
+            .appendTo(doi_p);
+        } else {
+          hide_byline_column("DOI");
+        }
+      } else {
+        $('<a></a>')
+           .attr('href', "https://doi.org/" + front_matter.doi)
+           .html(front_matter.doi)
+           .appendTo(doi_p);
+      }
+
+       // change plural form of authors/affiliations
+      if (front_matter.authors.length === 1) {
+        var grid = $('.authors-affiliations');
+        grid.children('h3:contains("Authors")').text('Author');
+        grid.children('h3:contains("Affiliations")').text('Affiliation');
+      }
+
+      // remove d-appendix and d-footnote-list local styles
+      $('d-appendix > style:first-child').remove();
+      $('d-footnote-list > style:first-child').remove();
+
+      // move appendix-bottom entries to the bottom
+      $('.appendix-bottom').appendTo('d-appendix').children().unwrap();
+      $('.appendix-bottom').remove();
+
+      // hoverable references
+      $('span.citation[data-cites]').each(function() {
+        var refHtml = $('#ref-' + $(this).attr('data-cites')).html();
+        window.tippy(this, {
+          allowHTML: true,
+          content: refHtml,
+          maxWidth: 500,
+          interactive: true,
+          interactiveBorder: 10,
+          theme: 'light-border',
+          placement: 'bottom-start'
+        });
+      });
+
+      // clear polling timer
+      clearInterval(tid);
+
+      // show body now that everything is ready
+      on_load_complete();
+    }
+
+    var tid = setInterval(distill_post_process, 50);
+    distill_post_process();
+
+  }
+
+  function init_downlevel() {
+
+    init_common();
+
+     // insert hr after d-title
+    $('.d-title').after($('<hr class="section-separator"/>'));
+
+    // check if we have authors
+    var front_matter = JSON.parse($("#distill-front-matter").html());
+    var have_authors = front_matter.authors && front_matter.authors.length > 0;
+
+    // manage byline/border
+    if (!have_authors)
+      $('.d-byline').remove();
+    $('.d-byline').after($('<hr class="section-separator"/>'));
+    $('.d-byline a').remove();
+
+    // remove toc
+    $('.d-contents').remove();
+
+    // move appendix elements
+    $('h1.appendix, h2.appendix').each(function(i, val) {
+      $(this).changeElementType('h3');
+    });
+    $('h3.appendix').each(function(i, val) {
+      $(this).nextUntil($('h1, h2, h3')).addBack().appendTo($('.d-appendix'));
+    });
+
+
+    // inject headers into references and footnotes
+    var refs_header = $('<h3></h3>');
+    refs_header.text('References');
+    $('#refs').prepend(refs_header);
+
+    var footnotes_header = $('<h3></h3');
+    footnotes_header.text('Footnotes');
+    $('.footnotes').children('hr').first().replaceWith(footnotes_header);
+
+    // move appendix-bottom entries to the bottom
+    $('.appendix-bottom').appendTo('.d-appendix').children().unwrap();
+    $('.appendix-bottom').remove();
+
+    // remove appendix if it's empty
+    if ($('.d-appendix').children().length === 0)
+      $('.d-appendix').remove();
+
+    // prepend separator above appendix
+    $('.d-appendix').before($('<hr class="section-separator" style="clear: both"/>'));
+
+    // trim code
+    $('pre>code').each(function(i, val) {
+      $(this).html($.trim($(this).html()));
+    });
+
+    // move posts-container right before article
+    $('.posts-container').insertBefore($('.d-article'));
+
+    $('body').addClass('downlevel');
+
+    on_load_complete();
+  }
+
+
+  function init_common() {
+
+    // jquery plugin to change element types
+    (function($) {
+      $.fn.changeElementType = function(newType) {
+        var attrs = {};
+
+        $.each(this[0].attributes, function(idx, attr) {
+          attrs[attr.nodeName] = attr.nodeValue;
+        });
+
+        this.replaceWith(function() {
+          return $("<" + newType + "/>", attrs).append($(this).contents());
+        });
+      };
+    })(jQuery);
+
+    // prevent underline for linked images
+    $('a > img').parent().css({'border-bottom' : 'none'});
+
+    // mark non-body figures created by knitr chunks as 100% width
+    $('.layout-chunk').each(function(i, val) {
+      var figures = $(this).find('img, .html-widget');
+      if ($(this).attr('data-layout') !== "l-body") {
+        figures.css('width', '100%');
+      } else {
+        figures.css('max-width', '100%');
+        figures.filter("[width]").each(function(i, val) {
+          var fig = $(this);
+          fig.css('width', fig.attr('width') + 'px');
+        });
+
+      }
+    });
+
+    // auto-append index.html to post-preview links in file: protocol
+    // and in rstudio ide preview
+    $('.post-preview').each(function(i, val) {
+      if (window.location.protocol === "file:")
+        $(this).attr('href', $(this).attr('href') + "index.html");
+    });
+
+    // get rid of index.html references in header
+    if (window.location.protocol !== "file:") {
+      $('.distill-site-header a[href]').each(function(i,val) {
+        $(this).attr('href', $(this).attr('href').replace("index.html", "./"));
+      });
+    }
+
+    // add class to pandoc style tables
+    $('tr.header').parent('thead').parent('table').addClass('pandoc-table');
+    $('.kable-table').children('table').addClass('pandoc-table');
+
+    // add figcaption style to table captions
+    $('caption').parent('table').addClass("figcaption");
+
+    // initialize posts list
+    if (window.init_posts_list)
+      window.init_posts_list();
+
+    // implmement disqus comment link
+    $('.disqus-comment-count').click(function() {
+      window.headroom_prevent_pin = true;
+      $('#disqus_thread').toggleClass('hidden');
+      if (!$('#disqus_thread').hasClass('hidden')) {
+        var offset = $(this).offset();
+        $(window).resize();
+        $('html, body').animate({
+          scrollTop: offset.top - 35
+        });
+      }
+    });
+  }
+
+  document.addEventListener('DOMContentLoaded', function() {
+    if (is_downlevel_browser())
+      init_downlevel();
+    else
+      window.addEventListener('WebComponentsReady', init_distill);
+  });
+
+  </script>
+
+  <!--/radix_placeholder_distill-->
+  <script src="webscraping-atla_files/header-attrs-2.6/header-attrs.js"></script>
+  <script src="webscraping-atla_files/jquery-1.11.3/jquery.min.js"></script>
+  <script src="webscraping-atla_files/popper-2.6.0/popper.min.js"></script>
+  <link href="webscraping-atla_files/tippy-6.2.7/tippy.css" rel="stylesheet" />
+  <link href="webscraping-atla_files/tippy-6.2.7/tippy-light-border.css" rel="stylesheet" />
+  <script src="webscraping-atla_files/tippy-6.2.7/tippy.umd.min.js"></script>
+  <script src="webscraping-atla_files/anchor-4.2.2/anchor.min.js"></script>
+  <script src="webscraping-atla_files/bowser-1.9.3/bowser.min.js"></script>
+  <script src="webscraping-atla_files/webcomponents-2.0.0/webcomponents.js"></script>
+  <script src="webscraping-atla_files/distill-2.2.21/template.v2.js"></script>
+  <!--radix_placeholder_site_in_header-->
+  <!--/radix_placeholder_site_in_header-->
+
+
+</head>
+
+<body>
+
+<!--radix_placeholder_front_matter-->
+
+<script id="distill-front-matter" type="text/json">
+{"title":"Databending - web scraping Avatar: The Last Airbender","description":"You get better at webscraping with R by webscraping with R. This is my attempt to webscrape a bunch of data on the epic show, Avatar: The Last Airbender.","authors":[{"author":"Avery Robbins","authorURL":"www.linkedin.com/in/avery-robbins","affiliation":"&nbsp;","affiliationURL":"#","orcidID":""}],"publishedDate":"2020-07-13T00:00:00.000-06:00","citationText":"Robbins, 2020"}
+</script>
+
+<!--/radix_placeholder_front_matter-->
+<!--radix_placeholder_navigation_before_body-->
+<!--/radix_placeholder_navigation_before_body-->
+<!--radix_placeholder_site_before_body-->
+<!--/radix_placeholder_site_before_body-->
+
+<div class="d-title">
+<h1>Databending - web scraping Avatar: The Last Airbender</h1>
+<!--radix_placeholder_categories-->
+<!--/radix_placeholder_categories-->
+<p><p>You get better at webscraping with R by webscraping with R. This is my attempt to webscrape a bunch of data on the epic show, Avatar: The Last Airbender.</p></p>
+</div>
+
+<div class="d-byline">
+  Avery Robbins www.linkedin.com/in/avery-robbins 
+  
+<br/>07-13-2020
+</div>
+
+<div class="d-article">
+<p><img src="../../img/team-avatar.png" /></p>
+<h2 id="motivation">Motivation</h2>
+<p><em>Avatar: The Last Airbender</em> is arguably the greatest animated TV show of all time. Being such a great show, it deserves to have great, well organized data. This post details my web scraping of the <em>Avatar Wiki</em> and <em>IMDB</em> for transcript and ratings data. I was inspired to collect <em>Avatar: The Last Airbender</em> data after messing around with the <em>schrute</em> R package that contains transcript data from <em>The Office</em>.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='co'># install.packages("schrute")</span>
+<span class='fu'>dplyr</span><span class='fu'>::</span><span class='fu'><a href='https://tibble.tidyverse.org/reference/glimpse.html'>glimpse</a></span><span class='op'>(</span><span class='fu'>schrute</span><span class='fu'>::</span><span class='va'><a href='https://rdrr.io/pkg/schrute/man/theoffice.html'>theoffice</a></span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code>Rows: 55,130
+Columns: 12
+$ index            &lt;int&gt; 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 1...
+$ season           &lt;int&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1...
+$ episode          &lt;int&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1...
+$ episode_name     &lt;chr&gt; &quot;Pilot&quot;, &quot;Pilot&quot;, &quot;Pilot&quot;, &quot;Pilot&quot;, &quot;Pil...
+$ director         &lt;chr&gt; &quot;Ken Kwapis&quot;, &quot;Ken Kwapis&quot;, &quot;Ken Kwapis&quot;...
+$ writer           &lt;chr&gt; &quot;Ricky Gervais;Stephen Merchant;Greg Dan...
+$ character        &lt;chr&gt; &quot;Michael&quot;, &quot;Jim&quot;, &quot;Michael&quot;, &quot;Jim&quot;, &quot;Mic...
+$ text             &lt;chr&gt; &quot;All right Jim. Your quarterlies look ve...
+$ text_w_direction &lt;chr&gt; &quot;All right Jim. Your quarterlies look ve...
+$ imdb_rating      &lt;dbl&gt; 7.6, 7.6, 7.6, 7.6, 7.6, 7.6, 7.6, 7.6, ...
+$ total_votes      &lt;int&gt; 3706, 3706, 3706, 3706, 3706, 3706, 3706...
+$ air_date         &lt;fct&gt; 2005-03-24, 2005-03-24, 2005-03-24, 2005...</code></pre>
+</div>
+<p>Here we go!</p>
+<p>As usual, here are the required packages for collecting and manipulating the data:</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='co'># packages</span>
+
+<span class='co'># install.packages(c("tidyverse", "rvest", "tictoc"))</span>
+
+<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='http://tidyverse.tidyverse.org'>tidyverse</a></span><span class='op'>)</span> <span class='co'># all the things</span>
+<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='http://rvest.tidyverse.org/'>rvest</a></span><span class='op'>)</span> <span class='co'># web scraping</span>
+<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/tidyverse/glue'>glue</a></span><span class='op'>)</span> <span class='co'># easily interpret R code inside of strings</span>
+<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='http://github.com/collectivemedia/tictoc'>tictoc</a></span><span class='op'>)</span> <span class='co'># time code and stuff</span>
+</code></pre>
+</div>
+</div>
+<h2 id="web-scraping-tools">Web scraping tools</h2>
+<p>Honestly, I don’t have too much experience web scraping, but the best way to get better at something is to do that thing more. To make web scraping easier there are just a couple of tools that I use.</p>
+<ul>
+<li>rvest - Hadley Wickham’s R package for web scraping</li>
+</ul>
+<p>There are many tutorials and blog posts teaching how to use rvest to web scrape data. A quick google search “web scraping with r rvest” will bring up a lot of good stuff.</p>
+<ul>
+<li>SelectorGadget - a CSS selector generation chrome extension</li>
+</ul>
+<p>After installing and activating the chrome extension, click on a page element that you are interested in, and then SelectorGadget will “generate a minimal CSS selector for that element.” Below is an image of what that would look like. Look up the extension to learn more.</p>
+<p><img src="../../img/avatar-wiki.png" /></p>
+<p>You can then take what SelectorGadget gives you, and put that into <code>rvest::html_nodes</code> as shown below.</p>
+<p>Armed with these tools, we can dive into the mess of it all.</p>
+<h2 id="web-scraping">Web scraping</h2>
+<h3 id="transcripts">Transcripts</h3>
+<p>The first page of interest on the Avatar Wiki has a list of every episode in the series with links to their individual transcripts.</p>
+<p><img src="../../img/avatar-wiki-transcripts.png" /></p>
+<p>Ultimately, we want to scrape all of the transcript text from pages like this:</p>
+<p><img src="../../img/avatar-wiki-transcript-iceberg.png" /></p>
+<p>Taking a look at just a few of the transcript pages, we can see a handy pattern in the url for each page.</p>
+<p><img src="../../img/avatar-wiki-link-iceberg.png" /></p>
+<p><img src="../../img/avatar-wiki-link-returns.png" /></p>
+<p><img src="../../img/avatar-wiki-link-temple.png" /></p>
+<p>Basically each one starts with <code>https://avatar.fandom.com/wiki/Transcript:</code> and is followed simply by the episode name, like so: <code>https://avatar.fandom.com/wiki/Transcript:The_Boy_in_the_Iceberg</code>.</p>
+<p>Armed with that knowledge, we can use some nifty R magic to</p>
+<ol type="1">
+<li>scrape the names of the episodes (chapters) from the main transcript page, and</li>
+<li>use the name of the chapters to iterate through and scrape each individual chapter transcript</li>
+</ol>
+<p>I hope that makes sense.</p>
+<p>First, we’ll read in the transcript page with <code>rvest::read_html</code>, input the CSS selector that we got using SelectorGadget into <code>rvest::html_nodes</code>, and extract out all of the text with <code>rvest::html_text</code>.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='co'># main transcript page url</span>
+
+<span class='va'>avatar_wiki</span> <span class='op'>&lt;-</span> <span class='fu'>read_html</span><span class='op'>(</span><span class='st'>"https://avatar.fandom.com/wiki/Avatar_Wiki:Transcripts"</span><span class='op'>)</span>
+
+<span class='co'># scrape the chapter names</span>
+
+<span class='va'>chapters</span> <span class='op'>&lt;-</span> <span class='va'>avatar_wiki</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='https://rvest.tidyverse.org/reference/html_nodes.html'>html_nodes</a></span><span class='op'>(</span><span class='st'>"td"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='https://rvest.tidyverse.org/reference/html_text.html'>html_text</a></span><span class='op'>(</span><span class='op'>)</span>
+</code></pre>
+</div>
+</div>
+<p>Now we have to beautify the ugly mess of text that comes in.</p>
+<p><code>tibble::enframe</code> quite easily turns our blob of text into a nice tibble. There is still more cleaning required, but <strong>getting your data into a tibble often makes your life easier</strong>. All of your favorite <code>dplyr</code> functions like <code>filter</code> and <code>mutate</code> work nicely with tibbles.</p>
+<p>We scraped more data than we need, so we will do some filtering. We only want the original <em>Avatar</em> data, not <em>Legend of Korra</em> (although maybe I should scrape that later), so we’ll just get the first 70 rows. There are some rows that contain more data than just single chapters (<code>len &lt; 50</code>), so we’ll get rid of those as well.</p>
+<p>Lastly, we’ll clean up the chapter column with some stringr functions and filter out a couple of bonus episodes that we don’t really want.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='co'># to see rows with too much text that are actually many chapters</span>
+
+<span class='va'>chapters</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'>enframe</span><span class='op'>(</span>name <span class='op'>=</span> <span class='st'>"row_num"</span>, value <span class='op'>=</span> <span class='st'>"chapter"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='https://rdrr.io/r/stats/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>row_num</span> <span class='op'>%in%</span> <span class='fl'>1</span><span class='op'>:</span><span class='fl'>70</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+  <span class='fu'>mutate</span><span class='op'>(</span>len <span class='op'>=</span> <span class='fu'>str_length</span><span class='op'>(</span><span class='va'>chapter</span><span class='op'>)</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code># A tibble: 70 x 3
+   row_num chapter                                                 len
+     &lt;int&gt; &lt;chr&gt;                                                 &lt;int&gt;
+ 1       1 &quot;\n0\n\n\&quot;Unaired pilot\&quot;\nBook One: Water\n\n1\n\n\~  5743
+ 2       2 &quot;\&quot;Unaired pilot\&quot;\n&quot;                                    16
+ 3       3 &quot;\n1\n\n\&quot;The Boy in the Iceberg\&quot;\n2\n\n\&quot;The Avata~   278
+ 4       4 &quot;\&quot;The Boy in the Iceberg\&quot;\n&quot;                           25
+ 5       5 &quot;\&quot;The Avatar Returns\&quot;\n&quot;                               21
+ 6       6 &quot;\&quot;The Southern Air Temple\&quot;\n&quot;                          26
+ 7       7 &quot;\&quot;The Warriors of Kyoshi\&quot;\n&quot;                           25
+ 8       8 &quot;\&quot;The King of Omashu\&quot;\n&quot;                               21
+ 9       9 &quot;\&quot;Imprisoned\&quot;\n&quot;                                       13
+10      10 &quot;\&quot;Winter Solstice, Part 1: The Spirit World\&quot;\n&quot;        44
+# ... with 60 more rows</code></pre>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>chapters</span> <span class='op'>&lt;-</span> <span class='va'>chapters</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'>enframe</span><span class='op'>(</span>name <span class='op'>=</span> <span class='st'>"row_num"</span>, value <span class='op'>=</span> <span class='st'>"chapter"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='https://rdrr.io/r/stats/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>row_num</span> <span class='op'>%in%</span> <span class='fl'>1</span><span class='op'>:</span><span class='fl'>70</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'>mutate</span><span class='op'>(</span>len <span class='op'>=</span> <span class='fu'>str_length</span><span class='op'>(</span><span class='va'>chapter</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='https://rdrr.io/r/stats/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>len</span> <span class='op'>&lt;</span> <span class='fl'>50</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'>mutate</span><span class='op'>(</span>chapter <span class='op'>=</span> <span class='fu'>str_remove_all</span><span class='op'>(</span><span class='va'>chapter</span>, pattern <span class='op'>=</span> <span class='st'>"\""</span><span class='op'>)</span>,
+         chapter <span class='op'>=</span> <span class='fu'>str_trim</span><span class='op'>(</span><span class='va'>chapter</span>, side <span class='op'>=</span> <span class='st'>"both"</span><span class='op'>)</span>,
+         chapter <span class='op'>=</span> <span class='fu'>str_remove_all</span><span class='op'>(</span><span class='va'>chapter</span>, <span class='st'>" \\(commentary\\)"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='https://rdrr.io/r/stats/filter.html'>filter</a></span><span class='op'>(</span> <span class='op'>!</span><span class='op'>(</span><span class='va'>chapter</span> <span class='op'>%in%</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Unaired pilot"</span>, <span class='st'>"Escape from the Spirit World"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>)</span>
+
+<span class='va'>chapters</span>
+</code></pre>
+</div>
+<pre><code># A tibble: 61 x 3
+   row_num chapter                                     len
+     &lt;int&gt; &lt;chr&gt;                                     &lt;int&gt;
+ 1       4 The Boy in the Iceberg                       25
+ 2       5 The Avatar Returns                           21
+ 3       6 The Southern Air Temple                      26
+ 4       7 The Warriors of Kyoshi                       25
+ 5       8 The King of Omashu                           21
+ 6       9 Imprisoned                                   13
+ 7      10 Winter Solstice, Part 1: The Spirit World    44
+ 8      11 Winter Solstice, Part 2: Avatar Roku         39
+ 9      12 The Waterbending Scroll                      26
+10      13 Jet                                           6
+# ... with 51 more rows</code></pre>
+</div>
+<p>Nice.</p>
+<p>Now that we have all the chapter names, we can use them to scrape each chapter’s transcript page. My general philosophy for automation and iteration is to do something once or twice, then extract the pattern and do that same thing for everything.</p>
+<p>Remember that each chapter transcript page pretty much looks like this:</p>
+<p><img src="/img/avatar-wiki-transcript-iceberg.png" /></p>
+<p>Okay, looking at the code below there are a couple of things to talk about. Notice the “table.wikitable” in <code>html_nodes</code> below. Unfortunately, sometimes you cannot get super helpful results with SelectorGadget. You can, however, inspect the page (right click and go to Inspect) and grab specific html elements. That is generally what I do if SelectorGadget is giving me any trouble. We are also using <code>html_table</code> instead of <code>html_text</code>.</p>
+<p>The table that is returned is a list with two elements: one with character names, and the other with spoken words and scene directions. So, we’ll use <code>purrr::pluck</code>, <code>purrr::simplify</code>, and <code>enframe</code> on both elements, respectively, and give each tibble a new column with the chapter link to serve as an id column.</p>
+<p>First, <em>The Boy in the Iceberg</em>.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>iceberg</span> <span class='op'>&lt;-</span> <span class='fu'>read_html</span><span class='op'>(</span><span class='st'>"https://avatar.fandom.com/wiki/Transcript:The_Boy_in_the_Iceberg"</span><span class='op'>)</span>
+
+<span class='va'>characters</span> <span class='op'>&lt;-</span> <span class='va'>iceberg</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='https://rvest.tidyverse.org/reference/html_nodes.html'>html_nodes</a></span><span class='op'>(</span><span class='st'>"table.wikitable"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='https://rvest.tidyverse.org/reference/html_table.html'>html_table</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='https://rvest.tidyverse.org/reference/pluck.html'>pluck</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'>simplify</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'>enframe</span><span class='op'>(</span>value <span class='op'>=</span> <span class='st'>"value1"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'>mutate</span><span class='op'>(</span>chapter1 <span class='op'>=</span> <span class='st'>"https://avatar.fandom.com/wiki/Transcript:The_Boy_in_the_Iceberg"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'>select</span><span class='op'>(</span><span class='op'>-</span><span class='va'>name</span><span class='op'>)</span>
+
+<span class='va'>text</span> <span class='op'>&lt;-</span> <span class='va'>iceberg</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='https://rvest.tidyverse.org/reference/html_nodes.html'>html_nodes</a></span><span class='op'>(</span><span class='st'>"table.wikitable"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='https://rvest.tidyverse.org/reference/html_table.html'>html_table</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='https://rvest.tidyverse.org/reference/pluck.html'>pluck</a></span><span class='op'>(</span><span class='fl'>2</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'>simplify</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'>enframe</span><span class='op'>(</span>value <span class='op'>=</span> <span class='st'>"value2"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'>mutate</span><span class='op'>(</span>chapter2 <span class='op'>=</span> <span class='st'>"https://avatar.fandom.com/wiki/Transcript:The_Boy_in_the_Iceberg"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'>select</span><span class='op'>(</span><span class='op'>-</span><span class='va'>name</span><span class='op'>)</span>
+
+<span class='va'>iceberg2</span> <span class='op'>&lt;-</span> <span class='fu'>bind_cols</span><span class='op'>(</span><span class='va'>characters</span>, <span class='va'>text</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'>rename</span><span class='op'>(</span>character <span class='op'>=</span> <span class='va'>value1</span>, text <span class='op'>=</span> <span class='va'>value2</span><span class='op'>)</span>
+
+<span class='va'>iceberg2</span>
+</code></pre>
+</div>
+<pre><code># A tibble: 223 x 4
+   character chapter1            text               chapter2          
+   &lt;chr&gt;     &lt;chr&gt;               &lt;chr&gt;              &lt;chr&gt;             
+ 1 &quot;Katara&quot;  https://avatar.fan~ &quot;Water. Earth. Fi~ https://avatar.fa~
+ 2 &quot;&quot;        https://avatar.fan~ &quot;As the title car~ https://avatar.fa~
+ 3 &quot;Sokka&quot;   https://avatar.fan~ &quot;It&#39;s not getting~ https://avatar.fa~
+ 4 &quot;&quot;        https://avatar.fan~ &quot;The shot pans qu~ https://avatar.fa~
+ 5 &quot;Katara&quot;  https://avatar.fan~ &quot;[Happily surpris~ https://avatar.fa~
+ 6 &quot;Sokka&quot;   https://avatar.fan~ &quot;[Close-up of Sok~ https://avatar.fa~
+ 7 &quot;&quot;        https://avatar.fan~ &quot;Behind Sokka, Ka~ https://avatar.fa~
+ 8 &quot;Katara&quot;  https://avatar.fan~ &quot;[Struggling with~ https://avatar.fa~
+ 9 &quot;&quot;        https://avatar.fan~ &quot;The bubble conta~ https://avatar.fa~
+10 &quot;Katara&quot;  https://avatar.fan~ &quot;[Exclaims indign~ https://avatar.fa~
+# ... with 213 more rows</code></pre>
+</div>
+<p>Second, <em>The Avatar Returns</em>.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>returns</span> <span class='op'>&lt;-</span> <span class='fu'>read_html</span><span class='op'>(</span><span class='st'>"https://avatar.fandom.com/wiki/Transcript:The_Avatar_Returns"</span><span class='op'>)</span>
+
+<span class='va'>characters2</span> <span class='op'>&lt;-</span> <span class='va'>returns</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='https://rvest.tidyverse.org/reference/html_nodes.html'>html_nodes</a></span><span class='op'>(</span><span class='st'>"table.wikitable"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='https://rvest.tidyverse.org/reference/html_table.html'>html_table</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='https://rvest.tidyverse.org/reference/pluck.html'>pluck</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'>simplify</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'>enframe</span><span class='op'>(</span>value <span class='op'>=</span> <span class='st'>"value1"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'>mutate</span><span class='op'>(</span>chapter1 <span class='op'>=</span> <span class='st'>"https://avatar.fandom.com/wiki/Transcript:The_Avatar_Returns"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'>select</span><span class='op'>(</span><span class='op'>-</span><span class='va'>name</span><span class='op'>)</span>
+
+<span class='va'>text2</span> <span class='op'>&lt;-</span> <span class='va'>returns</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='https://rvest.tidyverse.org/reference/html_nodes.html'>html_nodes</a></span><span class='op'>(</span><span class='st'>"table.wikitable"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='https://rvest.tidyverse.org/reference/html_table.html'>html_table</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='https://rvest.tidyverse.org/reference/pluck.html'>pluck</a></span><span class='op'>(</span><span class='fl'>2</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'>simplify</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'>enframe</span><span class='op'>(</span>value <span class='op'>=</span> <span class='st'>"value2"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'>mutate</span><span class='op'>(</span>chapter2 <span class='op'>=</span> <span class='st'>"https://avatar.fandom.com/wiki/Transcript:The_Avatar_Returns"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'>select</span><span class='op'>(</span><span class='op'>-</span><span class='va'>name</span><span class='op'>)</span>
+
+<span class='va'>returns2</span> <span class='op'>&lt;-</span> <span class='fu'>bind_cols</span><span class='op'>(</span><span class='va'>characters2</span>, <span class='va'>text2</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'>rename</span><span class='op'>(</span>character <span class='op'>=</span> <span class='va'>value1</span>, text <span class='op'>=</span> <span class='va'>value2</span><span class='op'>)</span>
+
+<span class='va'>returns2</span>
+</code></pre>
+</div>
+<pre><code># A tibble: 182 x 4
+   character  chapter1            text              chapter2          
+   &lt;chr&gt;      &lt;chr&gt;               &lt;chr&gt;             &lt;chr&gt;             
+ 1 &quot;Katara&quot;   https://avatar.fan~ Water. Earth. Fi~ https://avatar.fa~
+ 2 &quot;&quot;         https://avatar.fan~ The episode open~ https://avatar.fa~
+ 3 &quot;Village ~ https://avatar.fan~ [Joyfully.] Yay!~ https://avatar.fa~
+ 4 &quot;&quot;         https://avatar.fan~ Some of them run~ https://avatar.fa~
+ 5 &quot;Sokka&quot;    https://avatar.fan~ [Angrily.] I kne~ https://avatar.fa~
+ 6 &quot;Katara&quot;   https://avatar.fan~ [Protesting.] Aa~ https://avatar.fa~
+ 7 &quot;Aang&quot;     https://avatar.fan~ [Sheepishly, as ~ https://avatar.fa~
+ 8 &quot;Kanna&quot;    https://avatar.fan~ [Worriedly.] Kat~ https://avatar.fa~
+ 9 &quot;Aang&quot;     https://avatar.fan~ [Sorrowfully.] D~ https://avatar.fa~
+10 &quot;Sokka&quot;    https://avatar.fan~ [Angry and trium~ https://avatar.fa~
+# ... with 172 more rows</code></pre>
+</div>
+<p>Now that we successfully executed the code on two different chapters, we will use that same pattern for the rest. Well, almost the same. For some reason (for the next 59 chapters) we have to <code>pluck</code> “X1” and “X2” instead of the elements 1 and 2.</p>
+<p>Before we get to that, we’ll use the chapter column from <code>chapters</code> and manipulate the data so that we get a character vector of the links for each chapter transcript page. Notice how we have to replace the <code>'</code> with <code>%27</code> because of how the links are set up.</p>
+<p>We’ll use <code>glue::glue</code> for easy string interpolation. <code>glue</code> is vectorized: no need to write a for loop yourself.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>chapter_urls</span> <span class='op'>&lt;-</span> <span class='va'>chapters</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='https://rdrr.io/r/stats/filter.html'>filter</a></span><span class='op'>(</span> <span class='op'>!</span><span class='op'>(</span><span class='va'>chapter</span> <span class='op'>%in%</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"The Boy in the Iceberg"</span>, <span class='st'>"The Avatar Returns"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'>mutate</span><span class='op'>(</span>chapter <span class='op'>=</span> <span class='fu'>str_replace_all</span><span class='op'>(</span><span class='va'>chapter</span>, pattern <span class='op'>=</span> <span class='st'>" "</span>, replacement <span class='op'>=</span> <span class='st'>"_"</span><span class='op'>)</span>,
+         chapter <span class='op'>=</span> <span class='fu'>str_replace_all</span><span class='op'>(</span><span class='va'>chapter</span>, pattern <span class='op'>=</span> <span class='st'>"\'"</span>, replacement <span class='op'>=</span> <span class='st'>"%27"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'>pull</span><span class='op'>(</span><span class='va'>chapter</span><span class='op'>)</span>
+
+<span class='va'>full_urls</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://glue.tidyverse.org/reference/glue.html'>glue</a></span><span class='op'>(</span><span class='st'>"https://avatar.fandom.com/wiki/Transcript:{chapter_urls}"</span><span class='op'>)</span>
+
+<span class='va'>full_urls</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='fl'>5</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code>https://avatar.fandom.com/wiki/Transcript:The_Southern_Air_Temple
+https://avatar.fandom.com/wiki/Transcript:The_Warriors_of_Kyoshi
+https://avatar.fandom.com/wiki/Transcript:The_King_of_Omashu
+https://avatar.fandom.com/wiki/Transcript:Imprisoned
+https://avatar.fandom.com/wiki/Transcript:Winter_Solstice,_Part_1:_The_Spirit_World</code></pre>
+</div>
+<p>Now use <code>purrr::map</code> to apply our code from before to each url (<code>.x</code>) in <code>full_urls</code>. Sometimes I like to use the <code>tictoc</code> package to time code that takes a little longer. <code>tic</code> starts the timer, while <code>toc</code> ends it.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/pkg/tictoc/man/tic.html'>tic</a></span><span class='op'>(</span><span class='op'>)</span>
+<span class='va'>characters_all</span> <span class='op'>&lt;-</span> <span class='va'>full_urls</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'>map</span><span class='op'>(</span><span class='op'>~</span> <span class='fu'>read_html</span><span class='op'>(</span><span class='va'>.x</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+            <span class='fu'><a href='https://rvest.tidyverse.org/reference/html_nodes.html'>html_nodes</a></span><span class='op'>(</span><span class='st'>"table.wikitable"</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+            <span class='fu'><a href='https://rvest.tidyverse.org/reference/html_table.html'>html_table</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+            <span class='fu'><a href='https://rvest.tidyverse.org/reference/pluck.html'>pluck</a></span><span class='op'>(</span><span class='st'>"X1"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+            <span class='fu'>simplify</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+            <span class='fu'>enframe</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+            <span class='fu'>mutate</span><span class='op'>(</span>chapter <span class='op'>=</span> <span class='va'>.x</span><span class='op'>)</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/pkg/tictoc/man/tic.html'>toc</a></span><span class='op'>(</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code>13.62 sec elapsed</code></pre>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/pkg/tictoc/man/tic.html'>tic</a></span><span class='op'>(</span><span class='op'>)</span>
+<span class='va'>transcripts_all</span> <span class='op'>&lt;-</span> <span class='va'>full_urls</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'>map</span><span class='op'>(</span><span class='op'>~</span> <span class='fu'>read_html</span><span class='op'>(</span><span class='va'>.x</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+        <span class='fu'><a href='https://rvest.tidyverse.org/reference/html_nodes.html'>html_nodes</a></span><span class='op'>(</span><span class='st'>"table.wikitable"</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+        <span class='fu'><a href='https://rvest.tidyverse.org/reference/html_table.html'>html_table</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+        <span class='fu'><a href='https://rvest.tidyverse.org/reference/pluck.html'>pluck</a></span><span class='op'>(</span><span class='st'>"X2"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+        <span class='fu'>simplify</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+        <span class='fu'>enframe</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+        <span class='fu'>mutate</span><span class='op'>(</span>chapter <span class='op'>=</span> <span class='va'>.x</span><span class='op'>)</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/pkg/tictoc/man/tic.html'>toc</a></span><span class='op'>(</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code>13.91 sec elapsed</code></pre>
+</div>
+<p>All of them worked great, except for something weird that happened with <em>The Tales of Ba Sing Se</em> chapter. <code>characters_all</code> has one too many rows for some reason, and in <code>transcripts_all</code> the value column created from using <code>enframe</code> is a list-column instead of a character vector like all of the others.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>characters_all</span><span class='op'>[[</span><span class='fl'>33</span><span class='op'>]</span><span class='op'>]</span>
+</code></pre>
+</div>
+<pre><code># A tibble: 178 x 3
+    name value    chapter                                             
+   &lt;int&gt; &lt;chr&gt;    &lt;glue&gt;                                              
+ 1     1 &quot;&quot;       https://avatar.fandom.com/wiki/Transcript:The_Tales~
+ 2     2 &quot;Katara&quot; https://avatar.fandom.com/wiki/Transcript:The_Tales~
+ 3     3 &quot;&quot;       https://avatar.fandom.com/wiki/Transcript:The_Tales~
+ 4     4 &quot;Toph&quot;   https://avatar.fandom.com/wiki/Transcript:The_Tales~
+ 5     5 &quot;Katara&quot; https://avatar.fandom.com/wiki/Transcript:The_Tales~
+ 6     6 &quot;Toph&quot;   https://avatar.fandom.com/wiki/Transcript:The_Tales~
+ 7     7 &quot;Katara&quot; https://avatar.fandom.com/wiki/Transcript:The_Tales~
+ 8     8 &quot;Toph&quot;   https://avatar.fandom.com/wiki/Transcript:The_Tales~
+ 9     9 &quot;Katara&quot; https://avatar.fandom.com/wiki/Transcript:The_Tales~
+10    10 &quot;&quot;       https://avatar.fandom.com/wiki/Transcript:The_Tales~
+# ... with 168 more rows</code></pre>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>transcripts_all</span><span class='op'>[[</span><span class='fl'>33</span><span class='op'>]</span><span class='op'>]</span>
+</code></pre>
+</div>
+<pre><code># A tibble: 6 x 3
+   name value     chapter                                             
+  &lt;int&gt; &lt;list&gt;    &lt;glue&gt;                                              
+1     1 &lt;chr [37~ https://avatar.fandom.com/wiki/Transcript:The_Tales~
+2     2 &lt;chr [31~ https://avatar.fandom.com/wiki/Transcript:The_Tales~
+3     3 &lt;chr [31~ https://avatar.fandom.com/wiki/Transcript:The_Tales~
+4     4 &lt;chr [25~ https://avatar.fandom.com/wiki/Transcript:The_Tales~
+5     5 &lt;chr [53~ https://avatar.fandom.com/wiki/Transcript:The_Tales~
+6     6 &lt;NULL&gt;    https://avatar.fandom.com/wiki/Transcript:The_Tales~</code></pre>
+</div>
+<p>That just means we need to do some additional data wrangling. We’ll use <code>purrr::modify_at</code> to modify the 33rd element of each list</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>characters_all2</span> <span class='op'>&lt;-</span> <span class='va'>characters_all</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'>modify_at</span><span class='op'>(</span><span class='fl'>33</span>, <span class='op'>~</span> <span class='fu'><a href='https://rdrr.io/r/stats/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>.x</span>, <span class='fu'>row_number</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>!=</span> <span class='fl'>178</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'>bind_rows</span><span class='op'>(</span><span class='op'>)</span>
+
+<span class='va'>transcripts_all2</span> <span class='op'>&lt;-</span> <span class='va'>transcripts_all</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'>modify_at</span><span class='op'>(</span><span class='fl'>33</span>, <span class='op'>~</span> <span class='fu'>unnest</span><span class='op'>(</span><span class='va'>.x</span>, cols <span class='op'>=</span> <span class='va'>value</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'>bind_rows</span><span class='op'>(</span><span class='op'>)</span>
+</code></pre>
+</div>
+</div>
+<p>Everything matches up now, so we’ll bind the character and transcript data together.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>full_transcript</span> <span class='op'>&lt;-</span> <span class='fu'>bind_cols</span><span class='op'>(</span>
+  <span class='va'>characters_all2</span> <span class='op'>%&gt;%</span> <span class='fu'>select</span><span class='op'>(</span>character <span class='op'>=</span> <span class='va'>value</span>, chapter1 <span class='op'>=</span> <span class='va'>chapter</span><span class='op'>)</span>,
+  <span class='va'>transcripts_all2</span> <span class='op'>%&gt;%</span> <span class='fu'>select</span><span class='op'>(</span>text <span class='op'>=</span> <span class='va'>value</span>, chapter2 <span class='op'>=</span> <span class='va'>chapter</span><span class='op'>)</span>
+  <span class='op'>)</span>
+
+<span class='va'>full_transcript</span>
+</code></pre>
+</div>
+<pre><code># A tibble: 12,984 x 4
+   character chapter1             text             chapter2           
+   &lt;chr&gt;     &lt;glue&gt;               &lt;chr&gt;            &lt;glue&gt;             
+ 1 &quot;&quot;        https://avatar.fand~ The episode beg~ https://avatar.fan~
+ 2 &quot;Aang&quot;    https://avatar.fand~ [Excitedly.] Wa~ https://avatar.fan~
+ 3 &quot;Katara&quot;  https://avatar.fand~ [Cautiously.] A~ https://avatar.fan~
+ 4 &quot;Aang&quot;    https://avatar.fand~ [Smiling broadl~ https://avatar.fan~
+ 5 &quot;Katara&quot;  https://avatar.fand~ [Cautiously.] I~ https://avatar.fan~
+ 6 &quot;Aang&quot;    https://avatar.fand~ [Happily.] I kn~ https://avatar.fan~
+ 7 &quot;&quot;        https://avatar.fand~ Aang jumps off ~ https://avatar.fan~
+ 8 &quot;Aang&quot;    https://avatar.fand~ [Cheerfully.] W~ https://avatar.fan~
+ 9 &quot;Sokka&quot;   https://avatar.fand~ [Grunting sleep~ https://avatar.fan~
+10 &quot;&quot;        https://avatar.fand~ Sokka turns aro~ https://avatar.fan~
+# ... with 12,974 more rows</code></pre>
+</div>
+<p>Don’t forget about the first two episodes. We’ll bind those to the data as well.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>dat</span> <span class='op'>&lt;-</span> <span class='fu'>bind_rows</span><span class='op'>(</span><span class='va'>iceberg2</span>, <span class='va'>returns2</span>, <span class='va'>full_transcript</span><span class='op'>)</span>
+</code></pre>
+</div>
+</div>
+<p>Now onto more data wrangling:</p>
+<ul>
+<li>Clean up the chapter column</li>
+<li>Create a book column</li>
+<li>Create book_num and chapter_num columns</li>
+<li>Create an id column</li>
+<li>Mutate the character column to add the “Scene Description” value</li>
+</ul>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>dat</span> <span class='op'>&lt;-</span> <span class='va'>dat</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'>select</span><span class='op'>(</span><span class='va'>character</span>, <span class='va'>text</span>, chapter <span class='op'>=</span> <span class='va'>chapter1</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'>mutate</span><span class='op'>(</span>
+    chapter <span class='op'>=</span> <span class='fu'>str_remove_all</span><span class='op'>(</span><span class='va'>chapter</span>, <span class='st'>"https://avatar.fandom.com/wiki/Transcript:"</span><span class='op'>)</span>,
+    chapter <span class='op'>=</span> <span class='fu'>str_replace_all</span><span class='op'>(</span><span class='va'>chapter</span>, <span class='st'>"_"</span>, <span class='st'>" "</span><span class='op'>)</span>,
+    chapter <span class='op'>=</span> <span class='fu'>str_replace_all</span><span class='op'>(</span><span class='va'>chapter</span>, pattern <span class='op'>=</span> <span class='st'>"%27"</span>, replacement <span class='op'>=</span> <span class='st'>"\'"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'>left_join</span><span class='op'>(</span>
+    <span class='va'>chapters</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'>mutate</span><span class='op'>(</span>
+    book <span class='op'>=</span> <span class='fu'>case_when</span><span class='op'>(</span>
+      <span class='fu'>row_number</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%in%</span> <span class='fl'>1</span><span class='op'>:</span><span class='fl'>20</span>  <span class='op'>~</span> <span class='st'>"Water"</span>,
+      <span class='fu'>row_number</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%in%</span> <span class='fl'>21</span><span class='op'>:</span><span class='fl'>40</span> <span class='op'>~</span> <span class='st'>"Earth"</span>,
+      <span class='cn'>TRUE</span>                    <span class='op'>~</span> <span class='st'>"Fire"</span>
+    <span class='op'>)</span>
+  <span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'>group_by</span><span class='op'>(</span><span class='va'>book</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'>mutate</span><span class='op'>(</span>
+    chapter_num <span class='op'>=</span> <span class='fu'>row_number</span><span class='op'>(</span><span class='op'>)</span>
+  <span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'>ungroup</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+  <span class='fu'>mutate</span><span class='op'>(</span>
+    book_num <span class='op'>=</span> <span class='fu'>case_when</span><span class='op'>(</span>
+      <span class='va'>book</span> <span class='op'>==</span> <span class='st'>"Water"</span> <span class='op'>~</span> <span class='fl'>1</span>,
+      <span class='va'>book</span> <span class='op'>==</span> <span class='st'>"Earth"</span> <span class='op'>~</span> <span class='fl'>2</span>,
+      <span class='va'>book</span> <span class='op'>==</span> <span class='st'>"Fire"</span>  <span class='op'>~</span> <span class='fl'>3</span>
+    <span class='op'>)</span>
+  <span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'>select</span><span class='op'>(</span><span class='va'>chapter</span>, <span class='va'>chapter_num</span>, <span class='va'>book</span>, <span class='va'>book_num</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'>mutate</span><span class='op'>(</span>id <span class='op'>=</span> <span class='fu'>row_number</span><span class='op'>(</span><span class='op'>)</span>,
+         character <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span><span class='op'>(</span><span class='va'>character</span> <span class='op'>==</span> <span class='st'>""</span>, <span class='st'>"Scene Description"</span>, <span class='va'>character</span><span class='op'>)</span><span class='op'>)</span>
+</code></pre>
+</div>
+</div>
+<p>Finally, we’ll split up the text column into <em>character_words</em> and <em>scene_description</em>. We’ll have to use some more stringr functions and some regular expressions, but it won’t be too bad.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>dat_transcript</span> <span class='op'>&lt;-</span> <span class='va'>dat</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'>mutate</span><span class='op'>(</span>scene_description <span class='op'>=</span> <span class='fu'>str_extract_all</span><span class='op'>(</span><span class='va'>text</span>, pattern <span class='op'>=</span> <span class='st'>"\\[[^\\]]+\\]"</span><span class='op'>)</span>,
+         character_words <span class='op'>=</span> <span class='fu'>str_remove_all</span><span class='op'>(</span><span class='va'>text</span>, pattern <span class='op'>=</span> <span class='st'>"\\[[^\\]]+\\]"</span><span class='op'>)</span>,
+         character_words <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span><span class='op'>(</span><span class='va'>character</span> <span class='op'>==</span> <span class='st'>"Scene Description"</span>,
+                                  <span class='cn'>NA_character_</span>, 
+                                  <span class='fu'>str_trim</span><span class='op'>(</span><span class='va'>character_words</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'>select</span><span class='op'>(</span><span class='va'>id</span>, <span class='va'>book</span>, <span class='va'>book_num</span>, <span class='va'>chapter</span>, <span class='va'>chapter_num</span>,
+         <span class='va'>character</span>, full_text <span class='op'>=</span> <span class='va'>text</span>, <span class='va'>character_words</span>, <span class='va'>scene_description</span><span class='op'>)</span>
+
+<span class='va'>dat_transcript</span>
+</code></pre>
+</div>
+<pre><code># A tibble: 13,389 x 9
+      id book  book_num chapter chapter_num character full_text
+   &lt;int&gt; &lt;chr&gt;    &lt;dbl&gt; &lt;chr&gt;         &lt;int&gt; &lt;chr&gt;     &lt;chr&gt;    
+ 1     1 Water        1 The Bo~           1 Katara    &quot;Water. ~
+ 2     2 Water        1 The Bo~           1 Scene De~ &quot;As the ~
+ 3     3 Water        1 The Bo~           1 Sokka     &quot;It&#39;s no~
+ 4     4 Water        1 The Bo~           1 Scene De~ &quot;The sho~
+ 5     5 Water        1 The Bo~           1 Katara    &quot;[Happil~
+ 6     6 Water        1 The Bo~           1 Sokka     &quot;[Close-~
+ 7     7 Water        1 The Bo~           1 Scene De~ &quot;Behind ~
+ 8     8 Water        1 The Bo~           1 Katara    &quot;[Strugg~
+ 9     9 Water        1 The Bo~           1 Scene De~ &quot;The bub~
+10    10 Water        1 The Bo~           1 Katara    &quot;[Exclai~
+# ... with 13,379 more rows, and 2 more variables:
+#   character_words &lt;chr&gt;, scene_description &lt;list&gt;</code></pre>
+</div>
+<p>Now we have all of the transcript data in a nice and tidy dataframe! Hooray! We could stop there, but we might as well get more data.</p>
+<h3 id="writers-and-directors">Writers and Directors</h3>
+<p>Let’s scrape the writers and directors data from pages like this:</p>
+<p><img src="../../img/avatar-wiki-writers-iceberg.png" /></p>
+<p>I won’t go over the code as much because it is pretty similar to what we did before. Just remember the philosophy: do it once, then extract the pattern and do that same thing for everything.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>iceberg_overview</span> <span class='op'>&lt;-</span> <span class='fu'>read_html</span><span class='op'>(</span><span class='st'>"https://avatar.fandom.com/wiki/The_Boy_in_the_Iceberg"</span><span class='op'>)</span>
+
+<span class='va'>iceberg_overview</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='https://rvest.tidyverse.org/reference/html_nodes.html'>html_nodes</a></span><span class='op'>(</span><span class='st'>".pi-border-color"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='https://rvest.tidyverse.org/reference/html_text.html'>html_text</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='fl'>5</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code>[1] &quot;Information\n\n\n\t\n\t\tSeries\n\t\n\tAvatar: The Last Airbender\n\n\n\n\t\n\t\tBook\n\t\n\tWater\n\n\n\n\t\n\t\tEpisode\n\t\n\t1/61\n\n\n\n\t\n\t\tOriginal air date\n\t\n\tFebruary 21, 2005\n\n\n\n\t\n\t\tWritten by\n\t\n\t&lt;U+200E&gt;Michael Dante DiMartino, Bryan KonietzkoAdditional writing: Aaron Ehasz, Peter Goldfinger, Josh Stolberg\n\n\n\n\t\n\t\tDirected by\n\t\n\tDave Filoni\n\n\n\n\t\n\t\tAnimation\n\t\n\tJM Animation\n\n\n\n\t\n\t\tGuest stars\n\t\n\tMako (Uncle), Melendy Britt (Gran Gran)\n\n\n\n\t\n\t\tProduction number\n\t\n\t101\n\n\n&quot;                                     
+[2] &quot;\n\t\n\t\tSeries\n\t\n\tAvatar: The Last Airbender\n&quot;                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 
+[3] &quot;\n\t\n\t\tBook\n\t\n\tWater\n&quot;                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
+[4] &quot;\n\t\n\t\tEpisode\n\t\n\t1/61\n&quot;                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      
+[5] &quot;\n\t\n\t\tOriginal air date\n\t\n\tFebruary 21, 2005\n&quot;                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               </code></pre>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='co'># in addition to being an episode,</span>
+<span class='co'># Jet is a character and Lake Laogai is a place</span>
+<span class='co'># so the links have _(episode) at the end</span>
+
+<span class='va'>chapter_urls2</span> <span class='op'>&lt;-</span> <span class='va'>chapters</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'>mutate</span><span class='op'>(</span>chapter <span class='op'>=</span> <span class='fu'>str_replace_all</span><span class='op'>(</span><span class='va'>chapter</span>, pattern <span class='op'>=</span> <span class='st'>" "</span>, replacement <span class='op'>=</span> <span class='st'>"_"</span><span class='op'>)</span>,
+         chapter <span class='op'>=</span> <span class='fu'>str_replace_all</span><span class='op'>(</span><span class='va'>chapter</span>, pattern <span class='op'>=</span> <span class='st'>"\'"</span>, replacement <span class='op'>=</span> <span class='st'>"%27"</span><span class='op'>)</span>,
+         chapter <span class='op'>=</span> <span class='fu'>case_when</span><span class='op'>(</span>
+           <span class='va'>chapter</span> <span class='op'>==</span> <span class='st'>"Jet"</span>         <span class='op'>~</span> <span class='st'>"Jet_(episode)"</span>,
+           <span class='va'>chapter</span> <span class='op'>==</span> <span class='st'>"Lake_Laogai"</span> <span class='op'>~</span> <span class='st'>"Lake_Laogai_(episode)"</span>,
+           <span class='cn'>TRUE</span>                     <span class='op'>~</span> <span class='va'>chapter</span>
+           
+         <span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'>pull</span><span class='op'>(</span><span class='va'>chapter</span><span class='op'>)</span>
+
+<span class='co'># remember full_urls? overview_urls is just like that</span>
+
+<span class='va'>overview_urls</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://glue.tidyverse.org/reference/glue.html'>glue</a></span><span class='op'>(</span><span class='st'>"https://avatar.fandom.com/wiki/{chapter_urls2}"</span><span class='op'>)</span>
+</code></pre>
+</div>
+</div>
+<p>Do it once.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>overview_urls</span><span class='op'>[</span><span class='fl'>32</span><span class='op'>]</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'>read_html</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='https://rvest.tidyverse.org/reference/html_nodes.html'>html_nodes</a></span><span class='op'>(</span><span class='st'>".pi-border-color"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='https://rvest.tidyverse.org/reference/html_text.html'>html_text</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+  <span class='va'>.</span><span class='op'>[</span><span class='fl'>6</span><span class='op'>:</span><span class='fl'>7</span><span class='op'>]</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'>enframe</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'>mutate</span><span class='op'>(</span>value <span class='op'>=</span> <span class='fu'>str_trim</span><span class='op'>(</span><span class='va'>value</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'>separate</span><span class='op'>(</span>col <span class='op'>=</span> <span class='va'>value</span>, into <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"role"</span>, <span class='st'>"name"</span><span class='op'>)</span>, sep <span class='op'>=</span> <span class='st'>" by"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'>mutate</span><span class='op'>(</span>name <span class='op'>=</span> <span class='fu'>str_trim</span><span class='op'>(</span><span class='va'>name</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'>pivot_wider</span><span class='op'>(</span>names_from <span class='op'>=</span> <span class='va'>role</span>, values_from <span class='op'>=</span> <span class='va'>name</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code># A tibble: 1 x 2
+  Written                                  Directed       
+  &lt;chr&gt;                                    &lt;chr&gt;          
+1 Joshua Hamilton, Michael Dante DiMartino Ethan Spaulding</code></pre>
+</div>
+<p>Then iterate.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/pkg/tictoc/man/tic.html'>tic</a></span><span class='op'>(</span><span class='op'>)</span>
+<span class='va'>writers_directors</span> <span class='op'>&lt;-</span> <span class='va'>overview_urls</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'>map_dfr</span><span class='op'>(</span> <span class='op'>~</span> <span class='fu'>read_html</span><span class='op'>(</span><span class='va'>.x</span><span class='op'>)</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='https://rvest.tidyverse.org/reference/html_nodes.html'>html_nodes</a></span><span class='op'>(</span><span class='st'>".pi-border-color"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+    <span class='fu'><a href='https://rvest.tidyverse.org/reference/html_text.html'>html_text</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span> <span class='va'>.</span><span class='op'>[</span><span class='fl'>6</span><span class='op'>:</span><span class='fl'>7</span><span class='op'>]</span> <span class='op'>%&gt;%</span> <span class='fu'>enframe</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+    <span class='fu'>mutate</span><span class='op'>(</span>value <span class='op'>=</span> <span class='fu'>str_trim</span><span class='op'>(</span><span class='va'>value</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+    <span class='fu'>separate</span><span class='op'>(</span>col <span class='op'>=</span> <span class='va'>value</span>, into <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"role"</span>, <span class='st'>"name"</span><span class='op'>)</span>, sep <span class='op'>=</span> <span class='st'>" by"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+    <span class='fu'>mutate</span><span class='op'>(</span>name <span class='op'>=</span> <span class='fu'>str_trim</span><span class='op'>(</span><span class='va'>name</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+    <span class='fu'>pivot_wider</span><span class='op'>(</span>names_from <span class='op'>=</span> <span class='va'>role</span>, values_from <span class='op'>=</span> <span class='va'>name</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+    <span class='fu'>mutate</span><span class='op'>(</span>url <span class='op'>=</span> <span class='va'>.x</span><span class='op'>)</span>
+  <span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/pkg/tictoc/man/tic.html'>toc</a></span><span class='op'>(</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code>10.08 sec elapsed</code></pre>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='co'># some data wrangling/cleaning</span>
+
+<span class='va'>writers_directors2</span> <span class='op'>&lt;-</span> <span class='va'>writers_directors</span> <span class='op'>%&gt;%</span>
+  <span class='fu'>mutate</span><span class='op'>(</span>
+    url <span class='op'>=</span> <span class='fu'>str_remove</span><span class='op'>(</span><span class='va'>url</span>, <span class='st'>"https://avatar.fandom.com/wiki/"</span><span class='op'>)</span>,
+    url <span class='op'>=</span> <span class='fu'>str_replace_all</span><span class='op'>(</span><span class='va'>url</span>, <span class='st'>"_"</span>, <span class='st'>" "</span><span class='op'>)</span>,
+    url <span class='op'>=</span> <span class='fu'>str_remove</span><span class='op'>(</span><span class='va'>url</span>, <span class='st'>" \\(episode\\)"</span><span class='op'>)</span>,
+    url <span class='op'>=</span> <span class='fu'>str_replace_all</span><span class='op'>(</span><span class='va'>url</span>, pattern <span class='op'>=</span> <span class='st'>"%27"</span>, replacement <span class='op'>=</span> <span class='st'>"\'"</span><span class='op'>)</span>,
+    Written <span class='op'>=</span> <span class='fu'>str_replace</span><span class='op'>(</span><span class='va'>Written</span>, <span class='st'>" Additional writing: "</span>, <span class='st'>", "</span><span class='op'>)</span>
+  <span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'>rename</span><span class='op'>(</span>chapter <span class='op'>=</span> <span class='va'>url</span>, writer <span class='op'>=</span> <span class='va'>Written</span>, director <span class='op'>=</span> <span class='va'>Directed</span><span class='op'>)</span>
+
+<span class='va'>dat2</span> <span class='op'>&lt;-</span> <span class='va'>dat_transcript</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'>left_join</span><span class='op'>(</span>
+    <span class='va'>writers_directors2</span>, by <span class='op'>=</span> <span class='st'>"chapter"</span>
+  <span class='op'>)</span>
+
+<span class='fu'>glimpse</span><span class='op'>(</span><span class='va'>dat2</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code>Rows: 13,389
+Columns: 11
+$ id                &lt;int&gt; 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, ...
+$ book              &lt;chr&gt; &quot;Water&quot;, &quot;Water&quot;, &quot;Water&quot;, &quot;Water&quot;, &quot;Wa...
+$ book_num          &lt;dbl&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, ...
+$ chapter           &lt;chr&gt; &quot;The Boy in the Iceberg&quot;, &quot;The Boy in t...
+$ chapter_num       &lt;int&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, ...
+$ character         &lt;chr&gt; &quot;Katara&quot;, &quot;Scene Description&quot;, &quot;Sokka&quot;,...
+$ full_text         &lt;chr&gt; &quot;Water. Earth. Fire. Air. My grandmothe...
+$ character_words   &lt;chr&gt; &quot;Water. Earth. Fire. Air. My grandmothe...
+$ scene_description &lt;list&gt; [&lt;&gt;, &lt;&gt;, &quot;[Close-up of Sokka as he gri...
+$ writer            &lt;chr&gt; &quot;&lt;U+200E&gt;Michael Dante DiMartino, Bryan Koniet...
+$ director          &lt;chr&gt; &quot;Dave Filoni&quot;, &quot;Dave Filoni&quot;, &quot;Dave Fil...</code></pre>
+</div>
+<p>Got the writers and directors. Now we just want the imdb ratings.</p>
+<!--adsense-->
+<h3 id="imdb-ratings">Imdb Ratings</h3>
+<p><img src="../../img/avatar-imdb-ratings.png" /></p>
+<p>The ratings were from IMDB instead of the Avatar Wiki, so the names are slightly different. Here’s what we need to do for the last bit of data collection:</p>
+<p>First, we’ll scrape the chapter names again and alter a few of them. Second, we’ll scrape the ratings. Lastly, we’ll bind the chapters and ratings data together, right join on the original chapters data, and then finally join the data to the main transcript data.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>imdb_raw</span> <span class='op'>&lt;-</span> <span class='fu'>read_html</span><span class='op'>(</span><span class='st'>"https://www.imdb.com/list/ls079841896/"</span><span class='op'>)</span>
+
+<span class='va'>chapter_names</span> <span class='op'>&lt;-</span> <span class='va'>chapters</span> <span class='op'>%&gt;%</span> <span class='fu'>pull</span><span class='op'>(</span><span class='va'>chapter</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'>str_flatten</span><span class='op'>(</span>collapse <span class='op'>=</span> <span class='st'>"|"</span><span class='op'>)</span>
+
+<span class='va'>imdb_chapters</span> <span class='op'>&lt;-</span> <span class='va'>imdb_raw</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='https://rvest.tidyverse.org/reference/html_nodes.html'>html_nodes</a></span><span class='op'>(</span><span class='st'>"h3.lister-item-header"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='https://rvest.tidyverse.org/reference/html_text.html'>html_text</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'>enframe</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'>mutate</span><span class='op'>(</span>value <span class='op'>=</span> <span class='fu'>str_extract</span><span class='op'>(</span><span class='va'>value</span>, pattern <span class='op'>=</span> <span class='va'>chapter_names</span><span class='op'>)</span>,
+         value <span class='op'>=</span> <span class='fu'>case_when</span><span class='op'>(</span>
+           <span class='va'>name</span> <span class='op'>==</span> <span class='fl'>29</span> <span class='op'>~</span> <span class='st'>"Winter Solstice, Part 2: Avatar Roku"</span>,
+           <span class='va'>name</span> <span class='op'>==</span> <span class='fl'>44</span> <span class='op'>~</span> <span class='st'>"The Boiling Rock, Part 1"</span>,
+           <span class='va'>name</span> <span class='op'>==</span> <span class='fl'>52</span> <span class='op'>~</span> <span class='st'>"Winter Solstice, Part 1: The Spirit World"</span>,
+           <span class='cn'>TRUE</span>       <span class='op'>~</span> <span class='va'>value</span>
+         <span class='op'>)</span><span class='op'>)</span>
+
+<span class='va'>imdb_ratings</span> <span class='op'>&lt;-</span> <span class='va'>imdb_raw</span> <span class='op'>%&gt;%</span> 
+<span class='fu'><a href='https://rvest.tidyverse.org/reference/html_nodes.html'>html_nodes</a></span><span class='op'>(</span><span class='st'>"div.ipl-rating-widget"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='https://rvest.tidyverse.org/reference/html_text.html'>html_text</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'>enframe</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'>mutate</span><span class='op'>(</span>value <span class='op'>=</span> <span class='fu'>parse_number</span><span class='op'>(</span><span class='va'>value</span><span class='op'>)</span><span class='op'>)</span>
+
+<span class='va'>imdb</span> <span class='op'>&lt;-</span> <span class='fu'>bind_cols</span><span class='op'>(</span><span class='va'>imdb_chapters</span>, <span class='va'>imdb_ratings</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'>select</span><span class='op'>(</span>chapter <span class='op'>=</span> <span class='fl'>2</span>, rating <span class='op'>=</span> <span class='fl'>4</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'>right_join</span><span class='op'>(</span><span class='va'>chapters</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'>select</span><span class='op'>(</span><span class='va'>chapter</span>, imdb_rating <span class='op'>=</span> <span class='va'>rating</span><span class='op'>)</span>
+
+<span class='va'>dat3</span> <span class='op'>&lt;-</span> <span class='va'>dat2</span> <span class='op'>%&gt;%</span> <span class='fu'>left_join</span><span class='op'>(</span><span class='va'>imdb</span>, by <span class='op'>=</span> <span class='st'>"chapter"</span><span class='op'>)</span>
+</code></pre>
+</div>
+</div>
+<p>Hooray! We are finally done.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'>glimpse</span><span class='op'>(</span><span class='va'>dat3</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code>Rows: 13,389
+Columns: 12
+$ id                &lt;int&gt; 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, ...
+$ book              &lt;chr&gt; &quot;Water&quot;, &quot;Water&quot;, &quot;Water&quot;, &quot;Water&quot;, &quot;Wa...
+$ book_num          &lt;dbl&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, ...
+$ chapter           &lt;chr&gt; &quot;The Boy in the Iceberg&quot;, &quot;The Boy in t...
+$ chapter_num       &lt;int&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, ...
+$ character         &lt;chr&gt; &quot;Katara&quot;, &quot;Scene Description&quot;, &quot;Sokka&quot;,...
+$ full_text         &lt;chr&gt; &quot;Water. Earth. Fire. Air. My grandmothe...
+$ character_words   &lt;chr&gt; &quot;Water. Earth. Fire. Air. My grandmothe...
+$ scene_description &lt;list&gt; [&lt;&gt;, &lt;&gt;, &quot;[Close-up of Sokka as he gri...
+$ writer            &lt;chr&gt; &quot;&lt;U+200E&gt;Michael Dante DiMartino, Bryan Koniet...
+$ director          &lt;chr&gt; &quot;Dave Filoni&quot;, &quot;Dave Filoni&quot;, &quot;Dave Fil...
+$ imdb_rating       &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,...</code></pre>
+</div>
+<h3 id="conclusion">Conclusion</h3>
+<p>Doing all of this work would be almost pointless if it wasn’t shared. Fortunately, the data can now be installed via <a href="https://github.com/averyrobbins1/appa">GitHub</a>:</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='co'># install.packages(devtools)</span>
+<span class='co'># install_github("averyrobbins1/appa)</span>
+</code></pre>
+</div>
+</div>
+<p>Now you can do cool stuff like make a Sokka word cloud.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/lepennec/ggwordcloud'>ggwordcloud</a></span><span class='op'>)</span>
+<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/juliasilge/tidytext'>tidytext</a></span><span class='op'>)</span>
+
+<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='st'>"stop_words"</span><span class='op'>)</span>
+
+<span class='va'>dat</span> <span class='op'>&lt;-</span> <span class='fu'>appa</span><span class='fu'>::</span><span class='va'><a href='https://rdrr.io/pkg/appa/man/appa.html'>appa</a></span>
+
+<span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span><span class='op'>(</span><span class='fl'>123</span><span class='op'>)</span>
+
+<span class='co'># Sokka's top 100 words</span>
+
+<span class='va'>dat</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='https://rdrr.io/r/stats/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>character</span> <span class='op'>==</span> <span class='st'>"Sokka"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='https://rdrr.io/pkg/tidytext/man/unnest_tokens.html'>unnest_tokens</a></span><span class='op'>(</span><span class='va'>word</span>, <span class='va'>character_words</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'>anti_join</span><span class='op'>(</span><span class='va'>stop_words</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'>count</span><span class='op'>(</span><span class='va'>word</span>, sort <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'>slice</span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>100</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+  <span class='fu'>ggplot</span><span class='op'>(</span><span class='fu'>aes</span><span class='op'>(</span>label <span class='op'>=</span> <span class='va'>word</span>, size <span class='op'>=</span> <span class='va'>n</span>, color <span class='op'>=</span> <span class='va'>n</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+    <span class='fu'><a href='https://lepennec.github.io/ggwordcloud/reference/geom_text_wordcloud.html'>geom_text_wordcloud</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span>
+    <span class='fu'>scale_size_area</span><span class='op'>(</span>max_size <span class='op'>=</span> <span class='fl'>20</span><span class='op'>)</span> <span class='op'>+</span>
+    <span class='fu'>scale_color_viridis_c</span><span class='op'>(</span><span class='op'>)</span>
+</code></pre>
+</div>
+<p><img src="webscraping-atla_files/figure-html5/unnamed-chunk-21-1.png" width="624" /></p>
+</div>
+<p>That’s all for now! Thank you for reading, and I hope you learned something that you found helpful!</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<!--radix_placeholder_article_footer-->
+<!--/radix_placeholder_article_footer-->
+</div>
+
+<div class="d-appendix">
+</div>
+
+
+<!--radix_placeholder_site_after_body-->
+<!--/radix_placeholder_site_after_body-->
+<!--radix_placeholder_appendices-->
+<div class="appendix-bottom"></div>
+<!--/radix_placeholder_appendices-->
+<!--radix_placeholder_navigation_after_body-->
+<!--/radix_placeholder_navigation_after_body-->
+
+</body>
+
+</html>
