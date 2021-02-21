@@ -1,5 +1,6 @@
-name: "coding-with-avery"
+name: "codingwithavery"
 title: "Coding with Avery"
+base_url: https://codingwithavery.com
 description: |
   Coding with Avery
 output_dir: "_site"

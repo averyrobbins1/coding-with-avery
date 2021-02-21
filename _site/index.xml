@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:dc="http://purl.org/dc/elements/1.1/" version="2.0">
+  <channel>
+    <title>Coding with Avery</title>
+    <link>https://codingwithavery.com</link>
+    <atom:link href="https://codingwithavery.com/index.xml" rel="self" type="application/rss+xml"/>
+    <description>Coding with Avery
+</description>
+    <generator>Distill</generator>
+    <lastBuildDate>Tue, 06 Oct 2020 00:00:00 +0000</lastBuildDate>
+    <item>
+      <title>String interpolation in Python and R (the best ways)</title>
+      <dc:creator>Avery Robbins</dc:creator>
+      <link>https://codingwithavery.com/posts/2020-10-06-string-interpolation</link>
+      <description>What are the different ways of executing code within a string of text in Python and R? This post looks into the good and arguably best forms of string interpolation in two of the most popular programming languages for data science.</description>
+      <guid>https://codingwithavery.com/posts/2020-10-06-string-interpolation</guid>
+      <pubDate>Tue, 06 Oct 2020 00:00:00 +0000</pubDate>
+    </item>
+    <item>
+      <title>Solving the FizzBuzz problem in R and Python</title>
+      <dc:creator>Avery Robbins</dc:creator>
+      <link>https://codingwithavery.com/posts/2020-08-24-fizzbuzz</link>
+      <description>Small practice problems can be fun and challenging ways to test your programming skills! Solutions in R and Python to the FizzBuzz problem are provided at the end.</description>
+      <guid>https://codingwithavery.com/posts/2020-08-24-fizzbuzz</guid>
+      <pubDate>Mon, 24 Aug 2020 00:00:00 +0000</pubDate>
+    </item>
+    <item>
+      <title>The greatest Avatar visualizations you have ever seen</title>
+      <dc:creator>Avery Robbins</dc:creator>
+      <link>https://codingwithavery.com/posts/2020-08-12-tidy-tuesday-avatar</link>
+      <description>Showcasing the best Avatar: The Last Airbender visualizations from the Tidy Tuesday weekly challenge. All graphics are from the amazing R community!</description>
+      <guid>https://codingwithavery.com/posts/2020-08-12-tidy-tuesday-avatar</guid>
+      <pubDate>Wed, 12 Aug 2020 00:00:00 +0000</pubDate>
+    </item>
+    <item>
+      <title>Covid... and why 3D plots are bad</title>
+      <dc:creator>Avery Robbins</dc:creator>
+      <link>https://codingwithavery.com/posts/2020-08-08-covid</link>
+      <description>Comparing the death-to-case ratio between the US and Sweden, and a brief commentary on 3D plots.</description>
+      <guid>https://codingwithavery.com/posts/2020-08-08-covid</guid>
+      <pubDate>Sat, 08 Aug 2020 00:00:00 +0000</pubDate>
+      <media:content url="https://codingwithavery.com/posts/2020-08-08-covid/covid_files/figure-html5/unnamed-chunk-13-1.png" medium="image" type="image/png" width="1152" height="576"/>
+    </item>
+    <item>
+      <title>Bears. Beats. Analyzing The Office</title>
+      <dc:creator>Avery Robbins</dc:creator>
+      <link>https://codingwithavery.com/posts/2020-07-30-the-office</link>
+      <description>A brief, informal analysis of the hilarious sitcom, The Office.</description>
+      <guid>https://codingwithavery.com/posts/2020-07-30-the-office</guid>
+      <pubDate>Thu, 30 Jul 2020 00:00:00 +0000</pubDate>
+    </item>
+    <item>
+      <title>PDF scraping can be easy, but data wrangling is often not!</title>
+      <dc:creator>Avery Robbins</dc:creator>
+      <link>https://codingwithavery.com/posts/2020-07-26-pdf-scraping-data-wrangling</link>
+      <description>An inside look at some R code in the wild. This post is a clarification of a previous post: PDF scraping with R is easy! I changed easy to possible. While scraping data from PDFs can often be accomplished with just a few tools, wrangling the scraped data can often take time.</description>
+      <guid>https://codingwithavery.com/posts/2020-07-26-pdf-scraping-data-wrangling</guid>
+      <pubDate>Sun, 26 Jul 2020 00:00:00 +0000</pubDate>
+    </item>
+    <item>
+      <title>PDF scraping with R is possible!</title>
+      <dc:creator>Avery Robbins</dc:creator>
+      <link>https://codingwithavery.com/posts/2020-07-22-pdf-scraping</link>
+      <description>You can definitely scrape data from PDFs; it really is not that difficult. The data wrangling is usually the hard part.</description>
+      <guid>https://codingwithavery.com/posts/2020-07-22-pdf-scraping</guid>
+      <pubDate>Wed, 22 Jul 2020 00:00:00 +0000</pubDate>
+    </item>
+    <item>
+      <title>Databending - web scraping Avatar: The Last Airbender</title>
+      <dc:creator>Avery Robbins</dc:creator>
+      <link>https://codingwithavery.com/posts/2020-07-13-webscraping-atla</link>
+      <description>You get better at webscraping with R by webscraping with R. This is my attempt to webscrape a bunch of data on the epic show, Avatar: The Last Airbender.</description>
+      <guid>https://codingwithavery.com/posts/2020-07-13-webscraping-atla</guid>
+      <pubDate>Mon, 13 Jul 2020 00:00:00 +0000</pubDate>
+      <media:content url="https://codingwithavery.com/posts/2020-07-13-webscraping-atla/webscraping-atla_files/figure-html5/unnamed-chunk-21-1.png" medium="image" type="image/png" width="1248" height="768"/>
+    </item>
+    <item>
+      <title>Exploring Avatar: The Last Airbender transcript data</title>
+      <dc:creator>Avery Robbins</dc:creator>
+      <link>https://codingwithavery.com/posts/2020-07-11-avatar-eda</link>
+      <description>Here is my initial EDA of the Avatar: The Last Airbender data that I scraped from the Avatar Wiki, now available in the "appa" R package.</description>
+      <guid>https://codingwithavery.com/posts/2020-07-11-avatar-eda</guid>
+      <pubDate>Sat, 11 Jul 2020 00:00:00 +0000</pubDate>
+      <media:content url="https://codingwithavery.com/posts/2020-07-11-avatar-eda/avatar-eda_files/figure-html5/unnamed-chunk-3-1.png" medium="image" type="image/png" width="1248" height="768"/>
+    </item>
+    <item>
+      <title>Become more efficient through automation and better organization</title>
+      <dc:creator>Avery Robbins</dc:creator>
+      <link>https://codingwithavery.com/posts/2020-06-17-automation-and-organization</link>
+      <description>Write functions, iterate with purrr, and stay organized to save time and work more efficiently!</description>
+      <guid>https://codingwithavery.com/posts/2020-06-17-automation-and-organization</guid>
+      <pubDate>Wed, 17 Jun 2020 00:00:00 +0000</pubDate>
+    </item>
+    <item>
+      <title>Useful R Packages for Exploratory Data Analysis</title>
+      <dc:creator>Avery Robbins</dc:creator>
+      <link>https://codingwithavery.com/posts/2020-05-02-packages-for-eda</link>
+      <description>Here are some helpful packages and functions to make EDA in R a bit easier.</description>
+      <guid>https://codingwithavery.com/posts/2020-05-02-packages-for-eda</guid>
+      <pubDate>Sat, 02 May 2020 00:00:00 +0000</pubDate>
+      <media:content url="https://codingwithavery.com/posts/2020-05-02-packages-for-eda/packages-for-eda_files/figure-html5/unnamed-chunk-5-1.png" medium="image" type="image/png" width="1248" height="672"/>
+    </item>
+  </channel>
+</rss>
