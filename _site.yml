@@ -7,7 +7,7 @@ collections:
     disqus: codingwithavery
     subscribe: _subscribe.html
 description: |
-  A place to learn data wrangling, data visualization, and other data programming stuff.
+  A place to learn data programming stuff.
 output_dir: "_site"
 navbar:
   right:
