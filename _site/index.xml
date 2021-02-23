@@ -4,7 +4,7 @@
     <title>Coding with Avery</title>
     <link>https://codingwithavery.com</link>
     <atom:link href="https://codingwithavery.com/index.xml" rel="self" type="application/rss+xml"/>
-    <description>Coding with Avery
+    <description>A place for learning data wrangling, data visualization, and other data programming stuff.
 </description>
     <generator>Distill</generator>
     <lastBuildDate>Mon, 22 Feb 2021 00:00:00 +0000</lastBuildDate>

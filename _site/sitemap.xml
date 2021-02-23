@@ -2,15 +2,19 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" version="1.0">
   <url>
     <loc>https://codingwithavery.com/about.html</loc>
-    <lastmod>2021-02-20T21:37:46-07:00</lastmod>
+    <lastmod>2021-02-22T21:22:06-07:00</lastmod>
   </url>
   <url>
     <loc>https://codingwithavery.com/</loc>
     <lastmod>2021-02-20T21:37:46-07:00</lastmod>
   </url>
   <url>
+    <loc>https://codingwithavery.com/resources.html</loc>
+    <lastmod>2021-02-22T21:47:40-07:00</lastmod>
+  </url>
+  <url>
     <loc>https://codingwithavery.com/posts/2021-02-22-ggtext/</loc>
-    <lastmod>2021-02-22T20:54:23-07:00</lastmod>
+    <lastmod>2021-02-22T20:54:25-07:00</lastmod>
   </url>
   <url>
     <loc>https://codingwithavery.com/posts/2020-10-06-string-interpolation/</loc>
