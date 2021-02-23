@@ -3,17 +3,17 @@
     {
       "path": "about.html",
       "title": "About",
-      "description": "Some additional details about the blog",
+      "description": "About the blog",
       "author": [],
-      "contents": "\r\n\r\nEvolution of Avery:arrow_up: Written in R with ggplot2 :grinning:\r\nI created the above graphic in June 2019 when the BYU-Idaho Data Science Society presidency attended a R/tidyverse workshop given by Garrett Grolemund, co-author of R for Data Science.\r\nEvolution of Avery R\r\nAt least one good thing to come out of the global coronavirus pandemic of 2020 was that I finally had time to sit down and create my personal website. The main hurdle was figuring out how Hugo and blogdown worked, and now it is just getting the right words onto the page.\r\nThe inception of this website marks about two years since I started programming in R. I have long wanted to create a space to communicate to employers and others the value that I can provide. Even more important to me than that, I have wanted to share much of what I have learned about working with data in R, so that perhaps other people could benefit from my hundreds of hours spent staring at code that I think should work but doesn’t because I forgot a closing parenthesis.\r\nI love R, and I appreciate the things that people have done to add to the language. It is an extremely powerful environment for statistical analysis, reproducible work, and data wrangling & visualization. Ultimately, with this website I hope to share with you some knowledge and a plethora of useful tips with regards to R. All this in hopes to make your life a little bit easier.\r\nTruthfully, the creation of this website marks a great victory over procrastination. It has been rewarding to be able to check this off of the to-do list. Hopefully you are not reading this while procrastinating some project of your own. If you are, please stop! Go and do that thing that you know you should be doing! It is definitely worth it. Otherwise, feel free to check out one of my posts. Happy coding!\r\nIf you are both an R user and a fan of Avatar: The Last Airbender, check out my simple R package appa and have fun with transcript data from perhaps the greatest animated show ever created.\r\nIf you are interested in learning from other R users, go to r-bloggers.com!\r\nFor the things we have to learn before we can do them, we learn by doing them.\r\n― Aristotle, The Nicomachean Ethics\r\n\r\n\r\n\r\n",
-      "last_modified": "2021-02-22T22:51:57-07:00"
+      "contents": "\r\nEvolution of AveryI created the above graphic in June 2019 when the BYU-Idaho Data Science Society presidency attended a R/tidyverse workshop given by Garrett Grolemund, co-author of R for Data Science.\r\nEvolution of Avery\r\nAt least one good thing to come out of the global coronavirus pandemic of 2020 was that I finally had time to sit down and create my personal website. The main hurdle was figuring out how Hugo and blogdown worked, and now it is just getting the right words onto the page.\r\nThe inception of this website marks about two years since I started programming in R. I have long wanted to create a space to communicate to employers and others the value that I can provide. Even more important to me than that, I have wanted to share much of what I have learned about working with data in R, so that perhaps other people could benefit from my hundreds of hours spent staring at code that I think should work but doesn’t because I forgot a closing parenthesis.\r\nI love R, and I appreciate the things that people have done to add to the language. It is an extremely powerful environment for statistical analysis, reproducible work, and data wrangling & visualization. Ultimately, with this website I hope to share with you some knowledge and a plethora of useful tips with regards to R. All this in hopes to make your life a little bit easier.\r\nTruthfully, the creation of this website marks a great victory over procrastination. It has been rewarding to be able to check this off of the to-do list. Hopefully you are not reading this while procrastinating some project of your own. If you are, please stop! Go and do that thing that you know you should be doing! It is definitely worth it. Otherwise, feel free to check out one of my posts. Happy coding!\r\nIf you are both an R user and a fan of Avatar: The Last Airbender, check out my simple R package appa and have fun with transcript data from perhaps the greatest animated show ever created.\r\nIf you are interested in learning from other R users, go to r-bloggers.com!\r\nFor the things we have to learn before we can do them, we learn by doing them.\r\n― Aristotle, The Nicomachean Ethics\r\n\r\n\r\n\r\n",
+      "last_modified": "2021-02-22T23:08:50-07:00"
     },
     {
       "path": "index.html",
-      "title": "Coding with Avery",
+      "title": "A place to learn data wrangling, data visualization, and other data programming stuff.",
       "author": [],
       "contents": "\r\n\r\n\r\n\r\n",
-      "last_modified": "2021-02-22T22:51:58-07:00"
+      "last_modified": "2021-02-22T23:08:51-07:00"
     },
     {
       "path": "resources.html",
@@ -21,7 +21,7 @@
       "description": "Hopefully one day this page becomes a vast ocean of resources for learning data science programming.",
       "author": [],
       "contents": "\r\nBooks about data science with R\r\nR for Data Science\r\nR for Data Science Exercise Solutions\r\nAdvanced R\r\nR Packages\r\nWhat They Forgot to Teach You About R\r\nFunctional Programming\r\nMastering Shiny\r\nMastering Software Development in R\r\nHands-On Machine Learning with R\r\nR Markdown: The Definitive Guide\r\nText Mining with R\r\nForecasting: Principles and Practice\r\nFeature Engineering and Selection\r\nInteractive web-based data visualization with R, plotly, and shiny\r\nHappy Git and GitHub for the UseR\r\nMastering Spark with R\r\nR programming concepts\r\nTidy eval\r\nProgramming with dplyr\r\nUsing ggplot2 in packages\r\nCheat Sheets\r\nR Programming\r\n\r\n\r\n\r\n",
-      "last_modified": "2021-02-22T22:51:59-07:00"
+      "last_modified": "2021-02-22T23:08:52-07:00"
     }
   ],
   "collections": ["posts/posts.json"]
