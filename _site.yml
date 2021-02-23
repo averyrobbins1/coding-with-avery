@@ -6,7 +6,7 @@ collections:
     disqus: codingwithavery
     subscribe: _subscribe.html
 description: |
-  A place for learning data wrangling, data visualization, and other data programming stuff.
+  A place to learn data wrangling, data visualization, and other data programming stuff.
 output_dir: "_site"
 navbar:
   right:
@@ -17,5 +17,5 @@ navbar:
     - text: "Resources"
       href: resources.html
     - text: "Support"
-      href: https://.ko-fi.com/codingwithavery
+      href: https://www.Ko-fi.com/codingwithavery
 output: distill::distill_article

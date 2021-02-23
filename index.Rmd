@@ -1,5 +1,5 @@
 ---
-title: "Coding with Avery"
+title: "A place to learn data wrangling, data visualization, and other data programming stuff."
 site: distill::distill_website
 listing: posts
 ---

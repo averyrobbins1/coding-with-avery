@@ -1,24 +1,21 @@
 ---
 title: "About"
 description: |
-  Some additional details about the blog
+  About the blog
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
 ```
 
-![](img/avery_graph.jpg)
 
 ![Evolution of Avery](/img/avery_graph.jpg)
-
-:arrow_up: Written in R with ggplot2 :grinning: 
 
 I created the above graphic in June 2019 when the BYU-Idaho Data Science Society
 presidency attended a R/tidyverse workshop given by Garrett Grolemund,
 co-author of [R for Data Science](https://r4ds.had.co.nz/). 
 
-## Evolution of Avery R
+## Evolution of Avery
 
 At least one good thing to come out of the global coronavirus pandemic of 2020
 was that I finally had time to sit down and create my personal website. The main
