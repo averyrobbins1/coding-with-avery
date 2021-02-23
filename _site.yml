@@ -1,6 +1,7 @@
 name: "codingwithavery"
 title: "Coding with Avery"
 base_url: https://codingwithavery.com
+google_analytics: "G-7N1FC1R48X"
 collections:
   posts:
     disqus: codingwithavery
