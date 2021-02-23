@@ -1,0 +1,67 @@
+---
+title: "Resources"
+description: |
+  Hopefully one day this page becomes a vast ocean of resources for learning data science programming.
+---
+
+## Books about data science with R
+
+- [R for Data Science](https://r4ds.had.co.nz/)
+
+- [R for Data Science Exercise Solutions](https://jrnold.github.io/r4ds-exercise-solutions/)
+
+- [Advanced R](https://adv-r.hadley.nz/)
+
+- [R Packages](https://r-pkgs.org/)
+
+- [What They Forgot to Teach You About R](https://rstats.wtf/index.html)
+
+- [Functional Programming](https://dcl-prog.stanford.edu/)
+
+- [Mastering Shiny](https://adv-r.hadley.nz/)
+
+- [Mastering Software Development in R](https://bookdown.org/rdpeng/RProgDA/)
+
+- [Hands-On Machine Learning with R](https://bradleyboehmke.github.io/HOML/)
+
+- [R Markdown: The Definitive Guide](https://bookdown.org/yihui/rmarkdown/)
+
+- [Text Mining with R](https://www.tidytextmining.com/index.html)
+
+- [Forecasting: Principles and Practice](https://otexts.com/fpp2/)
+
+- [Feature Engineering and Selection](http://www.feat.engineering/)
+
+- [Interactive web-based data visualization with R, plotly, and shiny](https://plotly-r.com/index.html)
+
+- [Happy Git and GitHub for the UseR](https://happygitwithr.com/)
+
+- [Mastering Spark with R](https://therinspark.com/intro.html)
+
+## R programming concepts
+
+### Tidy eval
+
+- [Programming with dplyr](https://dplyr.tidyverse.org/articles/programming.html)
+
+- [Using ggplot2 in packages](https://ggplot2.tidyverse.org/articles/ggplot2-in-packages.html)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## Cheat Sheets
+
+- [R Programming](https://rstudio.cloud/learn/cheat-sheets)
+

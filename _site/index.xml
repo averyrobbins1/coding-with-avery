@@ -7,7 +7,16 @@
     <description>Coding with Avery
 </description>
     <generator>Distill</generator>
-    <lastBuildDate>Tue, 06 Oct 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 22 Feb 2021 00:00:00 +0000</lastBuildDate>
+    <item>
+      <title>Level up your ggplot2 graphics with ggtext</title>
+      <dc:creator>Avery Robbins</dc:creator>
+      <link>https://codingwithavery.com/posts/2021-02-22-ggtext</link>
+      <description>ggplot2 is arguably one of the most powerful plotting tools of any programming language. Built upon a solid grammar of graphics, ggplot2 allows you to quickly create highly customizable data visualizations. The ggtext package extends the bounds for customization even further.</description>
+      <guid>https://codingwithavery.com/posts/2021-02-22-ggtext</guid>
+      <pubDate>Mon, 22 Feb 2021 00:00:00 +0000</pubDate>
+      <media:content url="https://codingwithavery.com/posts/2021-02-22-ggtext/../../img/2021/2021-02-22-ggtext/plot_standarized_tests.png" medium="image" type="image/png" width="917" height="480"/>
+    </item>
     <item>
       <title>String interpolation in Python and R (the best ways)</title>
       <dc:creator>Avery Robbins</dc:creator>

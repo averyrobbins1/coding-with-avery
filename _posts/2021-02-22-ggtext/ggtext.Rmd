@@ -1,0 +1,267 @@
+---
+title: "Level up your ggplot2 graphics with ggtext"
+description: |
+  ggplot2 is arguably one of the most powerful plotting tools of any programming language. Built upon a solid grammar of graphics, ggplot2 allows you to quickly create highly customizable data visualizations. The ggtext package extends the bounds for customization even further.
+preview: ../../img/2021/2021-02-22-ggtext/plot_standarized_tests.png
+author:
+  - name: Avery Robbins
+    url: www.linkedin.com/in/avery-robbins
+date: 02-22-2021
+output:
+  distill::distill_article:
+    self_contained: false
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
+```
+
+![](../../img/2021/2021-02-22-ggtext/plot_standarized_tests.png)
+
+Small description of what we are doing
+
+Because of the sensitive nature of the data, I will instead demonstrate some of `ggtext`'s capabilities using the `mpg` dataset from `ggplot2`. We will create a similar plot to the one shown above, and this should allow you to follow along and mess with the code as desired.
+
+First, we need to install and load the following packages:
+
+```{r}
+# install.packages(c('dplyr', 'ggplot2', 'ggtext', 'showtext', 'glue'))
+library(dplyr)    # any data manipulation
+library(ggplot2)  # plotting
+library(ggtext)   # customizing text in ggplot2 plots
+library(showtext) # awesome package for fonts
+library(glue)     # for gluing together code and text
+
+```
+
+Next, we'll load the data from `ggplot2`.
+
+```{r}
+dat <- ggplot2::mpg
+
+glimpse(dat)
+```
+
+For our plot, we will compare city miles per gallon (`cty`) against highway miles per gallon (`hwy`), faceted by number of cylinders (`cyl`). In this toy example, we will also use `filter` to exclude five cylinder vehicles, which are pretty rare.
+
+```{r}
+dat %>% count(cyl)
+
+dat <- dat %>% 
+  filter(cyl != 5)
+
+dat %>% count(cyl)
+```
+
+Perhaps the most basic and simple version of the plot we could make with ggplot2 would be the following:
+
+```{r}
+dat %>% 
+  ggplot() +
+  geom_point(aes(x = cty, y = hwy)) +
+  facet_wrap(~ cyl)
+```
+
+Now onto the customization!
+
+I recently discovered the [showtext](https://cran.rstudio.com/web/packages/showtext/vignettes/introduction.html) package, which makes it ridiculously easy to add different fonts to R graphs. We will use `font_add_google` to load the specific font that we want and `showtext_auto` to automatically use `showtext` for new graphic devices.
+
+```{r}
+font_add_google('Fira Code')
+showtext_auto()
+```
+
+Next, we will do a little more data manipulation to get our colors into `dat`. Finding a good color picker website is a must, and recently I have enjoyed using this [one](https://htmlcolorcodes.com/color-picker/). After finding the right colors and their corresponding HTML codes, we'll use `mutate` and `case_when` to create two new columns: one for displaying the`cyl` as words, and one to match the colors to the right values of `cyl`.
+
+```{r}
+dat <- dat %>% 
+    mutate(
+        cyl_text = case_when(
+            cyl == 4 ~ 'Four',
+            cyl == 6 ~ 'Six',
+            cyl == 8 ~ 'Eight'
+        ),
+        cyl_color = case_when(
+            cyl == 4 ~ '#4E598A',
+            cyl == 6 ~ '#598A4E',
+            cyl == 8 ~ '#8A4E59'
+        )
+    )
+
+glimpse(dat)
+```
+
+Now we will use `glue` and just a little bit of CSS to prepare the column that we will use for faceting. By doing this, the facet labels on the plot will be colored appropriately. If you have never seen `glue` or inline CSS before, check out [glue](https://glue.tidyverse.org/) or [inline CSS](https://www.w3schools.com/css/css_howto.asp). You certainly don't need to know a whole lot of HTML or CSS to use `ggtext`, but just a little bit of knowledge will go along way. [w3schools](https://www.w3schools.com/default.asp) is a great resource for that kind of stuff.
+
+```{r}
+dat <- dat %>% 
+    mutate(
+        cyl_text = glue("<b style='color:{cyl_color}'>{cyl_text}</b>")
+    )
+
+# notice we just overrode the old cyl_text column
+
+glimpse(dat)
+```
+
+A lot of what we will do involves modifying individual theme components. This can be somewhat tedious. I often use the [docs](https://ggplot2.tidyverse.org/reference/theme.html) as a reference, but some people also like the [ggeasy](https://jonocarroll.github.io/ggeasy/) package.
+
+Before we get to the main code for the plot, let me point a couple of theme elements, `element_textbox_simple` and `element_markdown` , that are unique to `ggtext`.
+
+`ggtext` can handle many attributes of markdown, HTML, and CSS that you may want to throw into title, subtitles, labels, etc., but it will not recognize it automatically.
+
+To keep things less cluttered in the code below, let's write out the title, subtitle, and caption here, and store them in variables.
+
+```{r}
+title <- "Vehicles with <b style = 'color:#4E598A;'>four</b> cylinder engines get better gas mileage, on average,<br>than those with <b style = 'color:#598A4E;'>six</b> or <b style = 'color:#8A4E59;'>eight</b>"
+
+subtitle <- "Most cars are powered by a <b style = 'color:#4E598A;'>four</b> or <b style = 'color:#598A4E;'>six</b> cylinder engine, while most trucks have a <b style = 'color:#598A4E;'>six</b> or <b style = 'color:#8A4E59;'>eight</b> cylinder. The more cylinders in an engine, the more combustion that occurs, creating more movement to turn the crankshaft and power to move the car. <span style = 'color:#473504;'>However, more cylinders also require more gasoline to make the combustion necessary to drive the car and thus are not as efficient.</span>"
+
+caption <- 'Data: mpg dataset in ggplot2 R package\n
+Source: www\\.eagleridgegm\\.com/the\\-difference\\-between\\-4\\-cylinder\\-v6\\-v8\\-engines'
+```
+
+
+```{r}
+dat %>% 
+  ggplot() +
+  geom_point(aes(x = cty, y = hwy, color = cyl_color),
+   alpha = 0.7, size = 2) +   
+  
+  # allows the HTML color codes to work
+  scale_color_identity() + 
+  
+  facet_wrap(~ cyl_text) +
+  labs(
+    title = title,
+    subtitle = subtitle,
+    x = 'City MPG',
+    y = 'Highway\nMPG',
+    caption = caption
+  ) +
+  theme_minimal() +
+  theme(
+    
+    
+    text = element_text(family = 'Fira Code'),
+    
+    
+    panel.grid = element_blank(),
+    panel.spacing = unit(1, "lines"),
+    
+    
+    plot.background = element_rect(fill = '#D3D3D3'),
+    
+    plot.margin = unit(c(.5,.75,.5,.75), 'cm'),
+    
+    plot.title.position = 'plot',
+    
+    plot.title = element_markdown(size = 16,
+                                  face = 'bold',
+                                  color = '#525252',
+                                  lineheight = 1.2),
+    
+    plot.subtitle = element_textbox_simple(
+        size = 10,
+        lineheight = 1.2,
+        padding = margin(5.5, 5.5, 5.5, 5.5),
+        margin = margin(0, 0, 5.5, 0),
+        fill = '#CCCCCC'),
+    
+    plot.caption = element_textbox_simple(
+            size = 9,
+            lineheight = 1.2,
+            margin = margin(20, 50, 0, 0),
+            fill = '#D3D3D3'),
+    
+    
+    axis.text = element_text(size = 12),
+    axis.title = element_text(size = 12, face = 'bold', color = '#525252'),
+    axis.title.x = element_text(margin = unit(c(.5, 0, 0, 0), "cm")),
+    axis.title.y = element_text(angle = 0, vjust = 1),
+    
+    
+    strip.text = element_markdown(size = 14)
+    )
+
+```
+
+
+```{r, include=FALSE}
+# devtools::install_github("EvaMaeRey/flipbookr")
+library(flipbookr)
+library(xaringan)
+library(xaringanExtra)
+```
+
+```{r, plot_flipbook, include=FALSE}
+dat %>%
+  ggplot() +
+  geom_point(aes(x = cty, y = hwy, color = cyl_color),
+             alpha = 0.7, size = 2) +
+  scale_color_identity() +
+  facet_wrap(~ cyl_text) +
+  labs(
+    title = title,
+    subtitle = subtitle,
+    x = 'City MPG',
+    y = 'Highway\nMPG',
+    caption = caption
+  ) +
+  theme_minimal() +
+    theme(legend.position = 'none') +                                                   
+    theme(text = element_text(family = 'Fira Code')) +
+    theme(panel.grid = element_blank()) +
+    theme(panel.spacing = unit(1, "lines")) +
+    theme(plot.background = element_rect(fill = '#D3D3D3')) +
+    theme(plot.margin = unit(c(.5,.75,.5,.75), 'cm')) +
+    theme(plot.title.position = 'plot') +
+    theme(plot.title = element_markdown(size = 16,
+                                  face = 'bold',
+                                  color = '#525252',
+                                  lineheight = 1.2)) +
+    theme(plot.subtitle = element_textbox_simple(
+        size = 10,
+        lineheight = 1.2,
+        padding = margin(5.5, 5.5, 5.5, 5.5),
+        margin = margin(0, 0, 5.5, 0),
+        fill = '#CCCCCC')) +
+    theme(plot.caption = element_textbox_simple(
+            size = 9,
+            lineheight = 1.2,
+            margin = margin(20, 50, 0, 0),
+            fill = '#D3D3D3')) +
+    theme(axis.text = element_text(size = 12)) +
+    theme(axis.title = element_text(size = 12, face = 'bold', color = '#525252')) +
+    theme(axis.title.x = element_text(margin = unit(c(.5, 0, 0, 0), "cm"))) +
+    theme(axis.title.y = element_text(angle = 0, vjust = 1)) +
+    theme(strip.text = element_markdown(size = 14))
+```
+
+#### Here's a semi functional flipbook
+
+This probably only looks decent on desktop, and even then I'm not so sure.
+
+```{r, echo=FALSE}
+embed_flipbook(chunk_name = 'plot_flipbook',
+               use_share_again = T, 
+               use_embed_xaringan = T)
+```
+
+
+
+
+------------------------------------------------------------------------
+
+### R and package versions
+
+```{r}
+R.version
+
+packageVersion('dplyr')
+packageVersion('ggplot2')
+packageVersion('ggtext')
+packageVersion('showtext')
+```
