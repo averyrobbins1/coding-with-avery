@@ -328,6 +328,7 @@ embed_flipbook(chunk_name = 'plot_flipbook',
                use_embed_xaringan = T)
 ```
 
+
 ## Farewell
 
 Thanks so much for reading! I hope you found this post helpful. Go forth and customize your `ggplot2` graphics for better communication! Feel free to leave any questions or comments below, or shoot me an email at *avery@codewithavery.com*. I'm always open to feedback and happy to help anyone with their coding questions.

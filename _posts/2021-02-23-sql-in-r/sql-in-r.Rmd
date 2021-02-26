@@ -1,0 +1,75 @@
+---
+title: "SQL in R"
+description: |
+  A short description of the post.
+author:
+  - name: Avery Robbins
+    url: www.linkedin.com/in/avery-robbins
+date: 02-23-2021
+output:
+  distill::distill_article:
+    self_contained: false
+draft: true
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Install and load packages:
+
+```{r}
+# install.packages(c('dplyr', 'tidyquery'))
+library(dplyr)     # data manipulation
+library(ggplot2)   # plotting
+library(sqldf) # using SQL in R
+```
+
+
+
+We'll use the `starwars` data set in `dplyr`.
+
+```{r}
+dat <- dplyr::starwars
+
+glimpse(dat)
+```
+
+```{r}
+dat %>% 
+  ggplot() +
+  geom_histogram(aes(x = height))
+```
+
+[tidyquery's](https://github.com/ianmcook/tidyquery#using-query) `query` function allows us to use SQL to query an R data frame. Pretty cool.
+
+```{r}
+sqldf(
+  "
+  SELECT name, height, mass
+  FROM dat
+  WHERE height > 200
+  ORDER BY height DESC;
+  "
+)
+```
+
+Yeah I guess Yarael Poof looks pretty tall.
+
+![](../../img/2021-02-23-sql-in-r/yarael.jpg)
+
+### Using a SQL subquery for data fabrication
+
+```{r}
+query(
+  "
+  SELECT 'hobbit' name, 0 lower, 99.99 higher
+  UNION ALL
+  SELECT 'average' name, 100 lower, 199.99 higher
+  "
+)
+```
+
+

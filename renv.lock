@@ -11,10 +11,10 @@
   "Packages": {
     "BH": {
       "Package": "BH",
-      "Version": "1.72.0-3",
+      "Version": "1.75.0-0",
       "Source": "Repository",
       "Repository": "CRAN",
-      "Hash": "8f9ce74c6417d61f0782cbae5fd2b7b0"
+      "Hash": "e4c04affc2cac20c8fec18385cd14691"
     },
     "DBI": {
       "Package": "DBI",
@@ -371,6 +371,18 @@
       "Repository": "CRAN",
       "Hash": "dad6793a5a1f73c8e91f1a1e3e834b05"
     },
+    "flipbookr": {
+      "Package": "flipbookr",
+      "Version": "0.1.0",
+      "Source": "GitHub",
+      "RemoteType": "github",
+      "RemoteHost": "api.github.com",
+      "RemoteRepo": "flipbookr",
+      "RemoteUsername": "EvaMaeRey",
+      "RemoteRef": "HEAD",
+      "RemoteSha": "fc175bc8aaf39b0fe4a9937a3ddd603166f85c21",
+      "Hash": "ef10f684869c61da0148673529a141d2"
+    },
     "forcats": {
       "Package": "forcats",
       "Version": "0.5.0",
@@ -556,6 +568,13 @@
       "Repository": "CRAN",
       "Hash": "6fdaa86d0700f8b3e92ee3c445a5a10d"
     },
+    "httpuv": {
+      "Package": "httpuv",
+      "Version": "1.5.5",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "b9d5d39be2150cf86538b8488334b8f8"
+    },
     "httr": {
       "Package": "httr",
       "Version": "1.4.2",
@@ -625,6 +644,13 @@
       "Source": "Repository",
       "Repository": "CRAN",
       "Hash": "73832978c1de350df58108c745ed0e3e"
+    },
+    "later": {
+      "Package": "later",
+      "Version": "1.1.0.1",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "d0a62b247165aabf397fded504660d8a"
     },
     "lattice": {
       "Package": "lattice",
@@ -836,6 +862,13 @@
       "Repository": "CRAN",
       "Hash": "14dc9f7a3c91ebb14ec5bb9208a07061"
     },
+    "promises": {
+      "Package": "promises",
+      "Version": "1.2.0.1",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "4ab2c43adb4d4699cf3690acd378d75d"
+    },
     "ps": {
       "Package": "ps",
       "Version": "1.4.0",
@@ -856,6 +889,13 @@
       "Source": "Repository",
       "Repository": "CRAN",
       "Hash": "5a2907cd44279b5861ac5f813465b5c9"
+    },
+    "queryparser": {
+      "Package": "queryparser",
+      "Version": "0.3.1",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "4a31fff48217b98bb804da32e2abb013"
     },
     "rJava": {
       "Package": "rJava",
@@ -1024,6 +1064,13 @@
       "Repository": "CRAN",
       "Hash": "3838071b66e0c566d55cc26bd6e27bf4"
     },
+    "servr": {
+      "Package": "servr",
+      "Version": "0.21",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "48d1289a847c801b3f0e76fc619fa65d"
+    },
     "showtext": {
       "Package": "showtext",
       "Version": "0.9-2",
@@ -1148,6 +1195,13 @@
       "Repository": "CRAN",
       "Hash": "f8cc5adf4671b013434bbe127f35b28c"
     },
+    "tidyquery": {
+      "Package": "tidyquery",
+      "Version": "0.2.2",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "7a9d0b911be1ab1f447f82f44bfa7c41"
+    },
     "tidyr": {
       "Package": "tidyr",
       "Version": "1.1.2",
@@ -1211,6 +1265,13 @@
       "Repository": "CRAN",
       "Hash": "4a5081acfb7b81a572e4384a7aaf2af1"
     },
+    "uuid": {
+      "Package": "uuid",
+      "Version": "0.1-4",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "e4169eb989a5d03ccb6b628cad1b1b50"
+    },
     "vctrs": {
       "Package": "vctrs",
       "Version": "0.3.5",
@@ -1266,6 +1327,25 @@
       "Source": "Repository",
       "Repository": "CRAN",
       "Hash": "dddb6538141ed1e2435cb63c6c748d16"
+    },
+    "xaringan": {
+      "Package": "xaringan",
+      "Version": "0.19",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "0d0e49333c8a4841db419aea628ac16f"
+    },
+    "xaringanExtra": {
+      "Package": "xaringanExtra",
+      "Version": "0.2.5.9000",
+      "Source": "GitHub",
+      "RemoteType": "github",
+      "RemoteHost": "api.github.com",
+      "RemoteRepo": "xaringanExtra",
+      "RemoteUsername": "gadenbuie",
+      "RemoteRef": "HEAD",
+      "RemoteSha": "7ce6cbb787c220c2794ad91141c1684ab718a37b",
+      "Hash": "877a15f557ada48bcad9bb9deb3b5c9b"
     },
     "xfun": {
       "Package": "xfun",
