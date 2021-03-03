@@ -7,7 +7,16 @@
     <description>A place to learn data programming stuff.
 </description>
     <generator>Distill</generator>
-    <lastBuildDate>Mon, 22 Feb 2021 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 02 Mar 2021 00:00:00 +0000</lastBuildDate>
+    <item>
+      <title>Five tips for working with computationally expensive operations in R</title>
+      <dc:creator>Avery Robbins</dc:creator>
+      <link>https://codingwithavery.com/posts/2021-03-02-pins-and-friends</link>
+      <description>No one likes sitting around waiting for code to finish running, and we may not have access to cloud computing options all the time. Even though we love R, we have to admit that it can be slow at times. Here are five different things that make dealing with computationally expensive operations in R more manageable (and maybe even more fun).</description>
+      <guid>https://codingwithavery.com/posts/2021-03-02-pins-and-friends</guid>
+      <pubDate>Tue, 02 Mar 2021 00:00:00 +0000</pubDate>
+      <media:content url="https://codingwithavery.com/posts/2021-03-02-pins-and-friends/../../img/2021/2021-03-02-pins-and-friends/push-pins.jpg" medium="image" type="image/jpeg"/>
+    </item>
     <item>
       <title>Level up your ggplot2 graphics with ggtext</title>
       <dc:creator>Avery Robbins</dc:creator>

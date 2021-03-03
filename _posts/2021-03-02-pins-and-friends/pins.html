@@ -110,12 +110,12 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   <!--radix_placeholder_rmarkdown_metadata-->
 
   <script type="text/json" id="radix-rmarkdown-metadata">
-  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","author","date","output","draft","editor_options"]}},"value":[{"type":"character","attributes":{},"value":["Five tips for working with computationally expensive operations in R"]},{"type":"character","attributes":{},"value":["No one likes sitting around waiting for code to finish running, and we may not have access to cloud computing options all the time. Even though we love R, we have to admit that it can be slow at times. Here are five different things that make dealing with computationally expensive operations in R more manageable (and maybe even more fun). \n"]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","url"]}},"value":[{"type":"character","attributes":{},"value":["Avery Robbins"]},{"type":"character","attributes":{},"value":["www.linkedin.com/in/avery-robbins"]}]}]},{"type":"character","attributes":{},"value":["03-02-2021"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["self_contained"]}},"value":[{"type":"logical","attributes":{},"value":[false]}]}]},{"type":"logical","attributes":{},"value":[true]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["chunk_output_type"]}},"value":[{"type":"character","attributes":{},"value":["console"]}]}]}
+  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","preview","author","date","output","editor_options"]}},"value":[{"type":"character","attributes":{},"value":["Five tips for working with computationally expensive operations in R"]},{"type":"character","attributes":{},"value":["No one likes sitting around waiting for code to finish running, and we may not have access to cloud computing options all the time. Even though we love R, we have to admit that it can be slow at times. Here are five different things that make dealing with computationally expensive operations in R more manageable (and maybe even more fun). \n"]},{"type":"character","attributes":{},"value":["../../img/2021/2021-03-02-pins-and-friends/push-pins.jpg"]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","url"]}},"value":[{"type":"character","attributes":{},"value":["Avery Robbins"]},{"type":"character","attributes":{},"value":["www.linkedin.com/in/avery-robbins"]}]}]},{"type":"character","attributes":{},"value":["03-02-2021"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["self_contained"]}},"value":[{"type":"logical","attributes":{},"value":[false]}]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["chunk_output_type"]}},"value":[{"type":"character","attributes":{},"value":["console"]}]}]}
   </script>
   <!--/radix_placeholder_rmarkdown_metadata-->
   
   <script type="text/json" id="radix-resource-manifest">
-  {"type":"character","attributes":{},"value":["pins_files/anchor-4.2.2/anchor.min.js","pins_files/bowser-1.9.3/bowser.min.js","pins_files/distill-2.2.21/template.v2.js","pins_files/figure-html5/unnamed-chunk-3-1.png","pins_files/header-attrs-2.6/header-attrs.js","pins_files/jquery-1.11.3/jquery.min.js","pins_files/popper-2.6.0/popper.min.js","pins_files/tippy-6.2.7/tippy-bundle.umd.min.js","pins_files/tippy-6.2.7/tippy-light-border.css","pins_files/tippy-6.2.7/tippy.css","pins_files/tippy-6.2.7/tippy.umd.min.js","pins_files/webcomponents-2.0.0/webcomponents.js"]}
+  {"type":"character","attributes":{},"value":["pins_files/figure-html5/last_plot-1.png","pins_files/figure-html5/unnamed-chunk-3-1.png"]}
   </script>
   <!--radix_placeholder_navigation_in_header-->
   <!--/radix_placeholder_navigation_in_header-->
@@ -1477,6 +1477,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 </div>
 
 <div class="d-article">
+<p><img src="../../img/2021/2021-03-02-pins-and-friends/push-pins.jpg" /></p>
 <h3 id="background">Background</h3>
 <p>Recently, in my senior project, we have been doing a lot of modeling in R. We are somewhat limited to running code on our own machines (instead of leveraging cloud resources), so there has been a fair amount of waiting for code to finish running. Not a crazy amount, but still. Training algorithms and tuning hyperparameters (the parameters that are not necessarily learned directly from the data, like what K to choose in K nearest neighbors), can often be a huge burden on less powerful machines. That means these computations take time. This post is an attempt to help you deal with that reality.</p>
 <h3 id="five-tips-resources">Five tips / resources</h3>
@@ -1485,8 +1486,8 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <li><code>tictoc</code> package - timing computationally expensive operations</li>
 <li><code>beepr</code> package - play a notification sound after computationally expensive operations finish running</li>
 <li><code>pins</code> package - cache computationally expensive operations for sharing and future re-use</li>
-<li>R jobs in RStudio - run computationally expensive operations in the background using local jobs</li>
 <li>parallel processing - use multiple cores or separate machines to split up the burden of computationally expensive operations</li>
+<li>R jobs in RStudio - run computationally expensive operations in the background using local jobs</li>
 </ol>
 <p>We will demonstrate the use of these resources using a simple machine learning example. As always, here are the packages that you will need to install and load in order to run the code yourself:</p>
 <div class="layout-chunk" data-layout="l-body">
@@ -1502,10 +1503,11 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <h3 id="setting-up-the-example">Setting up the example</h3>
 <p>For our example we will set up a basic decision tree regressor with the <code>tidymodels</code> suite of R packages. <code>tidymodels</code> is to <em>modeling</em> as the <code>tidyverse</code> is to <em>data wrangling and visualization</em>. They are both meta-packages that house many smaller packages that work well together and share a common API and design philosophy.</p>
 <p>If you have ever used the popular <code>caret</code> package to do modeling in R, <code>tidymodels</code> is sort of like the successor to <code>caret</code>. The fantastic <code>caret</code> author, Max Kuhn, is leading the <code>tidymodels</code> team at RStudio. This post is not really meant to be an introduction to <code>tidymodels</code>, but the API is straightforward enough that the example should make sense without too much explanation. I’ll link to resources for learning more at the end of the post, and I may do an “Intro to tidymodels” type post in the future. I mostly want to focus on the five tips mentioned previously.</p>
-<p>The data that we will use is from the <code>diamonds</code> dataset in the <code>ggplot2</code> package. It contains price and other attributes of over 50,000 diamonds. Also, the <code>tidymodels</code> meta-package also contains <code>ggplot2</code> and <code>dplyr</code> for all your data wrangling and visualization needs, so there is generally no need to load them separately.</p>
+<p>The data that we will use is from the <code>diamonds</code> dataset in the <code>ggplot2</code> package. It contains price and other attributes of over 50,000 diamonds. Also, the <code>tidymodels</code> meta-package contains <code>ggplot2</code> and <code>dplyr</code> for all your data wrangling and visualization needs, so there is generally no need to load them separately.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='co'># ?diamonds - run this in your console to learn more about the diamonds dataset</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='co'># ?diamonds - run this in your console to </span>
+<span class='co'># learn more about the diamonds dataset</span>
 
 <span class='va'>dat</span> <span class='op'>&lt;-</span> <span class='fu'>ggplot2</span><span class='fu'>::</span><span class='va'><a href='https://ggplot2.tidyverse.org/reference/diamonds.html'>diamonds</a></span>
 
@@ -1528,7 +1530,8 @@ $ z       &lt;dbl&gt; 2.43, 2.31, 2.31, 2.63, 2.75, 2.48, 2.47, 2.53, 2.49~</cod
 <p>Let’s says after doing some initial exploration of the data that we want to try and predict <code>price</code> using the rest of the columns (variables/features) in our data.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='co'># quick plot from gpglot2 to see the distribution of diamond prices</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='co'># quick plot from gglot2 to see the</span>
+<span class='co'># distribution of diamond prices</span>
 <span class='fu'>ggplot2</span><span class='fu'>::</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/qplot.html'>qplot</a></span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>dat</span>, x <span class='op'>=</span> <span class='va'>price</span>, bins <span class='op'>=</span> <span class='fl'>100</span><span class='op'>)</span> <span class='op'>+</span>
   <span class='fu'>labs</span><span class='op'>(</span>title <span class='op'>=</span> <span class='st'>"Most diamonds aren't crazy expensive"</span><span class='op'>)</span>
 </code></pre>
@@ -1538,10 +1541,11 @@ $ z       &lt;dbl&gt; 2.43, 2.31, 2.31, 2.63, 2.75, 2.48, 2.47, 2.53, 2.49~</cod
 <p>First, we will split our data into training and testing sets using functions from <code>tidymodels</code>.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='co'># initial_split, training, and testing are functions from the rsample</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='co'># initial_split, training, and testing</span>
+<span class='co'># are functions from the rsample</span>
 <span class='co'># package that is part of tidymodels</span>
 
-<span class='co'># set a seed for reproducibility of the 'randomness'</span>
+<span class='co'># set a seed for reproducibility</span>
 <span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span><span class='op'>(</span><span class='fl'>123</span><span class='op'>)</span> 
 
 <span class='co'># split the data, using 3/4 for training</span>
@@ -1602,31 +1606,26 @@ $ z       &lt;dbl&gt; 2.43, 2.31, 2.31, 2.63, 2.75, 2.48, 2.47, 2.53, 2.49~</cod
 <pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span><span class='op'>(</span><span class='fl'>123</span><span class='op'>)</span>
 
 <span class='co'>#rsample::vfold_cv for creating cross-validation folds</span>
-<span class='va'>folds</span> <span class='op'>&lt;-</span> <span class='fu'>vfold_cv</span><span class='op'>(</span><span class='va'>dat_train</span><span class='op'>)</span>
+<span class='va'>folds</span> <span class='op'>&lt;-</span> <span class='fu'>vfold_cv</span><span class='op'>(</span><span class='va'>dat_train</span>, v <span class='op'>=</span> <span class='fl'>5</span><span class='op'>)</span> <span class='co'># v = 10 is the default</span>
 
 <span class='va'>folds</span>
 </code></pre>
 </div>
-<pre><code>#  10-fold cross-validation 
-# A tibble: 10 x 2
-   splits               id    
-   &lt;list&gt;               &lt;chr&gt; 
- 1 &lt;split [36409/4046]&gt; Fold01
- 2 &lt;split [36409/4046]&gt; Fold02
- 3 &lt;split [36409/4046]&gt; Fold03
- 4 &lt;split [36409/4046]&gt; Fold04
- 5 &lt;split [36409/4046]&gt; Fold05
- 6 &lt;split [36410/4045]&gt; Fold06
- 7 &lt;split [36410/4045]&gt; Fold07
- 8 &lt;split [36410/4045]&gt; Fold08
- 9 &lt;split [36410/4045]&gt; Fold09
-10 &lt;split [36410/4045]&gt; Fold10</code></pre>
+<pre><code>#  5-fold cross-validation 
+# A tibble: 5 x 2
+  splits               id   
+  &lt;list&gt;               &lt;chr&gt;
+1 &lt;split [32364/8091]&gt; Fold1
+2 &lt;split [32364/8091]&gt; Fold2
+3 &lt;split [32364/8091]&gt; Fold3
+4 &lt;split [32364/8091]&gt; Fold4
+5 &lt;split [32364/8091]&gt; Fold5</code></pre>
 </div>
 <p>Now we will create something called a <em>model specification</em>, and we will mark the decision tree hyperparameters, <code>tree_depth</code> and <code>cost_complexity</code>, that we want to tune with the special placeholder function, <code>tune()</code>. <code>tree_depth</code> is simply the maximum depth of the tree, while <code>cost_complexity</code> will hopefully help to create a simpler tree that doesn’t overfit the training data. At this point we haven’t fit any data to the model, but instead we are basically laying out a blueprint for our model.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='co'># tidymodels uses the parsnip package for creating model specifications</span>
-<span class='co'># like decision_tree()</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='co'># tidymodels uses the parsnip package for creating </span>
+<span class='co'># model specifications like decision_tree()</span>
 <span class='va'>tree_spec</span> <span class='op'>&lt;-</span> <span class='fu'>decision_tree</span><span class='op'>(</span>
   cost_complexity <span class='op'>=</span> <span class='fu'>tune</span><span class='op'>(</span><span class='op'>)</span>, <span class='co'># mark that we will be tuning cost_complexity</span>
   tree_depth <span class='op'>=</span> <span class='fu'>tune</span><span class='op'>(</span><span class='op'>)</span> <span class='co'># mark that we will be tuning tree_depth</span>
@@ -1647,28 +1646,26 @@ $ z       &lt;dbl&gt; 2.43, 2.31, 2.31, 2.63, 2.75, 2.48, 2.47, 2.53, 2.49~</cod
 <pre class="sourceCode r"><code class="sourceCode r"><span class='va'>tree_grid</span> <span class='op'>&lt;-</span> <span class='fu'>grid_regular</span><span class='op'>(</span>
   <span class='fu'>cost_complexity</span><span class='op'>(</span><span class='op'>)</span>,
   <span class='fu'>tree_depth</span><span class='op'>(</span><span class='op'>)</span>,
-  levels <span class='op'>=</span> <span class='fl'>5</span>
+  levels <span class='op'>=</span> <span class='fl'>3</span> <span class='co'># realistically you would want a lot more than 3 levels</span>
 <span class='op'>)</span>
 
 <span class='va'>tree_grid</span>
 </code></pre>
 </div>
-<pre><code># A tibble: 25 x 2
-   cost_complexity tree_depth
-             &lt;dbl&gt;      &lt;int&gt;
- 1    0.0000000001          1
- 2    0.0000000178          1
- 3    0.00000316            1
- 4    0.000562              1
- 5    0.1                   1
- 6    0.0000000001          4
- 7    0.0000000178          4
- 8    0.00000316            4
- 9    0.000562              4
-10    0.1                   4
-# ... with 15 more rows</code></pre>
+<pre><code># A tibble: 9 x 2
+  cost_complexity tree_depth
+            &lt;dbl&gt;      &lt;int&gt;
+1    0.0000000001          1
+2    0.00000316            1
+3    0.1                   1
+4    0.0000000001          8
+5    0.00000316            8
+6    0.1                   8
+7    0.0000000001         15
+8    0.00000316           15
+9    0.1                  15</code></pre>
 </div>
-<p>Almost done setting up the example, I swear. Maybe I should have turned this into a <code>tidymodels</code> tutorial. <code>tidymodels</code> contains the <code>workflows</code> package that allows you to bundle together models, formulas, and pre-processing recipes (which we haven’t shown in this post). This makes it easy to work with just a single object instead of multiple objects scattered across an analysis.</p>
+<p>Almost done setting up the example, I swear. Maybe I should have turned this into a <code>tidymodels</code> tutorial. Anyways, <code>tidymodels</code> contains the <code>workflows</code> package that allows you to bundle together models, formulas, and pre-processing recipes (which we haven’t shown in this post). This makes it easy to work with just a single object instead of multiple objects scattered across an analysis.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='va'>tree_workflow</span> <span class='op'>&lt;-</span> <span class='fu'>workflow</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
@@ -1694,15 +1691,418 @@ Main Arguments:
 
 Computational engine: rpart </code></pre>
 </div>
+<h3 id="tictoc-and-beepr">tictoc and beepr</h3>
+<p>Finally, we will <em>tune</em> the hyperparameters using <code>tune_grid</code> and the objects that we have created previously. <code>tune_grid</code> will fit a model for each combination of fold and hyperparameter set. In this case, 45 models will be trained. The performance for each parameter set is averaged across the folds, so that you will be able to see the average performance for 9 different sets of hyperparameters. Hopefully that makes sense.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span><span class='op'>(</span><span class='va'>folds</span><span class='op'>)</span> <span class='op'>*</span> <span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span><span class='op'>(</span><span class='va'>tree_grid</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code>[1] 45</code></pre>
+</div>
+<p>Depending on how much data you have or how many hyperparameters you are trying, tuning may take a long time. I have found it super helpful to take note of how long operations take, just in case I need to run code again.</p>
+<p>We will use <code>tic</code> and <code>toc</code> from the <code>tictoc</code> package to time how long our code takes to run. Put <code>tic</code> before the code you want to time, and <code>toc</code> at the end. Either run the whole chunk at once (if using rmarkdown) or highlight all of the code and run it at once (if in a script). Also, the <code>msg</code> is optional. I usually don’t worry about it.</p>
+<p>We can also include <code>beepr::beep</code> after <code>toc</code> to play a specific notification sound for when the code finishes running. You could start your code, go make a sandwich, and then hear when it is done.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/pkg/tictoc/man/tic.html'>tic</a></span><span class='op'>(</span>msg <span class='op'>=</span> <span class='st'>'tuning decision tree hyperparameters'</span><span class='op'>)</span>
+<span class='va'>tune_results</span> <span class='op'>&lt;-</span> <span class='fu'>tune_grid</span><span class='op'>(</span>
+  <span class='va'>tree_workflow</span>, <span class='co'># bundle of model and formula</span>
+  resamples <span class='op'>=</span> <span class='va'>folds</span>, <span class='co'># cross-validation folds</span>
+  grid <span class='op'>=</span> <span class='va'>tree_grid</span> <span class='co'># grid of hyperparameter candidates</span>
+<span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/pkg/tictoc/man/tic.html'>toc</a></span><span class='op'>(</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code>tuning decision tree hyperparameters: 39.44 sec elapsed</code></pre>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/pkg/beepr/man/beep.html'>beep</a></span><span class='op'>(</span><span class='st'>'fanfare'</span><span class='op'>)</span>
+</code></pre>
+</div>
+</div>
+<p>Here are the results:</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>tune_results</span>
+</code></pre>
+</div>
+<pre><code># Tuning results
+# 5-fold cross-validation 
+# A tibble: 5 x 4
+  splits               id    .metrics          .notes          
+  &lt;list&gt;               &lt;chr&gt; &lt;list&gt;            &lt;list&gt;          
+1 &lt;split [32364/8091]&gt; Fold1 &lt;tibble [18 x 6]&gt; &lt;tibble [0 x 1]&gt;
+2 &lt;split [32364/8091]&gt; Fold2 &lt;tibble [18 x 6]&gt; &lt;tibble [0 x 1]&gt;
+3 &lt;split [32364/8091]&gt; Fold3 &lt;tibble [18 x 6]&gt; &lt;tibble [0 x 1]&gt;
+4 &lt;split [32364/8091]&gt; Fold4 &lt;tibble [18 x 6]&gt; &lt;tibble [0 x 1]&gt;
+5 &lt;split [32364/8091]&gt; Fold5 &lt;tibble [18 x 6]&gt; &lt;tibble [0 x 1]&gt;</code></pre>
+</div>
+<p>There are various convenience functions that help you access the resulting data without having to use <code>tidyr</code> or <code>purrr</code>.</p>
+<p>Collect the performance metrics from the models.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>tune_results</span> <span class='op'>%&gt;%</span> <span class='fu'>collect_metrics</span><span class='op'>(</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code># A tibble: 18 x 8
+   cost_complexity tree_depth .metric .estimator    mean     n std_err
+             &lt;dbl&gt;      &lt;int&gt; &lt;chr&gt;   &lt;chr&gt;        &lt;dbl&gt; &lt;int&gt;   &lt;dbl&gt;
+ 1    0.0000000001          1 rmse    standard   2.49e+3     5 1.72e+1
+ 2    0.0000000001          1 rsq     standard   6.10e-1     5 2.65e-3
+ 3    0.00000316            1 rmse    standard   2.49e+3     5 1.72e+1
+ 4    0.00000316            1 rsq     standard   6.10e-1     5 2.65e-3
+ 5    0.1                   1 rmse    standard   2.49e+3     5 1.72e+1
+ 6    0.1                   1 rsq     standard   6.10e-1     5 2.65e-3
+ 7    0.0000000001          8 rmse    standard   7.16e+2     5 5.99e+0
+ 8    0.0000000001          8 rsq     standard   9.68e-1     5 8.90e-4
+ 9    0.00000316            8 rmse    standard   7.16e+2     5 6.01e+0
+10    0.00000316            8 rsq     standard   9.68e-1     5 8.92e-4
+11    0.1                   8 rmse    standard   1.81e+3     5 1.24e+1
+12    0.1                   8 rsq     standard   7.94e-1     5 3.57e-3
+13    0.0000000001         15 rmse    standard   6.37e+2     5 6.70e+0
+14    0.0000000001         15 rsq     standard   9.75e-1     5 7.56e-4
+15    0.00000316           15 rmse    standard   6.41e+2     5 6.79e+0
+16    0.00000316           15 rsq     standard   9.74e-1     5 7.81e-4
+17    0.1                  15 rmse    standard   1.81e+3     5 1.24e+1
+18    0.1                  15 rsq     standard   7.94e-1     5 3.57e-3
+# ... with 1 more variable: .config &lt;chr&gt;</code></pre>
+</div>
+<p>Show just the best results for a specific performance metric.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>tune_results</span> <span class='op'>%&gt;%</span> <span class='fu'>show_best</span><span class='op'>(</span><span class='st'>'rsq'</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code># A tibble: 5 x 8
+  cost_complexity tree_depth .metric .estimator  mean     n  std_err
+            &lt;dbl&gt;      &lt;int&gt; &lt;chr&gt;   &lt;chr&gt;      &lt;dbl&gt; &lt;int&gt;    &lt;dbl&gt;
+1    0.0000000001         15 rsq     standard   0.975     5 0.000756
+2    0.00000316           15 rsq     standard   0.974     5 0.000781
+3    0.0000000001          8 rsq     standard   0.968     5 0.000890
+4    0.00000316            8 rsq     standard   0.968     5 0.000892
+5    0.1                   8 rsq     standard   0.794     5 0.00357 
+# ... with 1 more variable: .config &lt;chr&gt;</code></pre>
+</div>
+<p>Anyways, check out the docs for more on tidymodels.</p>
+<p><code>tic</code> and <code>toc</code> are rather nifty. They can be nested if needed (from the documentation):</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/pkg/tictoc/man/tic.html'>tic</a></span><span class='op'>(</span><span class='st'>"outer"</span><span class='op'>)</span>
+  <span class='fu'><a href='https://rdrr.io/r/base/Sys.sleep.html'>Sys.sleep</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>)</span>
+  <span class='fu'><a href='https://rdrr.io/pkg/tictoc/man/tic.html'>tic</a></span><span class='op'>(</span><span class='st'>"middle"</span><span class='op'>)</span>
+    <span class='fu'><a href='https://rdrr.io/r/base/Sys.sleep.html'>Sys.sleep</a></span><span class='op'>(</span><span class='fl'>2</span><span class='op'>)</span>
+    <span class='fu'><a href='https://rdrr.io/pkg/tictoc/man/tic.html'>tic</a></span><span class='op'>(</span><span class='st'>"inner"</span><span class='op'>)</span>
+      <span class='fu'><a href='https://rdrr.io/r/base/Sys.sleep.html'>Sys.sleep</a></span><span class='op'>(</span><span class='fl'>3</span><span class='op'>)</span>
+    <span class='fu'><a href='https://rdrr.io/pkg/tictoc/man/tic.html'>toc</a></span><span class='op'>(</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code>inner: 3.04 sec elapsed</code></pre>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r">  <span class='fu'><a href='https://rdrr.io/pkg/tictoc/man/tic.html'>toc</a></span><span class='op'>(</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code>middle: 5.07 sec elapsed</code></pre>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/pkg/tictoc/man/tic.html'>toc</a></span><span class='op'>(</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code>outer: 6.11 sec elapsed</code></pre>
+</div>
+<p><code>beep</code> can use any of the ten options below for playing different sounds, and you can use either text or numbers.</p>
+<ol type="1">
+<li>“ping”</li>
+<li>“coin”</li>
+<li>“fanfare”</li>
+<li>“complete”</li>
+<li>“treasure”</li>
+<li>“ready”</li>
+<li>“shotgun”</li>
+<li>“mario”</li>
+<li>“wilhelm”</li>
+<li>“facebook”</li>
+</ol>
+<p>Fans of classic video games will appreciate these sounds:</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/pkg/beepr/man/beep.html'>beep</a></span><span class='op'>(</span><span class='fl'>5</span><span class='op'>)</span>
+</code></pre>
+</div>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/pkg/beepr/man/beep.html'>beep</a></span><span class='op'>(</span><span class='st'>'mario'</span><span class='op'>)</span>
+</code></pre>
+</div>
+</div>
 <h3 id="pins">pins</h3>
-<h3 id="tictoc">tictoc</h3>
-<h3 id="beepr">beepr</h3>
-<p>Fans of classic older videos games with especially appreciate <code>3</code> and <code>8</code></p>
-<h3 id="main-example">main example</h3>
-<h3 id="r-jobs">R jobs</h3>
+<p>It is very likely that you will not complete an entire analysis in one sitting. Having to re-run expensive computations is burdensome. To save time, I have found it very useful to <code>pin</code> certain computations using the <code>pins</code> package. <code>pins</code> makes it incredibly easy to cache and retrieve data.</p>
+<p>To <code>pin</code> some data, first register a board to <code>pin</code> it on. In my normal R scripts, I’ll usually include the code below right after <code>library(pins)</code>. If you don’t specify a name for your board, it will just default to <em>local</em>.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/pkg/pins/man/board_register_local.html'>board_register_local</a></span><span class='op'>(</span>name <span class='op'>=</span> <span class='st'>'models'</span><span class='op'>)</span>
+</code></pre>
+</div>
+</div>
+<p>In the code above, we are just registering a local board. There are a plethora of options though, like registering boards on GitHub (<code>board_register_github</code>) or Azure (<code>board_register_azure</code>). If you are following along in RStudio, you should see something similar in your connections pane (I have more boards then just models):</p>
+<p><img src="../../img/2021/2021-03-02-pins-and-friends/pin-board-models.PNG" /></p>
+<p>Now that we registered a board, we can use <code>pins::pin</code> to <code>pin</code> our <code>tune_results</code> object to the <em>models</em> board. Notice that we use the base AsIs function, <code>I</code>, so that our <code>tune_results</code> object keeps all of its fancy R properties. We wouldn’t need this if we just wanted to save a csv file or something similar.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/pkg/pins/man/pin.html'>pin</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/AsIs.html'>I</a></span><span class='op'>(</span><span class='va'>tune_results</span><span class='op'>)</span>, name <span class='op'>=</span> <span class='st'>'tune_results1'</span>, board <span class='op'>=</span> <span class='st'>'models'</span><span class='op'>)</span>
+</code></pre>
+</div>
+</div>
+<p>Once you pin <code>tune_results1</code> to <em>models</em>, you should see something like this:</p>
+<p><img src="../../img/2021/2021-03-02-pins-and-friends/pinned-tune-results.PNG" /></p>
+<p>We could quit R and RStudio, and then we could come back later and retrieve our pinned object with <code>pin_get</code>. We would not have to re-run <code>tune_grid</code> (we would still want to load libraries and perhaps other code). This could save many minutes or hours of waiting around for code to finish running, depending on what you are doing.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/pkg/pins/man/pin_get.html'>pin_get</a></span><span class='op'>(</span>name <span class='op'>=</span> <span class='st'>'tune_results1'</span>, board <span class='op'>=</span> <span class='st'>'models'</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code># Tuning results
+# 5-fold cross-validation 
+# A tibble: 5 x 4
+  splits               id    .metrics          .notes          
+  &lt;list&gt;               &lt;chr&gt; &lt;list&gt;            &lt;list&gt;          
+1 &lt;split [32364/8091]&gt; Fold1 &lt;tibble [18 x 6]&gt; &lt;tibble [0 x 1]&gt;
+2 &lt;split [32364/8091]&gt; Fold2 &lt;tibble [18 x 6]&gt; &lt;tibble [0 x 1]&gt;
+3 &lt;split [32364/8091]&gt; Fold3 &lt;tibble [18 x 6]&gt; &lt;tibble [0 x 1]&gt;
+4 &lt;split [32364/8091]&gt; Fold4 &lt;tibble [18 x 6]&gt; &lt;tibble [0 x 1]&gt;
+5 &lt;split [32364/8091]&gt; Fold5 &lt;tibble [18 x 6]&gt; &lt;tibble [0 x 1]&gt;</code></pre>
+</div>
+<p>When pinning an object and coming back to an analysis later, I will often comment out the expensive computation, and instead just retrieve my desired data with <code>pin_get</code>, assigning that data to the same variable. For example:</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='co'># tic(msg = 'tuning decision tree hyperparameters')</span>
+<span class='co'># tune_results &lt;- tune_grid(</span>
+<span class='co'>#   tree_workflow, # bundle of model and formula</span>
+<span class='co'>#   resamples = folds, # cross-validation folds</span>
+<span class='co'>#   grid = tree_grid # grid of hyperparameter candidates</span>
+<span class='co'># )</span>
+<span class='co'># toc()</span>
+<span class='co'># beep('fanfare')</span>
+<span class='co'># </span>
+<span class='co'># pin(I(tune_results), name = 'tune_results1', board = 'models')</span>
+
+<span class='va'>tune_results</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/pins/man/pin_get.html'>pin_get</a></span><span class='op'>(</span>name <span class='op'>=</span> <span class='st'>'tune_results1'</span>, board <span class='op'>=</span> <span class='st'>'models'</span><span class='op'>)</span>
+</code></pre>
+</div>
+</div>
+<p>Here we see the object is the same. We could then just pick up where we left off without having to run the code again.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>tune_results</span>
+</code></pre>
+</div>
+<pre><code># Tuning results
+# 5-fold cross-validation 
+# A tibble: 5 x 4
+  splits               id    .metrics          .notes          
+  &lt;list&gt;               &lt;chr&gt; &lt;list&gt;            &lt;list&gt;          
+1 &lt;split [32364/8091]&gt; Fold1 &lt;tibble [18 x 6]&gt; &lt;tibble [0 x 1]&gt;
+2 &lt;split [32364/8091]&gt; Fold2 &lt;tibble [18 x 6]&gt; &lt;tibble [0 x 1]&gt;
+3 &lt;split [32364/8091]&gt; Fold3 &lt;tibble [18 x 6]&gt; &lt;tibble [0 x 1]&gt;
+4 &lt;split [32364/8091]&gt; Fold4 &lt;tibble [18 x 6]&gt; &lt;tibble [0 x 1]&gt;
+5 &lt;split [32364/8091]&gt; Fold5 &lt;tibble [18 x 6]&gt; &lt;tibble [0 x 1]&gt;</code></pre>
+</div>
+<p>If working in an Rmarkdown file, you could also just set the chunk with the expensive computation to <code>eval = FALSE</code>.</p>
 <h3 id="parallel-processing">parallel processing</h3>
+<p>It can also be useful to speed up computations by splitting up the work across multiple cores on your computer. You can do this with the following code.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>num_cores</span> <span class='op'>&lt;-</span> <span class='fu'>parallel</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/r/parallel/detectCores.html'>detectCores</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>-</span> <span class='fl'>1</span> <span class='co'># use all but one core</span>
+<span class='va'>cl</span> <span class='op'>&lt;-</span> <span class='fu'>parallel</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/r/parallel/makeCluster.html'>makePSOCKcluster</a></span><span class='op'>(</span><span class='va'>num_cores</span><span class='op'>)</span>
+<span class='fu'>doParallel</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/doParallel/man/registerDoParallel.html'>registerDoParallel</a></span><span class='op'>(</span><span class='va'>cl</span><span class='op'>)</span>
+</code></pre>
+</div>
+</div>
+<p>The code above sets you up for parallel processing. <code>tune</code> is smart enough to just work; it defaults to allowing for parallel processing.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/pkg/tictoc/man/tic.html'>tic</a></span><span class='op'>(</span>msg <span class='op'>=</span> <span class='st'>'tuning decision tree hyperparameters'</span><span class='op'>)</span>
+<span class='va'>tune_results2</span> <span class='op'>&lt;-</span> <span class='fu'>tune_grid</span><span class='op'>(</span>
+  <span class='va'>tree_workflow</span>, <span class='co'># bundle of model and formula</span>
+  resamples <span class='op'>=</span> <span class='va'>folds</span>, <span class='co'># cross-validation folds</span>
+  grid <span class='op'>=</span> <span class='va'>tree_grid</span> <span class='co'># grid of hyperparameter candidates</span>
+<span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/pkg/tictoc/man/tic.html'>toc</a></span><span class='op'>(</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code>tuning decision tree hyperparameters: 33.94 sec elapsed</code></pre>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/pkg/beepr/man/beep.html'>beep</a></span><span class='op'>(</span><span class='st'>'fanfare'</span><span class='op'>)</span>
+
+<span class='va'>tune_results2</span>
+</code></pre>
+</div>
+<pre><code># Tuning results
+# 5-fold cross-validation 
+# A tibble: 5 x 4
+  splits               id    .metrics          .notes          
+  &lt;list&gt;               &lt;chr&gt; &lt;list&gt;            &lt;list&gt;          
+1 &lt;split [32364/8091]&gt; Fold1 &lt;tibble [18 x 6]&gt; &lt;tibble [0 x 1]&gt;
+2 &lt;split [32364/8091]&gt; Fold2 &lt;tibble [18 x 6]&gt; &lt;tibble [0 x 1]&gt;
+3 &lt;split [32364/8091]&gt; Fold3 &lt;tibble [18 x 6]&gt; &lt;tibble [0 x 1]&gt;
+4 &lt;split [32364/8091]&gt; Fold4 &lt;tibble [18 x 6]&gt; &lt;tibble [0 x 1]&gt;
+5 &lt;split [32364/8091]&gt; Fold5 &lt;tibble [18 x 6]&gt; &lt;tibble [0 x 1]&gt;</code></pre>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/pkg/pins/man/pin.html'>pin</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/AsIs.html'>I</a></span><span class='op'>(</span><span class='va'>tune_results2</span><span class='op'>)</span>, name <span class='op'>=</span> <span class='st'>'tune_results2'</span>, board <span class='op'>=</span> <span class='st'>'models'</span><span class='op'>)</span>
+</code></pre>
+</div>
+</div>
+<p>According to the <a href="https://tune.tidymodels.org/articles/extras/optimizations.html">docs</a>, there are also other packages that you can use, like doFuture.</p>
+<p>Outside of the world of tidymodels, there are other packages that I would recommend for parallel processing. Checkout the <a href="https://github.com/DavisVaughan/furrr">furrr</a> package for parallel processing with <code>future</code> and <code>purrr</code>. For parallel processing with <code>dplyr</code>, look into the excellent <a href="https://multidplyr.tidyverse.org/articles/multidplyr.html">multidplyr</a> package.</p>
+<h3 id="r-jobs">R jobs</h3>
+<p>Last, but not least, we should talk about R jobs in RStudio. With jobs, you can run R scripts in the background and continue to use R and RStudio for other work. Depending on how you have your panes set up in RStudio, you should see something like the following somewhere in your IDE:</p>
+<p><img src="../../img/2021/2021-03-02-pins-and-friends/jobs.png" /></p>
+<p>Click on the jobs tab and you will see this:</p>
+<p><img src="../../img/2021/2021-03-02-pins-and-friends/no-jobs.PNG" /></p>
+<p>Then click <strong>Start Local Job</strong>.</p>
+<p><img src="../../img/2021/2021-03-02-pins-and-friends/run-job.PNG" /></p>
+<p>You can then specify what script you want to run as a local job. You can also specify the working directory that you want for the script, which can be important for file paths and reading in data, etc. You will also want to decided whether or not you want the job to run with a copy of the global environment or not, and what you want to do with the results. If you are using <code>pins</code> in your script, those objects will get pinned to their respective boards.</p>
+<p><img src="../../img/2021/2021-03-02-pins-and-friends/script-job.PNG" /></p>
+<p>If you insert sections in your script, like seen below, then those section titles will show up above the progress bar of the currently running job. The shortcut, at least on Windows, to insert these sections in an R script is <code>ctrl</code> + <code>shift</code> + <code>R</code>. Maybe a Mac user can confirm in the comments if that is the same or not.</p>
+<p><img src="../../img/2021/2021-03-02-pins-and-friends/example.PNG" /></p>
+<p>Then the progress of your job can be seen as follows:</p>
+<p><img src="../../img/2021/2021-03-02-pins-and-friends/packages.PNG" /></p>
+<p><img src="../../img/2021/2021-03-02-pins-and-friends/read-data.PNG" /></p>
+<p><img src="../../img/2021/2021-03-02-pins-and-friends/s1.PNG" /></p>
+<p><img src="../../img/2021/2021-03-02-pins-and-friends/s2.PNG" /></p>
+<p><img src="../../img/2021/2021-03-02-pins-and-friends/final-output.PNG" /></p>
+<p><img src="../../img/2021/2021-03-02-pins-and-friends/succeeded.PNG" /></p>
+<p>For a more comprehensive look at Jobs, see <a href="https://blog.rstudio.com/2019/03/14/rstudio-1-2-jobs/">here</a>.</p>
+<h3 id="might-as-well-finish-the-tidymodels-example">Might as well finish the tidymodels example</h3>
+<p>I did not really mean to set out to explain as much of the <code>tidymodels</code> stuff as I did, but because I said what I said I might as well finish the example. If I wanted to fit the model with the best r-squared to all of the training data and test on the testing data, I would do the following.</p>
+<p>First, select the model with the best performing hyperparamters.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>best_params</span> <span class='op'>&lt;-</span> <span class='va'>tune_results</span> <span class='op'>%&gt;%</span> <span class='fu'>select_best</span><span class='op'>(</span><span class='st'>'rsq'</span><span class='op'>)</span>
+<span class='va'>best_params</span>
+</code></pre>
+</div>
+<pre><code># A tibble: 1 x 3
+  cost_complexity tree_depth .config             
+            &lt;dbl&gt;      &lt;int&gt; &lt;chr&gt;               
+1    0.0000000001         15 Preprocessor1_Model7</code></pre>
+</div>
+<p>Second, update or finalize your existing workflow so that the <code>tune</code> placeholders are replaced with the actual values of the hyperparameters.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='co'># original workflow</span>
+<span class='va'>tree_workflow</span>
+</code></pre>
+</div>
+<pre><code>== Workflow ==========================================================
+Preprocessor: Formula
+Model: decision_tree()
+
+-- Preprocessor ------------------------------------------------------
+price ~ .
+
+-- Model -------------------------------------------------------------
+Decision Tree Model Specification (regression)
+
+Main Arguments:
+  cost_complexity = tune()
+  tree_depth = tune()
+
+Computational engine: rpart </code></pre>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='co'># finalized workflow</span>
+<span class='va'>final_workflow</span> <span class='op'>&lt;-</span> <span class='va'>tree_workflow</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'>finalize_workflow</span><span class='op'>(</span><span class='va'>best_params</span><span class='op'>)</span>
+
+<span class='va'>final_workflow</span>
+</code></pre>
+</div>
+<pre><code>== Workflow ==========================================================
+Preprocessor: Formula
+Model: decision_tree()
+
+-- Preprocessor ------------------------------------------------------
+price ~ .
+
+-- Model -------------------------------------------------------------
+Decision Tree Model Specification (regression)
+
+Main Arguments:
+  cost_complexity = 1e-10
+  tree_depth = 15
+
+Computational engine: rpart </code></pre>
+</div>
+<p>Third, use the <code>last_fit</code> function to train the final workflow/model on the entire training set and validate using the entire testing set. Remember that these two sets are within the <code>dat_split</code> object.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>final_fit</span> <span class='op'>&lt;-</span> <span class='fu'>last_fit</span><span class='op'>(</span><span class='va'>final_workflow</span>, <span class='va'>dat_split</span><span class='op'>)</span>
+<span class='va'>final_fit</span>
+</code></pre>
+</div>
+<pre><code># Resampling results
+# Manual resampling 
+# A tibble: 1 x 6
+  splits      id        .metrics    .notes    .predictions   .workflow
+  &lt;list&gt;      &lt;chr&gt;     &lt;list&gt;      &lt;list&gt;    &lt;list&gt;         &lt;list&gt;   
+1 &lt;split [40~ train/te~ &lt;tibble [2~ &lt;tibble ~ &lt;tibble [13,4~ &lt;workflo~</code></pre>
+</div>
+<p>How did our final model do? Let’s check the metrics.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>final_fit</span> <span class='op'>%&gt;%</span> <span class='fu'>collect_metrics</span><span class='op'>(</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code># A tibble: 2 x 4
+  .metric .estimator .estimate .config             
+  &lt;chr&gt;   &lt;chr&gt;          &lt;dbl&gt; &lt;chr&gt;               
+1 rmse    standard     598.    Preprocessor1_Model1
+2 rsq     standard       0.977 Preprocessor1_Model1</code></pre>
+</div>
+<p>Pretty awesome. Our final r-squared value was almost exactly the same as the previous r-squared that we looked at, suggesting that our decision tree regressor did not really overfit the data. In other words, the model seems to be generalizing fairly well on data that it has not seen before. Furthermore, the decision tree model explains about 97% of the variability in our response variable, diamond price.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>dat_pred</span> <span class='op'>&lt;-</span> <span class='va'>final_fit</span> <span class='op'>%&gt;%</span> <span class='fu'>collect_predictions</span><span class='op'>(</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>dat_pred</span>, <span class='fl'>5</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code># A tibble: 5 x 5
+  id               .pred  .row price .config             
+  &lt;chr&gt;            &lt;dbl&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt;               
+1 train/test split  357.     2   326 Preprocessor1_Model1
+2 train/test split  485.     5   335 Preprocessor1_Model1
+3 train/test split  448.     7   336 Preprocessor1_Model1
+4 train/test split  426.    10   338 Preprocessor1_Model1
+5 train/test split  456.    16   345 Preprocessor1_Model1</code></pre>
+</div>
+<p>Let’s plot the actual values against the predicted values real quick to see visually how our model did.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>dat_pred</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'>ggplot</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'>geom_point</span><span class='op'>(</span><span class='fu'>aes</span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>price</span>, y <span class='op'>=</span> <span class='va'>.pred</span><span class='op'>)</span>,
+             alpha <span class='op'>=</span> <span class='fl'>0.25</span>, color <span class='op'>=</span> <span class='st'>'navy'</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'>theme_minimal</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'>labs</span><span class='op'>(</span>title <span class='op'>=</span> <span class='st'>'Decision tree does a good job at predicting diamond price'</span><span class='op'>)</span>
+</code></pre>
+</div>
+<p><img src="pins_files/figure-html5/last_plot-1.png" width="624" /></p>
+</div>
+<p>Again, not bad.</p>
+<p>The last thing we might do is train the model one last time on all of the data that we have. We could then save this model and use it in a shiny app or create a plumber API to use the model elsewhere.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>final_model</span> <span class='op'>&lt;-</span> <span class='fu'>fit</span><span class='op'>(</span><span class='va'>final_workflow</span>, <span class='va'>dat</span><span class='op'>)</span>
+<span class='co'># write_rds(final_model, 'path/to/wherever/you/want.rds')</span>
+</code></pre>
+</div>
+</div>
+<h3 id="recap">Recap</h3>
+<p>We looked at the <a href="https://cran.r-project.org/web/packages/tictoc/tictoc.pdf">tictoc</a> package for timing computations in R. We also had fun with the <a href="https://www.r-project.org/nosvn/pandoc/beepr.html">beepr</a> package for playing notification sounds. We now know how to cache data and expensive computations with <a href="https://pins.rstudio.com/">pins</a>. By the way, <em>pins</em> is also available in corresponding packages in <a href="https://rstudio.com/resources/rstudioglobal-2021/using-pins-with-python-and-javascript/">JavaScript and Python</a>, allowing for cross-language collaboration. Lastly, we touched on parallel processing with R and how to run R scripts in the background with <em>local jobs</em>. Hopefully all of these tips and resources will help you when working with computationally expensive code in R.</p>
 <h3 id="learning-more-about-tidymodels">Learning more about tidymodels</h3>
 <p>The <a href="https://www.tidymodels.org/">tidymodels website</a> has an amazing set of <a href="https://www.tidymodels.org/start/">getting started</a> tutorials to look into if you are new to <code>tidymodels</code>.</p>
+<h3 id="farewell">Farewell</h3>
+<p>Thank you for reading! I truly hope you found something of use here. Stay safe and happy coding!</p>
+<h3 id="r-and-package-versions">R and package versions</h3>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='va'>R.version</span>
@@ -1749,7 +2149,7 @@ nickname       Bunny-Wunnies Freak Out     </code></pre>
 </div>
 <pre><code>[1] &#39;1.0.16&#39;</code></pre>
 </div>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->
 </div>
