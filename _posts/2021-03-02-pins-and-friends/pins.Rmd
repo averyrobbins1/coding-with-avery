@@ -1,0 +1,316 @@
+---
+title: "Five tips for working with computationally expensive operations in R"
+description: |
+  No one likes sitting around waiting for code to finish running, and we may not have access to cloud computing options all the time. Even though we love R, we have to admit that it can be slow at times. Here are five different things that make dealing with computationally expensive operations in R more manageable (and maybe even more fun). 
+author:
+  - name: Avery Robbins
+    url: www.linkedin.com/in/avery-robbins
+date: 03-02-2021
+output:
+  distill::distill_article:
+    self_contained: false
+draft: true
+editor_options: 
+  chunk_output_type: console
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
+```
+
+### Background
+
+Recently, in my senior project, we have been doing a lot of modeling in R. We are somewhat limited to running code on our own machines (instead of leveraging cloud resources), so there has been a fair amount of waiting for code to finish running. Not a crazy amount, but still. Training algorithms and tuning hyperparameters (the parameters that are not necessarily learned directly from the data, like what K to choose in K nearest neighbors), can often be a huge burden on less powerful machines. That means these computations take time. This post is an attempt to help you deal with that reality. 
+
+### Five tips / resources
+
+Hopefully I don't annoy you with repeating the term "computationally expensive operations" too much. Below I have listed the five main points that we will discuss in this post.
+
+1) `tictoc` package - timing computationally expensive operations
+2) `beepr` package - play a notification sound after computationally expensive operations finish running
+3) `pins` package - cache computationally expensive operations for sharing and future re-use
+4) parallel processing - use multiple cores or separate machines to split up the burden of computationally expensive operations
+5) R jobs in RStudio - run computationally expensive operations in the background using local jobs
+
+ We will demonstrate the use of these resources using a simple machine learning example. As always, here are the packages that you will need to install and load in order to run the code yourself:
+
+```{r}
+# install.packages(c('pins', 'tictoc', 'beepr', 'doParallel', 'tidymodels'))
+library(tidymodels) # modeling that follows the tidyverse design philosophy
+library(pins) # cache computations and share data easily
+library(tictoc) # time how long code takes to run
+library(beepr) # play sound
+```
+
+### Setting up the example
+
+For our example we will set up a basic decision tree regressor with the `tidymodels` suite of R packages. `tidymodels` is to *modeling* as the `tidyverse` is to *data wrangling and visualization*. They are both meta-packages that house many smaller packages that work well together and share a common API and design philosophy. 
+
+If you have ever used the popular `caret` package to do modeling in R, `tidymodels` is sort of like the successor to `caret`. The fantastic `caret` author, Max Kuhn, is leading the `tidymodels` team at RStudio. This post is not really meant to be an introduction to `tidymodels`, but the API is straightforward enough that the example should make sense without too much explanation. I'll link to resources for learning more at the end of the post, and I may do an "Intro to tidymodels" type post in the future. I mostly want to focus on the five tips mentioned previously.
+
+The data that we will use is from the `diamonds` dataset in the `ggplot2` package. It contains price and other attributes of over 50,000 diamonds. Also, the `tidymodels` meta-package also contains `ggplot2` and `dplyr` for all your data wrangling and visualization needs, so there is generally no need to load them separately.
+
+```{r}
+# ?diamonds - run this in your console to learn more about the diamonds dataset
+
+dat <- ggplot2::diamonds
+
+glimpse(dat)
+```
+
+Let's says after doing some initial exploration of the data that we want to try and predict `price` using the rest of the columns (variables/features) in our data.
+
+```{r}
+# quick plot from gpglot2 to see the distribution of diamond prices
+ggplot2::qplot(data = dat, x = price, bins = 100) +
+  labs(title = "Most diamonds aren't crazy expensive")
+```
+
+First, we will split our data into training and testing sets using functions from `tidymodels`.
+
+```{r}
+# initial_split, training, and testing are functions from the rsample
+# package that is part of tidymodels
+
+# set a seed for reproducibility of the 'randomness'
+set.seed(123) 
+
+# split the data, using 3/4 for training
+# and 1/4 for testing
+dat_split <- initial_split(data = dat, prop = 3/4)
+
+# get the training and testing sets from the data split
+dat_train <- training(dat_split)
+dat_test <- testing(dat_split)
+
+# again, I won't go into the tidymodels stuff too much,
+# but dat_split is an rsample rsplit object. 
+dat_split
+dat_train
+dat_test
+```
+
+Next we will further split `dat_train`, our training set, so that later on we can use cross-validation to find the best hyperparameters for our decision tree.
+
+```{r}
+set.seed(123)
+
+#rsample::vfold_cv for creating cross-validation folds
+folds <- vfold_cv(dat_train, v = 5) # v = 10 is the default
+
+folds
+```
+
+Now we will create something called a *model specification*, and we will mark the decision tree hyperparameters, `tree_depth` and `cost_complexity`, that we want to tune with the special placeholder function, `tune()`. `tree_depth` is simply the maximum depth of the tree, while `cost_complexity` will hopefully help to create a simpler tree that doesn't overfit the training data. At this point we haven't fit any data to the model, but instead we are basically laying out a blueprint for our model.
+
+```{r}
+# tidymodels uses the parsnip package for creating model specifications
+# like decision_tree()
+tree_spec <- decision_tree(
+  cost_complexity = tune(), # mark that we will be tuning cost_complexity
+  tree_depth = tune() # mark that we will be tuning tree_depth
+) %>% 
+  # specify the computational engine for the decision tree,
+  # in this case we will use an algorithm from the 
+  # rpart R package
+  set_engine('rpart') %>% 
+  # specify that we want our decision tree to do
+  # regression, instead of the default classification
+  set_mode('regression')
+```
+
+At this point, we can also create a grid of candidate hyperparameters with which to tune our decision tree. We can use this grid to train many models using our cross-validation `folds` and see which models turn out best with specific hyperparameters.
+
+```{r}
+tree_grid <- grid_regular(
+  cost_complexity(),
+  tree_depth(),
+  levels = 3 # realistically you would want a lot more than 3 levels
+)
+
+tree_grid
+```
+
+Almost done setting up the example, I swear. Maybe I should have turned this into a `tidymodels` tutorial. Anyways, `tidymodels` contains the `workflows` package that allows you to bundle together models, formulas, and pre-processing recipes (which we haven't shown in this post). This makes it easy to work with just a single object instead of multiple objects scattered across an analysis.
+
+```{r}
+tree_workflow <- workflow() %>% 
+  add_model(tree_spec) %>% 
+  add_formula(price ~ .)
+
+tree_workflow
+```
+
+### tictoc and beepr
+
+Finally, we will *tune* the hyperparameters using `tune_grid` and the objects that we have created previously. `tune_grid` will fit a model for each combination of fold and hyperparameter set. In this case, 45 models will be trained. The performance for each parameter set is averaged across the folds, so that you will be able to see the average performance for 9 different sets of hyperparameters. Hopefully that makes sense.
+
+```{r}
+nrow(folds) * nrow(tree_grid)
+```
+
+Depending on how much data you have or how many hyperparameters you are trying, tuning may take a long time. I have found it super helpful to take note of how long operations take, just in case I need to run code again. 
+
+We will use `tic` and `toc` from the `tictoc` package to time how long our code takes to run. Put `tic` before the code you want to time, and `toc` at the end. Either run the whole chunk at once (if using rmarkdown) or highlight all of the code and run it at once (if in a script). Also, the `msg` is optional. I usually don't worry about it.
+
+We can also include `beepr::beep` after `toc` to play a specific notification sound for when the code finishes running. You could start your code, go make a sandwich, and then hear when it is done.
+
+```{r}
+tic(msg = 'tuning decision tree hyperparameters')
+tune_results <- tune_grid(
+  tree_workflow, # bundle of model and formula
+  resamples = folds, # cross-validation folds
+  grid = tree_grid # grid of hyperparameter candidates
+)
+toc()
+beep('fanfare')
+```
+
+Here are the results:
+
+```{r}
+tune_results
+```
+
+There are various convenience functions that help you access the resulting data without having to use `tidyr` or `purrr`.
+
+Collect the performance metrics from the models.
+
+```{r}
+tune_results %>% collect_metrics()
+```
+
+Show just the best results for a specific performance metric.
+
+```{r}
+tune_results %>% show_best('rsq')
+```
+
+Anyways, check out the docs for more on tidymodels.
+
+`tic` and `toc` are rather nifty. They can be nested if needed (from the documentation):
+
+```{r}
+tic("outer")
+  Sys.sleep(1)
+  tic("middle")
+    Sys.sleep(2)
+    tic("inner")
+      Sys.sleep(3)
+    toc()
+  toc()
+toc()
+```
+
+`beep` can use any of the ten options below for playing different sounds, and you can use either text or numbers.
+
+1. "ping"
+2. "coin"
+3. "fanfare"
+4. "complete"
+5. "treasure"
+6. "ready"
+7. "shotgun"
+8. "mario"
+9. "wilhelm"
+10. "facebook"
+
+Fans of classic video games will appreciate these sounds:
+
+```{r}
+beep(5)
+```
+
+```{r}
+beep('mario')
+```
+
+### pins
+
+It is very likely that you will not complete an entire analysis in one sitting. Having to re-run expensive computations is burdensome. To save time, I have found it very useful to `pin` certain computations using the `pins` package. `pins` makes it incredibly easy to cache and retrieve data.
+
+To `pin` some data, first register a board to `pin` it on. In my normal R scripts, I'll usually include the code below right after `library(pins)`. If you don't specify a name for your board, it will just default to *local*.
+
+```{r}
+board_register_local(name = 'models')
+```
+
+In the code above, we are just registering a local board. There are a plethora of options though, like registering boards on GitHub (`board_register_github`) or Azure (`board_register_azure`). If you are following along in RStudio, you should see something similar in your connections pane (I have more boards then just models):
+
+![](../../img/2021/2021-03-02-pins-and-friends/pin-board-models.PNG)
+
+Now that we registered a board, we can use `pins::pin` to `pin` our `tune_results` object to the *models* board. Notice that we use the base AsIs function, `I`, so that our `tune_results` object keeps all of its fancy R properties. We wouldn't need this if we just wanted to save a csv file or something similar.
+
+```{r}
+pin(I(tune_results), name = 'tune_results1', board = 'models')
+```
+
+Once you pin `tune_results1` to *models*, you should see something like this:
+
+![](../../img/2021/2021-03-02-pins-and-friends/pinned-tune-results.PNG)
+
+We could quit R and RStudio, and then we could come back later and retrieve our pinned object with `pin_get`. We would not have to re-run `tune_grid` (we would still want to load libraries and perhaps other code). This could save many minutes or hours of waiting around for code to finish running, depending on what you are doing.
+
+```{r}
+pin_get(name = 'tune_results1', board = 'models')
+```
+
+When pinning an object and coming back to an analysis later, I will often comment out the expensive computation, and instead just retrieve my desired data with `pin_get`, assigning that data to the same variable. For example:
+
+```{r}
+# tic(msg = 'tuning decision tree hyperparameters')
+# tune_results <- tune_grid(
+#   tree_workflow, # bundle of model and formula
+#   resamples = folds, # cross-validation folds
+#   grid = tree_grid # grid of hyperparameter candidates
+# )
+# toc()
+# beep('fanfare')
+# 
+# pin(I(tune_results), name = 'tune_results1', board = 'models')
+
+tune_results <- pin_get(name = 'tune_results1', board = 'models')
+```
+
+Here we see the object is the same. We could then just pick up where we left off without having to run the code again.
+
+```{r}
+tune_results
+```
+
+If working in an Rmarkdown file, you could also just set the chunk with the expensive computation to `eval = FALSE`.
+
+
+
+
+### parallel processing
+
+
+
+### R jobs
+
+
+
+
+
+
+
+
+
+
+
+### Learning more about tidymodels
+
+The [tidymodels website](https://www.tidymodels.org/) has an amazing set of [getting started](https://www.tidymodels.org/start/) tutorials to look into if you are new to `tidymodels`.
+
+
+```{r}
+R.version
+packageVersion('tidymodels')
+packageVersion('pins')
+packageVersion('tictoc')
+packageVersion('beepr')
+packageVersion('doParallel')
+```
+
