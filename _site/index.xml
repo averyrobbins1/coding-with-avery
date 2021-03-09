@@ -7,7 +7,16 @@
     <description>A place to learn data programming stuff.
 </description>
     <generator>Distill</generator>
-    <lastBuildDate>Tue, 02 Mar 2021 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 09 Mar 2021 00:00:00 +0000</lastBuildDate>
+    <item>
+      <title>Storytelling with data: analyzing time spent on my senior project</title>
+      <dc:creator>Avery Robbins</dc:creator>
+      <link>https://codingwithavery.com/posts/2021-03-09-senior-project-time</link>
+      <description>Visually telling the story of how I have spent my time on various aspects of my senior project. We look at personal data exported from Clockify, such as the date, start time, end time, and descriptions of all my recorded work sessions.</description>
+      <guid>https://codingwithavery.com/posts/2021-03-09-senior-project-time</guid>
+      <pubDate>Tue, 09 Mar 2021 00:00:00 +0000</pubDate>
+      <media:content url="https://codingwithavery.com/posts/2021-03-09-senior-project-time/../../img/2021/2021-03-09-senior-project-time/clockify-description-wordcloud.png" medium="image" type="image/png" width="686" height="428"/>
+    </item>
     <item>
       <title>Five tips for working with computationally expensive operations in R</title>
       <dc:creator>Avery Robbins</dc:creator>

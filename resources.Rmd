@@ -1,7 +1,7 @@
 ---
 title: "Resources"
 description: |
-  Hopefully one day this page becomes a vast ocean of resources for learning data science programming.
+  Hopefully one day this page becomes a vast ocean of resources for learning data science and all things programming.
 ---
 
 ## Books about data science with R
@@ -45,6 +45,27 @@ description: |
 - [Programming with dplyr](https://dplyr.tidyverse.org/articles/programming.html)
 
 - [Using ggplot2 in packages](https://ggplot2.tidyverse.org/articles/ggplot2-in-packages.html)
+
+## Packages
+
+- [tidyverse](https://www.tidyverse.org/) - all the things
+
+- [tidymodels](https://www.tidymodels.org/) - a modeling framework that follows the same design principles and philosophies as the tidyverse
+
+- [plumber] - build web APIs with R code
+
+## Web stuff
+
+- [HTTP](https://developer.mozilla.org/en-US/docs/Web/HTTP) (docs)
+
+### JavaScript
+
+- [fetch API](https://youtu.be/cuEtnrL9-H0) (YouTube video)
+
+- [promises](https://youtu.be/DHvZLI7Db8E) (YouTube video)
+
+- [async & await](https://youtu.be/V_Kr9OSfDeU) (YouTube video)
+
 
 
 
