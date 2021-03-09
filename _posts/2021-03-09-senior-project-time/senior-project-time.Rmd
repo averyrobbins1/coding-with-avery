@@ -21,7 +21,7 @@ knitr::opts_chunk$set(echo = FALSE, eval = FALSE)
 
 ### Preface
 
-The data science program at BYU-Idaho is super hands on. I love the real world experiences that it has provided me with. The senior project that my friend, Sean, and I have been working on for a couple of months now has probably been the project that I have enjoyed the most in all of my time studying data science. As I mentioned in my [ggtext post](https://codingwithavery.com/posts/2021-02-22-ggtext/), we are building a product for the BYU-Idaho Office of Teacher preparation in order to help students better prepare to become certified teachers.
+The data science program at BYU-Idaho is super hands on. I love the real world experiences that it has provided me with. The senior project that my friend, Sean, and I have been working on for a couple of months now has probably been the project that I have enjoyed the most in all of my time studying data science. As I mentioned in my [ggtext post](https://codingwithavery.com/posts/2021-02-22-ggtext/), we are building a product for the BYU-Idaho Office of Teacher Preparation in order to help students better prepare to become certified teachers.
 
 More specifically, the product is a web application that individual students will use to see their probability of passing certain exams based on their past performance in various courses (and a few other features). A student uploads their unofficial pdf transcript to the web app, and, in return, they will receive a prediction and some helpful information (like how specific courses may have effected their results).
 
@@ -30,30 +30,20 @@ We have made a ton of progress thus far, and this post is meant to give insight 
 The overall project can roughly be broken up into overlapping tasks, such as the following:
 
 -   data collection
-
 -   data cleaning, munging, tidying, and wrangling
-
 -   exploratory data analysis
-
 -   pdf scraping
-
 -   R package development
-
 -   feature engineering and selection
-
 -   training models and selecting the best one
-
 -   web application development
-
 -   web api development
-
 -   deploying the final model
-
 -   sharing journey and results via blog posts
 
-    Interwoven with these tasks are meetings with faculty mentors and many collaboration and coding sessions with my project partner, Sean.
+  Interwoven with these tasks are meetings with faculty mentors and many collaboration and coding sessions with my project partner, Sean.
 
-    We use Clockify to track all of our time spent working on the project, and, so far, I have recorded about 130 hours. I recently exported my personal data from Clockify, which includes things like dates, start times, end times, and a description for all the work sessions that I have done. The rest of this post is my attempt to visually tell a story with the data; to help you, the reader, get a better understanding of what we have been working on. If you care to see any of the code for producing the plots, just tap or click on the `show code` buttons that are below each graphic.
+  We use Clockify to track all of our time spent working on the project, and, so far, I have recorded about 130 hours. I recently exported my personal data from Clockify, which includes things like dates, start times, end times, and a description for all the work sessions that I have done. The rest of this post is my attempt to visually tell a story with the data; to help you, the reader, get a better understanding of what we have been working on. If you care to see any of the code for producing the plots, just tap or click on the `show code` buttons that are below each graphic.
 
 ```{r}
 # This specific code chunk is for loading packages,
@@ -436,6 +426,8 @@ ggplot(dat2) +
     y = NULL
   )
 ```
+
+Data science projects are complex and often consist of many moving parts! 
 
 ### The end
 
